@@ -6,10 +6,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
-  --font-accent: "Newsreader", ui-serif, Georgia, serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-sans: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-accent: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-mono: "Azeret Mono", ui-monospace, monospace;
 
   --radius-sm: 4px;
   --radius-md: 6px;
@@ -81,10 +81,10 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-size: 16px;
-    line-height: 1.6;
-    font-feature-settings: "ss01", "ss03";
-    letter-spacing: -0.008em;
+    font-size: 15.5px;
+    line-height: 1.68;
+    font-feature-settings: "ss01", "ss03", "cv01", "cv02";
+    letter-spacing: -0.004em;
     overflow-x: hidden;
   }
   h1,
@@ -94,20 +94,21 @@
   h5,
   h6 {
     font-family: var(--font-display);
-    font-feature-settings: "ss01", "ss03";
-    letter-spacing: -0.045em;
-    line-height: 0.95;
+    font-feature-settings: "ss01", "ss03", "cv01", "cv02";
+    letter-spacing: -0.03em;
+    line-height: 0.92;
     font-weight: 600;
   }
   p,
   li {
-    line-height: 1.75;
+    line-height: 1.72;
   }
   input,
   textarea,
   select,
   button {
     font: inherit;
+    letter-spacing: inherit;
   }
   a,
   button {

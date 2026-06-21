@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState, type ReactNode } from "react";
-import { MenuIcon } from "@/components/animate-ui/icons/menu";
 import { SendIcon } from "@/components/animate-ui/icons/send";
 import { XIcon } from "@/components/animate-ui/icons/x";
 
@@ -119,12 +118,20 @@ export function SiteHeader() {
           <SendIcon size={14} className="transition-transform group-hover:translate-x-0.5" animateOnHover />
         </a>
         <button
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background shadow-sm transition-colors hover:border-brand lg:hidden"
+          className="group flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background shadow-sm transition-all hover:border-brand hover:shadow-[0_10px_24px_rgb(0_0_0_/_0.06)] lg:hidden"
           onClick={() => setOpen(!open)}
           aria-expanded={open}
           aria-label="Toggle navigation"
         >
-          {open ? <XIcon size={18} animate /> : <MenuIcon size={18} animate />}
+          {open ? (
+            <XIcon size={18} animate />
+          ) : (
+            <span aria-hidden="true" className="relative block h-4 w-4">
+              <span className="absolute left-0 top-0 h-0.5 w-4 rounded-full bg-foreground transition-transform duration-300 group-hover:translate-y-0.5 group-hover:bg-brand" />
+              <span className="absolute left-0 top-[7px] h-0.5 w-4 rounded-full bg-foreground transition-transform duration-300 group-hover:bg-brand" />
+              <span className="absolute left-0 top-3.5 h-0.5 w-4 rounded-full bg-foreground transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:bg-brand" />
+            </span>
+          )}
         </button>
       </Container>
       </div>

@@ -178,11 +178,6 @@ const faqs = [
 
 function Hero() {
   const reduce = useReducedMotion();
-  const pillars = [
-    ["Strategy", "Shape the right product before the first line of code."],
-    ["Build", "Design systems and engineering that stay easy to extend."],
-    ["Launch", "Ship with the right feedback loops, metrics and handover."],
-  ];
   return (
     <section className="relative overflow-hidden border-b border-border pb-20 pt-24 md:pb-24 md:pt-28">
       <div className="absolute inset-0 grid-bg opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_92%)]" />
@@ -191,7 +186,7 @@ function Hero() {
       <div className="absolute left-1/2 top-[48%] h-[440px] w-[440px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-brand/28 [animation:hero-orbit_44s_linear_infinite] sm:h-[620px] sm:w-[620px]" />
       <div className="absolute left-1/2 top-[48%] h-[260px] w-[260px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand/20 [animation:hero-orbit-reverse_30s_linear_infinite] sm:h-[360px] sm:w-[360px]" />
       <div className="absolute left-1/2 top-[48%] h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/[.08] blur-[110px] [animation:hero-glow_8s_ease-in-out_infinite] sm:h-[520px] sm:w-[520px]" />
-      <Container className="relative z-10 flex min-h-[calc(100svh-7rem)] flex-col items-center justify-center text-center">
+      <Container className="relative z-10 flex min-h-[calc(100svh-6rem)] flex-col items-center justify-center text-center">
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
@@ -236,23 +231,6 @@ function Hero() {
             Explore the work
           </a>
         </motion.div>
-        <div className="mt-12 grid w-full max-w-5xl gap-3 md:grid-cols-3">
-          {pillars.map(([title, body], index) => (
-            <motion.div
-              key={title}
-              initial={reduce ? false : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.18 + index * 0.08 }}
-              className="group rounded-3xl border border-border bg-background/85 p-5 text-left shadow-[0_18px_60px_rgb(0_0_0_/_0.04)] backdrop-blur transition-transform duration-300 hover:-translate-y-1"
-            >
-              <p className="font-mono text-[9px] uppercase tracking-[.24em] text-brand">0{index + 1}</p>
-              <h2 className="mt-4 font-display text-2xl font-semibold tracking-[-.03em]">
-                {title}
-              </h2>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
-            </motion.div>
-          ))}
-        </div>
       </Container>
     </section>
   );
