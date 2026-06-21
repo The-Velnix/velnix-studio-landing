@@ -33,23 +33,31 @@ function CTAButton({
   children,
   variant = "primary",
   href = "#contact",
+  size = "md",
 }: {
   children: React.ReactNode;
   variant?: "primary" | "ghost";
   href?: string;
+  size?: "sm" | "md";
 }) {
+  const sizing = size === "sm" ? "h-9 px-4 text-[13px]" : "h-11 px-5 text-sm";
   const base =
-    "group inline-flex items-center gap-2 rounded-md px-4 h-10 text-sm font-medium transition-all duration-200";
+    "group relative inline-flex items-center gap-2 rounded-full font-medium tracking-tight transition-all duration-300 ease-out";
   const styles =
     variant === "primary"
-      ? "bg-foreground text-background hover:bg-foreground/90"
-      : "bg-transparent text-foreground hover:bg-muted border border-border";
+      ? "bg-foreground text-background hover:bg-brand hover:shadow-[0_10px_30px_-12px_oklch(0.7_0.19_40/0.6)]"
+      : "bg-transparent text-foreground border border-border-strong hover:border-foreground hover:bg-foreground hover:text-background";
   return (
-    <a href={href} className={`${base} ${styles}`}>
-      {children}
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="transition-transform duration-200 group-hover:translate-x-0.5">
-        <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
+    <a href={href} className={`${base} ${sizing} ${styles}`}>
+      <span>{children}</span>
+      <span className="relative flex h-4 w-4 items-center justify-center overflow-hidden">
+        <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="absolute transition-transform duration-300 ease-out group-hover:translate-x-4">
+          <path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="absolute -translate-x-4 transition-transform duration-300 ease-out group-hover:translate-x-0">
+          <path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </span>
     </a>
   );
 }
@@ -86,7 +94,7 @@ function Nav() {
             </a>
           ))}
         </nav>
-        <CTAButton href="#contact">Start a Project</CTAButton>
+        <CTAButton href="#contact" size="sm">Start a Project</CTAButton>
       </Container>
     </header>
   );
