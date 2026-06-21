@@ -1,5 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+﻿import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
+import BlurText from "@/components/react-bits/BlurText";
+import ScrollReveal from "@/components/react-bits/ScrollReveal";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CheckIcon } from "@/components/animate-ui/icons/check";
 import { ClockIcon } from "@/components/animate-ui/icons/clock";
@@ -152,14 +154,25 @@ function ContactPage() {
           >
             <Eyebrow>Start a project</Eyebrow>
             <h1 className="mt-5 font-display text-[clamp(3.5rem,8vw,7rem)] font-semibold leading-[.92] tracking-[-.055em]">
-              Tell us what needs
-              <br />
-              <span className="font-accent font-light italic text-brand">to get shipped.</span>
+              <BlurText
+                text="Tell us what needs to get shipped."
+                animateBy="words"
+                direction="bottom"
+                delay={65}
+                stepDuration={0.34}
+                className="block"
+              />
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
+            <ScrollReveal
+              containerClassName="mx-auto mt-6 max-w-2xl"
+              textClassName="text-base leading-8 text-muted-foreground md:text-lg"
+              baseOpacity={0.18}
+              baseRotation={2}
+              blurStrength={6}
+            >
               Early idea or tangled production system, both are welcome. Share the context you have
               and we will reply with useful next steps within two business days.
-            </p>
+            </ScrollReveal>
           </motion.div>
         </Container>
       </section>
@@ -221,7 +234,14 @@ function ContactPage() {
                     Project brief
                   </p>
                   <h2 className="mt-3 font-display text-3xl font-semibold tracking-[-.03em] md:text-4xl">
-                    A clean way to gather the right context.
+                    <BlurText
+                      text="A clean way to gather the right context."
+                      animateBy="words"
+                      direction="bottom"
+                      delay={60}
+                      stepDuration={0.3}
+                      className="block"
+                    />
                   </h2>
                 </div>
                 <div className="w-full max-w-xs">
@@ -585,7 +605,9 @@ function AnimatedSelect({
         onClick={() => setOpen((current) => !current)}
         className="flex h-12 w-full items-center justify-between rounded-2xl border border-border bg-background px-4 text-left text-sm outline-none transition-[border-color,box-shadow] hover:border-border-strong focus:border-brand focus:shadow-[0_0_0_3px_rgb(46_197_182_/_0.12)]"
       >
-        <span className={value ? "text-foreground" : "text-muted-foreground/60"}>{value || placeholder}</span>
+        <span className={value ? "text-foreground" : "text-muted-foreground/60"}>
+          {value || placeholder}
+        </span>
         <motion.span animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.22 }}>
           <span className="relative block h-3 w-3">
             <span className="absolute left-0 top-1.5 h-0.5 w-1.8 rounded-full bg-muted-foreground transition-colors group-hover:bg-foreground" />

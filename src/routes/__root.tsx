@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+﻿import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
@@ -9,10 +9,12 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { SendIcon } from "@/components/animate-ui/icons/send";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SmoothScroll } from "../components/smooth-scroll";
+import GradualBlur from "@/components/react-bits/GradualBlur";
 import { Container, SiteFooter, SiteHeader } from "../components/site-shell";
 
 function NotFoundComponent() {
@@ -63,7 +65,7 @@ function NotFoundComponent() {
                 to="/"
                 className="inline-flex h-12 items-center rounded-full bg-foreground px-6 text-sm font-semibold text-background transition-all hover:-translate-y-1 hover:bg-brand"
               >
-                Return home <span className="ml-2">-&gt;</span>
+                Return home <SendIcon size={15} className="ml-2" animateOnHover />
               </Link>
               <a
                 href="/#work"
@@ -123,14 +125,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "The Velnix — From Idea to Production" },
+      { title: "The Velnix â€” From Idea to Production" },
       {
         name: "description",
         content:
           "AI-Native Product & Engineering Studio. We design, build, and scale software products, AI systems, and mobile applications.",
       },
       { name: "author", content: "The Velnix" },
-      { property: "og:title", content: "The Velnix — From Idea to Production" },
+      { property: "og:title", content: "The Velnix â€” From Idea to Production" },
       {
         property: "og:description",
         content:
@@ -149,7 +151,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Sora:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Azeret+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Manrope:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap",
       },
     ],
   }),
@@ -181,6 +183,24 @@ function RootComponent() {
       <SmoothScroll />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-x-0 bottom-0 z-40 h-32 overflow-hidden"
+      >
+        <GradualBlur
+          target="page"
+          position="bottom"
+          height="8rem"
+          strength={2.8}
+          divCount={9}
+          curve="bezier"
+          opacity={1}
+          className="bottom-page-blur"
+        />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background via-background/90 to-transparent" />
+      </div>
     </QueryClientProvider>
   );
 }
+
+

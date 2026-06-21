@@ -1,5 +1,7 @@
-import type { ReactNode } from "react";
+﻿import type { ReactNode } from "react";
 import { motion } from "framer-motion";
+import BlurText from "@/components/react-bits/BlurText";
+import ScrollReveal from "@/components/react-bits/ScrollReveal";
 
 export function Eyebrow({ children, invert = false }: { children: ReactNode; invert?: boolean }) {
   return (
@@ -15,10 +17,12 @@ export function Eyebrow({ children, invert = false }: { children: ReactNode; inv
 export function SectionIntro({
   eyebrow,
   title,
+  titleText,
   body,
 }: {
   eyebrow: string;
-  title: ReactNode;
+  title?: ReactNode;
+  titleText?: string;
   body?: string;
 }) {
   return (
@@ -32,11 +36,31 @@ export function SectionIntro({
       <div>
         <Eyebrow>{eyebrow}</Eyebrow>
         <h2 className="mt-4 max-w-3xl font-display text-4xl font-semibold leading-[1.04] tracking-[-0.025em] md:text-6xl">
-          {title}
+          {titleText ? (
+            <BlurText
+              text={titleText}
+              animateBy="words"
+              direction="bottom"
+              delay={75}
+              stepDuration={0.34}
+              className="block"
+            />
+          ) : (
+            title
+          )}
         </h2>
       </div>
       {body && (
-        <p className="max-w-md text-sm leading-7 text-muted-foreground md:text-base">{body}</p>
+        <ScrollReveal
+          containerClassName="max-w-md"
+          textClassName="text-sm leading-7 text-muted-foreground md:text-base"
+          baseOpacity={0.16}
+          baseRotation={2}
+          blurStrength={6}
+          threshold={0.2}
+        >
+          {body}
+        </ScrollReveal>
       )}
     </motion.div>
   );

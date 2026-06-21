@@ -1,5 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import BlurText from "@/components/react-bits/BlurText";
+import ScrollReveal from "@/components/react-bits/ScrollReveal";
 import { ClockIcon } from "@/components/animate-ui/icons/clock";
 import { SendIcon } from "@/components/animate-ui/icons/send";
 import { Container, SiteFooter, SiteHeader } from "../components/site-shell";
@@ -92,16 +94,25 @@ function Blog() {
           <Eyebrow>Field notes</Eyebrow>
           <div className="mt-5 grid gap-8 md:grid-cols-[1.25fr_.75fr] md:items-end">
             <h1 className="font-display text-6xl font-semibold leading-[.95] tracking-[-.03em] md:text-8xl">
-              Notes from
-              <br />
-              <span className="font-accent font-light italic text-muted-foreground">
-                inside the build.
-              </span>
+              <BlurText
+                text="Notes from inside the build."
+                animateBy="words"
+                direction="bottom"
+                delay={70}
+                stepDuration={0.34}
+                className="block"
+              />
             </h1>
-            <p className="max-w-md text-sm leading-7 text-muted-foreground">
+            <ScrollReveal
+              containerClassName="max-w-md"
+              textClassName="text-sm leading-7 text-muted-foreground"
+              baseOpacity={0.18}
+              baseRotation={2}
+              blurStrength={6}
+            >
               Practical thinking on product decisions, dependable AI and the engineering habits that
               move software into production.
-            </p>
+            </ScrollReveal>
           </div>
         </Container>
       </section>
@@ -126,12 +137,25 @@ function Blog() {
                   </span>
                 </div>
                 <h2 className="mt-7 font-display text-4xl font-semibold leading-tight md:text-5xl">
-                  What separates an AI demo from a production feature
+                  <BlurText
+                    text="What separates an AI demo from a production feature"
+                    animateBy="words"
+                    direction="bottom"
+                    delay={55}
+                    stepDuration={0.3}
+                    className="block"
+                  />
                 </h2>
-                <p className="mt-5 text-sm leading-7 text-background/60">
+                <ScrollReveal
+                  containerClassName="mt-5"
+                  textClassName="text-sm leading-7 text-background/60"
+                  baseOpacity={0.18}
+                  baseRotation={2}
+                  blurStrength={6}
+                >
                   A practical checklist for evaluation, grounding, fallbacks, cost controls and the
                   work that makes AI dependable.
-                </p>
+                </ScrollReveal>
               </div>
               <Link
                 to="/blog/$slug"
@@ -186,13 +210,22 @@ function Blog() {
         <Container className="flex flex-col items-start justify-between gap-7 md:flex-row md:items-center">
           <div>
             <Eyebrow>Have a harder question?</Eyebrow>
-            <h2 className="mt-3 font-display text-4xl">Let&apos;s discuss the next move.</h2>
+            <h2 className="mt-3 font-display text-4xl">
+              <BlurText
+                text="Let\'s discuss the next move."
+                animateBy="words"
+                direction="bottom"
+                delay={60}
+                stepDuration={0.3}
+                className="block"
+              />
+            </h2>
           </div>
           <a
             href="/contact"
             className="inline-flex h-11 items-center rounded-full bg-foreground px-5 text-sm text-background hover:bg-brand"
           >
-            Discuss a project <span className="ml-2">-&gt;</span>
+            Discuss a project <SendIcon size={14} className="ml-2" animateOnHover />
           </a>
         </Container>
       </section>

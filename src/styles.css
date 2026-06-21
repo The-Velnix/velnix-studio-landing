@@ -6,9 +6,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: "Sora", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Fraunces", ui-serif, Georgia, serif;
-  --font-accent: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-accent: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Azeret Mono", ui-monospace, monospace;
 
   --radius-sm: 4px;
@@ -82,9 +82,9 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-size: 15.5px;
-    line-height: 1.68;
-    font-feature-settings: "ss01", "ss03", "cv01", "cv02";
-    letter-spacing: -0.004em;
+    line-height: 1.66;
+    font-feature-settings: "ss01", "ss03";
+    letter-spacing: -0.01em;
     overflow-x: hidden;
   }
   h1,
@@ -94,9 +94,9 @@
   h5,
   h6 {
     font-family: var(--font-display);
-    font-feature-settings: "ss01", "ss03", "cv01", "cv02";
-    letter-spacing: -0.03em;
-    line-height: 0.92;
+    font-feature-settings: "ss01", "ss03";
+    letter-spacing: -0.04em;
+    line-height: 0.95;
     font-weight: 600;
   }
   p,
@@ -215,3 +215,4 @@
     transform: translateX(-50%);
   }
 }
+

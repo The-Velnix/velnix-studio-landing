@@ -1,3 +1,4 @@
+﻿import FlowingMenu from "@/components/react-bits/FlowingMenu";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   AnimatePresence,
@@ -17,8 +18,18 @@ import { LockIcon } from "@/components/animate-ui/icons/lock";
 import { SignalIcon } from "@/components/animate-ui/icons/signal";
 import { AnimateIcon } from "@/components/animate-ui/icons/icon";
 import { ButtonColorful } from "@/components/ui/button-colorful";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { useRef, useState } from "react";
 import { Container, SiteFooter, SiteHeader } from "../components/site-shell";
+import BlurText from "@/components/react-bits/BlurText";
+import VariableProximity from "@/components/react-bits/VariableProximity";
+import ScrollStack, { ScrollStackItem } from "@/components/react-bits/ScrollStack";
+import CircularGallery from "@/components/react-bits/CircularGallery";
 import { Eyebrow, SectionIntro } from "../components/section";
 
 export const Route = createFileRoute("/")({
@@ -178,41 +189,41 @@ const faqs = [
 
 function Hero() {
   const reduce = useReducedMotion();
+  const heroProximityRef = useRef<HTMLDivElement>(null);
+
   return (
-    <section className="relative overflow-hidden border-b border-border pb-20 pt-24 md:pb-24 md:pt-28">
-      <div className="absolute inset-0 grid-bg opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_92%)]" />
-      <div className="absolute inset-x-0 top-0 h-[55%] bg-[radial-gradient(circle_at_top,rgba(46,197,182,0.16),transparent_58%)]" />
-      <div className="absolute left-1/2 top-[48%] h-[760px] w-[760px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-border/55 opacity-80 sm:h-[900px] sm:w-[900px]" />
-      <div className="absolute left-1/2 top-[48%] h-[440px] w-[440px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-brand/28 [animation:hero-orbit_44s_linear_infinite] sm:h-[620px] sm:w-[620px]" />
-      <div className="absolute left-1/2 top-[48%] h-[260px] w-[260px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand/20 [animation:hero-orbit-reverse_30s_linear_infinite] sm:h-[360px] sm:w-[360px]" />
-      <div className="absolute left-1/2 top-[48%] h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/[.08] blur-[110px] [animation:hero-glow_8s_ease-in-out_infinite] sm:h-[520px] sm:w-[520px]" />
+    <section className="relative overflow-hidden border-b border-border pb-18 pt-20 md:pb-24 md:pt-28">
+      <div className="absolute inset-0 grid-bg opacity-[0.32] [mask-image:linear-gradient(to_bottom,black,transparent_92%)]" />
+      <div className="absolute inset-x-0 top-0 h-[38%] bg-[radial-gradient(circle_at_top,rgba(46,197,182,0.08),transparent_62%)]" />
+      <div className="absolute left-1/2 top-[42%] h-[1px] w-[min(880px,88vw)] -translate-x-1/2 bg-gradient-to-r from-transparent via-brand/20 to-transparent" />
       <Container className="relative z-10 flex min-h-[calc(100svh-6rem)] flex-col items-center justify-center text-center">
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-3 rounded-full border border-border/80 bg-background/85 px-4 py-2 text-[10px] uppercase tracking-[.26em] text-muted-foreground backdrop-blur"
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-          Product strategy / design / engineering
-        </motion.div>
         <div className="mt-8 overflow-hidden">
           <motion.h1
-            initial={reduce ? false : { y: "108%" }}
+            initial={reduce ? false : { y: '108%' }}
             animate={{ y: 0 }}
             transition={{ duration: 0.95, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
-            className="mx-auto max-w-[1020px] text-balance font-display text-[clamp(3.6rem,9vw,7.8rem)] font-semibold leading-[.9] tracking-[-.06em]"
+            className="mx-auto max-w-[16ch] text-balance font-display text-[clamp(3.25rem,8.2vw,7rem)] font-semibold leading-[0.88] tracking-[-.055em]"
           >
             Ideas are easy.
             <br />
-            <span className="font-accent font-light italic text-brand">Shipping</span> is the art.
+            <span ref={heroProximityRef} className="block pt-1 leading-[1.02]">
+              <VariableProximity
+                label="Shipping is the art."
+                className="font-display text-[clamp(3.15rem,8vw,6.85rem)] font-semibold leading-[1.02] tracking-[-.055em] text-brand"
+                fromFontVariationSettings="'wght' 360, 'opsz' 24"
+                toFontVariationSettings="'wght' 920, 'opsz' 86"
+                containerRef={heroProximityRef}
+                radius={180}
+                falloff="gaussian"
+              />
+            </span>
           </motion.h1>
         </div>
         <motion.p
           initial={reduce ? false : { opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.22 }}
-          className="mx-auto mt-7 max-w-2xl text-pretty text-[15px] leading-8 text-muted-foreground md:text-[17px]"
+          className="mx-auto mt-7 max-w-xl text-pretty text-[15px] leading-8 text-muted-foreground md:text-[17px]"
         >
           We turn ambitious product ideas into dependable SaaS, AI and mobile experiences, with one
           senior team from first decision to production.
@@ -226,10 +237,31 @@ function Hero() {
           <ButtonColorful href="/contact" label="Start a project" />
           <a
             href="#work"
-            className="inline-flex h-12 items-center rounded-full border border-border-strong bg-background/85 px-5 text-sm font-semibold backdrop-blur transition-all hover:-translate-y-1 hover:border-foreground sm:px-6"
+            className="inline-flex h-12 items-center rounded-full border border-border-strong bg-background/90 px-5 text-sm font-semibold backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-foreground sm:px-6"
           >
             Explore the work
           </a>
+        </motion.div>
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.75, delay: 0.44 }}
+          className="mt-12 w-full max-w-[1120px]"
+        >
+          <FlowingMenu
+            items={[
+              { link: '/#services', text: 'AI Systems', image: '' },
+              { link: '/#work', text: 'Mobile', image: '' },
+              { link: '/#process', text: 'Infrastructure', image: '' },
+              { link: '/#team', text: 'Strategy', image: '' },
+            ]}
+            speed={12}
+            textColor="#0f1115"
+            bgColor="#f5f3ef"
+            marqueeBgColor="#0f1115"
+            marqueeTextColor="#ffffff"
+            borderColor="#d8d4cc"
+          />
         </motion.div>
       </Container>
     </section>
@@ -242,15 +274,7 @@ function Services() {
       <Container>
         <SectionIntro
           eyebrow="Ways to work together"
-          title={
-            <>
-              Four focused engagements.
-              <br />
-              <span className="font-accent font-light italic text-muted-foreground">
-                No sprawling menu.
-              </span>
-            </>
-          }
+          titleText="Four focused engagements. No sprawling menu."
           body="Choose the outcome closest to your current stage. We shape the exact team and scope after a focused discovery call."
         />
         <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2">
@@ -299,15 +323,7 @@ function Work() {
       <Container>
         <SectionIntro
           eyebrow="Selected product work"
-          title={
-            <>
-              Evidence over
-              <br />
-              <span className="font-accent font-light italic text-muted-foreground">
-                empty claims.
-              </span>
-            </>
-          }
+          titleText="Evidence over empty claims."
           body="A look at the product problems we have taken on and the systems designed around them. Detailed walkthroughs are available during a project conversation."
         />
         <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:h-[420px] lg:grid-cols-3 lg:grid-rows-2">
@@ -385,15 +401,7 @@ function Standards() {
       <Container>
         <SectionIntro
           eyebrow="Working standard"
-          title={
-            <>
-              Less risk.
-              <br />
-              <span className="font-accent font-light italic text-muted-foreground">
-                More visibility.
-              </span>
-            </>
-          }
+          titleText="Less risk. More visibility."
           body="Good delivery is not mysterious. These are the operating principles we bring to every engagement."
         />
         <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
@@ -461,15 +469,7 @@ function Team() {
       <Container>
         <SectionIntro
           eyebrow="The people doing the work"
-          title={
-            <>
-              Six specialists.
-              <br />
-              <span className="font-accent font-light italic text-muted-foreground">
-                No account-manager maze.
-              </span>
-            </>
-          }
+          titleText="Six specialists. No account-manager maze."
           body="You work directly with the people making product and technical decisions. The team stays deliberately small so context does not disappear between meetings."
         />
         <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
@@ -531,70 +531,91 @@ function Process() {
     <section
       ref={sectionRef}
       id="process"
-      className={`relative border-y border-border bg-foreground text-background ${reduce ? "py-24 md:py-32" : "py-24 md:py-32 lg:h-[220svh] lg:py-0"}`}
+      className={`relative border-y border-border bg-background text-foreground ${reduce ? "py-24 md:py-32" : "py-24 md:py-32 lg:py-0"}`}
     >
       <div className={reduce ? "" : "lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:items-center"}>
         <Container>
           <div className="flex items-end justify-between gap-8">
             <div>
-              <Eyebrow invert>How delivery works</Eyebrow>
+              <Eyebrow invert={false}>How delivery works</Eyebrow>
               <h2 className="mt-4 max-w-3xl font-display text-5xl font-semibold leading-none md:text-7xl">
-                A clear path from uncertainty
-                <br />
-                <span className="font-accent font-light italic text-background/50">
-                  to working software.
-                </span>
+                <BlurText
+                  text="A clear path from uncertainty to working software."
+                  animateBy="words"
+                  direction="bottom"
+                  delay={70}
+                  stepDuration={0.34}
+                  className="block"
+                />
               </h2>
             </div>
             <div className="hidden text-right lg:block">
               <span className="font-display text-5xl text-brand">0{activeStep + 1}</span>
-              <span className="ml-2 font-mono text-[9px] uppercase tracking-widest text-background/40">
+              <span className="ml-2 font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
                 / 05
               </span>
             </div>
           </div>
 
-          <div className="relative mt-14 h-px overflow-hidden bg-background/15">
+          <div className="relative mt-14 h-px overflow-hidden bg-border/70">
             <motion.div
               className="absolute inset-y-0 left-0 origin-left bg-brand"
               style={{ scaleX: progress }}
             />
           </div>
 
-          <div className="mt-5 grid gap-px overflow-hidden rounded-2xl border border-background/15 bg-background/15 md:grid-cols-5">
-            {steps.map((s, index) => {
-              const isActive = reduce || activeStep === index;
-              return (
-                <motion.div
+          <div className="mt-8 lg:mt-12">
+            <ScrollStack className="overflow-visible">
+              {steps.map((s, index) => (
+                <ScrollStackItem
                   key={s[0]}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, amount: 0.25 }}
-                  transition={{ duration: 0.55, delay: index * 0.06 }}
-                  className={`group relative bg-foreground p-6 transition-all duration-500 hover:bg-background/5 ${isActive ? "lg:bg-background/[.08] lg:opacity-100" : "lg:opacity-35"}`}
+                  itemClassName="bg-background text-foreground shadow-[0_24px_70px_rgba(0,0,0,.08)]"
                 >
-                  <span
-                    className={`font-mono text-[9px] tracking-widest transition-colors ${isActive ? "text-brand" : "text-background/40"}`}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: false, amount: 0.25 }}
+                    transition={{ duration: 0.55, delay: index * 0.05 }}
+                    className="group relative flex h-full flex-col overflow-hidden rounded-[1.7rem] border border-border bg-background p-6 transition-colors duration-500"
                   >
-                    {s[0]}
-                  </span>
-                  <h3 className="mt-10 font-display text-2xl">{s[1]}</h3>
-                  <p className="mt-3 text-xs leading-6 text-background/60">{s[2]}</p>
-                  <span
-                    className={`absolute inset-x-0 bottom-0 h-0.5 origin-left bg-brand transition-transform duration-500 ${isActive ? "scale-x-100" : "scale-x-0"}`}
-                  />
-                </motion.div>
-              );
-            })}
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="font-mono text-[9px] tracking-widest text-brand">
+                        {s[0]}
+                      </span>
+                      <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
+                        Step {index + 1}
+                      </span>
+                    </div>
+                    <h3 className="mt-8 font-display text-3xl font-semibold text-foreground md:text-4xl">
+                      {s[1]}
+                    </h3>
+                    <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground md:text-base md:leading-8">
+                      {s[2]}
+                    </p>
+                    <div className="mt-auto flex items-center justify-between pt-8">
+                      <span className="text-xs uppercase tracking-[.24em] text-muted-foreground">
+                        {index === 0
+                          ? "Discovery"
+                          : index === 1
+                            ? "Direction"
+                            : index === 2
+                              ? "Delivery"
+                              : index === 3
+                                ? "Launch"
+                                : "Iteration"}
+                      </span>
+                      <span className="h-2 w-2 rounded-full bg-brand shadow-[0_0_16px_rgba(46,197,182,.6)]" />
+                    </div>
+                  </motion.div>
+                </ScrollStackItem>
+              ))}
+            </ScrollStack>
           </div>
         </Container>
       </div>
     </section>
   );
-}
-
-function FAQ() {
-  const [open, setOpen] = useState(0);
+}function FAQ() {
   return (
     <section className="py-24 md:py-32">
       <Container>
@@ -607,63 +628,48 @@ function FAQ() {
         >
           <div>
             <Eyebrow>Before we start</Eyebrow>
-            <h2 className="mt-4 font-display text-5xl font-semibold">Straight answers.</h2>
+            <h2 className="mt-4 font-display text-5xl font-semibold">
+              <BlurText
+                text="Straight answers."
+                animateBy="words"
+                direction="bottom"
+                delay={65}
+                stepDuration={0.32}
+                className="block"
+              />
+            </h2>
             <p className="mt-5 max-w-sm text-sm leading-7 text-muted-foreground">
               Still wondering about something? Email us and a team member will reply directly.
             </p>
           </div>
-          <div className="border-t border-border">
-            {faqs.map((f, i) => {
-              const isOpen = open === i;
-              const panelId = `faq-panel-${i}`;
-              return (
-              <div key={f[0]} className="group border-b border-border">
-                <button
-                  onClick={() => setOpen(open === i ? -1 : i)}
-                  className="flex w-full items-center justify-between gap-6 py-6 text-left font-medium transition-colors hover:text-brand"
-                  aria-expanded={isOpen}
-                  aria-controls={panelId}
-                >
-                  <span>{f[0]}</span>
-                  <span className="relative h-5 w-5 shrink-0" aria-hidden="true">
+          <Accordion
+            type="single"
+            collapsible
+            defaultValue="faq-0"
+            className="border-t border-border"
+          >
+            {faqs.map((f, i) => (
+              <AccordionItem key={f[0]} value={`faq-${i}`} className="border-b border-border">
+                <AccordionTrigger className="group flex w-full items-center justify-between gap-6 py-6 text-left font-display text-[1.15rem] font-semibold tracking-[-.025em] transition-colors hover:text-brand md:text-[1.35rem] [&[data-state=open]]:text-brand [&>svg]:hidden">
+                  <span className="max-w-[28ch]">{f[0]}</span>
+                  <span
+                    className="relative flex h-5 w-5 shrink-0 items-center justify-center"
+                    aria-hidden="true"
+                  >
                     <span className="absolute left-1/2 top-1/2 h-px w-4 -translate-x-1/2 -translate-y-1/2 bg-brand" />
                     <motion.span
-                      animate={{ scaleY: isOpen ? 0 : 1 }}
-                      transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                      className="absolute left-1/2 top-1/2 h-4 w-px -translate-x-1/2 -translate-y-1/2 bg-brand"
+                      animate={{ scaleY: 1 }}
+                      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                      className="absolute left-1/2 top-1/2 h-4 w-px -translate-x-1/2 -translate-y-1/2 bg-brand transition-transform duration-300 group-data-[state=open]:scale-y-0"
                     />
                   </span>
-                </button>
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      id={panelId}
-                      key="content"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{
-                        height: { duration: 0.42, ease: [0.16, 1, 0.3, 1] },
-                        opacity: { duration: 0.25, ease: "easeOut" },
-                      }}
-                      className="overflow-hidden"
-                    >
-                      <motion.p
-                        initial={{ y: -8 }}
-                        animate={{ y: 0 }}
-                        exit={{ y: -6 }}
-                        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                        className="max-w-2xl pb-6 pr-10 text-sm leading-7 text-muted-foreground"
-                      >
-                        {f[1]}
-                      </motion.p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-              );
-            })}
-          </div>
+                </AccordionTrigger>
+                <AccordionContent className="pb-6 pr-10 text-sm leading-7 text-muted-foreground md:text-base md:leading-8">
+                  {f[1]}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </motion.div>
       </Container>
     </section>
@@ -685,3 +691,4 @@ function Landing() {
     </main>
   );
 }
+

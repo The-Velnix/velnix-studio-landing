@@ -1,5 +1,8 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+﻿import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeftIcon } from "@/components/animate-ui/icons/arrow-left";
+import BlurText from "@/components/react-bits/BlurText";
+import ScrollReveal from "@/components/react-bits/ScrollReveal";
+import { SendIcon } from "@/components/animate-ui/icons/send";
 import { Container, SiteFooter, SiteHeader } from "../components/site-shell";
 import { Eyebrow } from "../components/section";
 
@@ -186,6 +189,7 @@ const articles: Record<
     ],
   },
 };
+
 export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
     const a = articles[params.slug];
@@ -203,6 +207,7 @@ export const Route = createFileRoute("/blog/$slug")({
   }),
   component: Article,
 });
+
 function Article() {
   const a = Route.useLoaderData();
   return (
@@ -221,9 +226,24 @@ function Article() {
             </Link>
             <Eyebrow>{a.tag}</Eyebrow>
             <h1 className="mt-5 max-w-4xl font-display text-5xl font-semibold leading-[1] tracking-[-.03em] md:text-7xl">
-              {a.title}
+              <BlurText
+                text={a.title}
+                animateBy="words"
+                direction="bottom"
+                delay={55}
+                stepDuration={0.3}
+                className="block"
+              />
             </h1>
-            <p className="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground">{a.dek}</p>
+            <ScrollReveal
+              containerClassName="mt-7 max-w-2xl"
+              textClassName="text-lg leading-8 text-muted-foreground"
+              baseOpacity={0.18}
+              baseRotation={2}
+              blurStrength={6}
+            >
+              {a.dek}
+            </ScrollReveal>
             <p className="mt-8 font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
               {a.date} / {a.read}
             </p>
@@ -234,12 +254,28 @@ function Article() {
             <div className="space-y-14">
               {a.sections.map((s) => (
                 <section key={s[0]}>
-                  <h2 className="font-display text-4xl font-semibold">{s[0]}</h2>
+                  <h2 className="font-display text-4xl font-semibold">
+                    <BlurText
+                      text={s[0]}
+                      animateBy="words"
+                      direction="bottom"
+                      delay={40}
+                      stepDuration={0.26}
+                      className="block"
+                    />
+                  </h2>
                   <div className="mt-5 space-y-5">
                     {s[1].map((p) => (
-                      <p key={p} className="text-[16px] leading-8 text-muted-foreground">
+                      <ScrollReveal
+                        key={p}
+                        containerClassName="mt-0"
+                        textClassName="text-[16px] leading-8 text-muted-foreground"
+                        baseOpacity={0.18}
+                        baseRotation={2}
+                        blurStrength={6}
+                      >
                         {p}
-                      </p>
+                      </ScrollReveal>
                     ))}
                   </div>
                 </section>
@@ -248,7 +284,7 @@ function Article() {
             <div className="mt-20 rounded-2xl bg-foreground p-8 text-background">
               <p className="font-display text-3xl">Need this thinking applied to your product?</p>
               <a href="/contact" className="mt-5 inline-flex text-sm text-brand">
-                Discuss the project -&gt;
+                Discuss the project <SendIcon size={14} className="ml-2" animateOnHover />
               </a>
             </div>
           </Container>
