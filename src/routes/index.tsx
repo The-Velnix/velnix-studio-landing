@@ -189,13 +189,11 @@ const faqs = [
 
 function Hero() {
   const reduce = useReducedMotion();
-  const heroProximityRef = useRef<HTMLDivElement>(null);
 
   return (
     <section className="relative overflow-hidden border-b border-border pb-18 pt-20 md:pb-24 md:pt-28">
       <div className="absolute inset-0 grid-bg opacity-[0.32] [mask-image:linear-gradient(to_bottom,black,transparent_92%)]" />
       <div className="absolute inset-x-0 top-0 h-[38%] bg-[radial-gradient(circle_at_top,rgba(46,197,182,0.08),transparent_62%)]" />
-      <div className="absolute left-1/2 top-[42%] h-[1px] w-[min(880px,88vw)] -translate-x-1/2 bg-gradient-to-r from-transparent via-brand/20 to-transparent" />
       <Container className="relative z-10 flex min-h-[calc(100svh-6rem)] flex-col items-center justify-center text-center">
         <div className="mt-8 overflow-hidden">
           <motion.h1
@@ -204,17 +202,22 @@ function Hero() {
             transition={{ duration: 0.95, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
             className="mx-auto max-w-[16ch] text-balance font-display text-[clamp(3.25rem,8.2vw,7rem)] font-semibold leading-[0.88] tracking-[-.055em]"
           >
-            Ideas are easy.
-            <br />
-            <span ref={heroProximityRef} className="block pt-1 leading-[1.02]">
-              <VariableProximity
-                label="Shipping is the art."
+            <BlurText
+              text="Ideas are easy."
+              animateBy="words"
+              direction="bottom"
+              delay={70}
+              stepDuration={0.34}
+              className="block"
+            />
+            <span className="block pt-1 leading-[1.02]">
+              <BlurText
+                text="Shipping is the art."
+                animateBy="words"
+                direction="bottom"
+                delay={82}
+                stepDuration={0.34}
                 className="font-display text-[clamp(3.15rem,8vw,6.85rem)] font-semibold leading-[1.02] tracking-[-.055em] text-brand"
-                fromFontVariationSettings="'wght' 360, 'opsz' 24"
-                toFontVariationSettings="'wght' 920, 'opsz' 86"
-                containerRef={heroProximityRef}
-                radius={180}
-                falloff="gaussian"
               />
             </span>
           </motion.h1>
@@ -512,7 +515,50 @@ function Process() {
     target: sectionRef,
     offset: ["start start", "end end"],
   });
-  const progress = useSpring(scrollYProgress, { stiffness: 100, damping: 24, restDelta: 0.001 });
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 28, restDelta: 0.001 });
+
+  const steps = [
+    {
+      id: "01",
+      label: "Align",
+      title: "Goals, users, constraints and the smallest useful release.",
+      summary: "Discovery, product framing and a crisp problem definition so the work starts with agreement, not guesswork.",
+      detail: "We define the target user, the outcome that matters and the smallest version worth building before any design or engineering starts.",
+      phase: "Discovery",
+    },
+    {
+      id: "02",
+      label: "Shape",
+      title: "Flows, architecture, delivery plan and a transparent proposal.",
+      summary: "We turn the brief into a plan with clear trade-offs, sequencing and enough detail to build confidently.",
+      detail: "This is where we map the product structure, decide the technical shape and turn uncertainty into a buildable plan.",
+      phase: "Direction",
+    },
+    {
+      id: "03",
+      label: "Build",
+      title: "Weekly working software, tight feedback and continuous quality checks.",
+      summary: "The build phase stays visible, with steady demos, practical feedback and no mystery around progress.",
+      detail: "You get working software every week, smaller decisions stay visible and quality is checked as we go instead of at the end.",
+      phase: "Delivery",
+    },
+    {
+      id: "04",
+      label: "Launch",
+      title: "Production deployment, analytics, monitoring and team handover.",
+      summary: "We prepare release, docs and monitoring together so the handover feels like a finish line, not a cliff edge.",
+      detail: "Release, monitoring and handover are planned as one unit so launch is calm and the team on your side can take over cleanly.",
+      phase: "Launch",
+    },
+    {
+      id: "05",
+      label: "Improve",
+      title: "Support, learning and focused iterations after real users arrive.",
+      summary: "Once usage data is real, we help sharpen the product with measured iterations and a calm support model.",
+      detail: "After launch, we use actual usage and feedback to decide what should improve next instead of guessing from opinions alone.",
+      phase: "Iteration",
+    },
+  ];
 
   useMotionValueEvent(scrollYProgress, "change", (value) => {
     if (reduce) return;
@@ -520,25 +566,18 @@ function Process() {
     setActiveStep((current) => (current === next ? current : next));
   });
 
-  const steps = [
-    ["01", "Align", "Goals, users, constraints and the smallest useful release."],
-    ["02", "Shape", "Flows, architecture, delivery plan and a transparent proposal."],
-    ["03", "Build", "Weekly working software, tight feedback and continuous quality checks."],
-    ["04", "Launch", "Production deployment, analytics, monitoring and team handover."],
-    ["05", "Improve", "Support, learning and focused iterations after real users arrive."],
-  ];
+  const active = steps[activeStep];
+  const sectionClass = "relative border-y border-border bg-background text-foreground " + (reduce ? "py-24 md:py-32" : "py-24 md:py-32 lg:py-0");
+  const stickyClass = reduce ? "" : "lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:items-center";
+
   return (
-    <section
-      ref={sectionRef}
-      id="process"
-      className={`relative border-y border-border bg-background text-foreground ${reduce ? "py-24 md:py-32" : "py-24 md:py-32 lg:py-0"}`}
-    >
-      <div className={reduce ? "" : "lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:items-center"}>
+    <section ref={sectionRef} id="process" className={sectionClass}>
+      <div className={stickyClass}>
         <Container>
-          <div className="flex items-end justify-between gap-8">
-            <div>
+          <div className="grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:gap-12">
+            <div className="lg:sticky lg:top-24 lg:self-start">
               <Eyebrow invert={false}>How delivery works</Eyebrow>
-              <h2 className="mt-4 max-w-3xl font-display text-5xl font-semibold leading-none md:text-7xl">
+              <h2 className="mt-4 max-w-2xl font-display text-5xl font-semibold leading-[.94] tracking-[-.05em] md:text-7xl">
                 <BlurText
                   text="A clear path from uncertainty to working software."
                   animateBy="words"
@@ -548,74 +587,118 @@ function Process() {
                   className="block"
                 />
               </h2>
-            </div>
-            <div className="hidden text-right lg:block">
-              <span className="font-display text-5xl text-brand">0{activeStep + 1}</span>
-              <span className="ml-2 font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
-                / 05
-              </span>
-            </div>
-          </div>
+              <p className="mt-6 max-w-lg text-sm leading-7 text-muted-foreground md:text-base md:leading-8">
+                We keep the process small, visible and deliberate so you always know what phase the work is in, what we need from you, and what happens next.
+              </p>
 
-          <div className="relative mt-14 h-px overflow-hidden bg-border/70">
-            <motion.div
-              className="absolute inset-y-0 left-0 origin-left bg-brand"
-              style={{ scaleX: progress }}
-            />
-          </div>
-
-          <div className="mt-8 lg:mt-12">
-            <ScrollStack className="overflow-visible">
-              {steps.map((s, index) => (
-                <ScrollStackItem
-                  key={s[0]}
-                  itemClassName="bg-background text-foreground shadow-[0_24px_70px_rgba(0,0,0,.08)]"
-                >
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false, amount: 0.25 }}
-                    transition={{ duration: 0.55, delay: index * 0.05 }}
-                    className="group relative flex h-full flex-col overflow-hidden rounded-[1.7rem] border border-border bg-background p-6 transition-colors duration-500"
-                  >
-                    <div className="flex items-center justify-between gap-4">
-                      <span className="font-mono text-[9px] tracking-widest text-brand">
-                        {s[0]}
-                      </span>
-                      <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
-                        Step {index + 1}
-                      </span>
-                    </div>
-                    <h3 className="mt-8 font-display text-3xl font-semibold text-foreground md:text-4xl">
-                      {s[1]}
+              <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ duration: 0.55 }}
+                className="mt-8 rounded-[2rem] border border-border bg-surface/60 p-6 backdrop-blur-sm"
+              >
+                <div className="flex items-start justify-between gap-6">
+                  <div className="min-w-0">
+                    <p className="font-mono text-[9px] uppercase tracking-[.24em] text-brand">Current phase</p>
+                    <h3 className="mt-2 font-display text-3xl font-semibold text-foreground md:text-4xl">
+                      {active.label}
                     </h3>
-                    <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground md:text-base md:leading-8">
-                      {s[2]}
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground md:text-[15px] md:leading-8">
+                      {active.summary}
                     </p>
-                    <div className="mt-auto flex items-center justify-between pt-8">
-                      <span className="text-xs uppercase tracking-[.24em] text-muted-foreground">
-                        {index === 0
-                          ? "Discovery"
-                          : index === 1
-                            ? "Direction"
-                            : index === 2
-                              ? "Delivery"
-                              : index === 3
-                                ? "Launch"
-                                : "Iteration"}
+                  </div>
+                  <div className="shrink-0 text-right">
+                    <span className="font-display text-5xl text-brand">0{activeStep + 1}</span>
+                    <span className="ml-2 font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
+                      / 05
+                    </span>
+                  </div>
+                </div>
+                <div className="mt-6 h-px bg-border/70" />
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {[active.phase, active.label, "Weekly visibility"].map((tag) => (
+                    <span
+                      key={tag}
+                      className="inline-flex items-center rounded-full border border-border bg-background px-3 py-1 text-[10px] uppercase tracking-[.18em] text-muted-foreground"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <p className="mt-5 text-sm leading-7 text-foreground md:text-[15px] md:leading-8">
+                  {active.detail}
+                </p>
+              </motion.div>
+            </div>
+
+            <div className="relative">
+              <div className="absolute left-4 top-4 bottom-4 w-px bg-gradient-to-b from-border via-border to-transparent md:left-5" />
+              <motion.div className="absolute left-4 top-4 w-px origin-top bg-brand md:left-5" style={{ scaleY: progress }} />
+
+              <div className="space-y-4 md:space-y-5">
+                {steps.map((step, index) => {
+                  const isActive = reduce || activeStep === index;
+                  return (
+                    <motion.button
+                      key={step.id}
+                      type="button"
+                      onClick={() => setActiveStep(index)}
+                      initial={{ opacity: 0, y: 16 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: false, amount: 0.22 }}
+                      transition={{ duration: 0.45, delay: index * 0.04 }}
+                      className={"group relative w-full rounded-[1.6rem] border p-5 pl-15 text-left transition-all duration-500 md:p-6 md:pl-18 " + (isActive ? "border-brand bg-surface shadow-[0_20px_50px_rgba(0,0,0,.05)]" : "border-border bg-background hover:border-brand/40 hover:bg-surface/50")}
+                      aria-pressed={isActive}
+                      aria-label={"Select step " + step.id + " " + step.label}
+                    >
+                      <span className={"absolute left-4 top-5 flex h-8 w-8 items-center justify-center rounded-full border bg-background md:left-4 md:top-6 " + (isActive ? "border-brand" : "border-border") }>
+                        <span className={"h-2.5 w-2.5 rounded-full transition-all " + (isActive ? "bg-brand shadow-[0_0_16px_rgba(46,197,182,.6)]" : "bg-muted-foreground/35") } />
                       </span>
-                      <span className="h-2 w-2 rounded-full bg-brand shadow-[0_0_16px_rgba(46,197,182,.6)]" />
-                    </div>
-                  </motion.div>
-                </ScrollStackItem>
-              ))}
-            </ScrollStack>
+                      <div className="flex items-center justify-between gap-4">
+                        <span className="font-mono text-[9px] uppercase tracking-[.24em] text-brand">
+                          Step {step.id}
+                        </span>
+                        <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
+                          {step.phase}
+                        </span>
+                      </div>
+                      <div className="mt-4">
+                        <h3 className="font-display text-2xl font-semibold leading-tight text-foreground md:text-[2rem]">
+                          {step.label}
+                        </h3>
+                        <p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground md:text-[15px] md:leading-8">
+                          {step.title}
+                        </p>
+                      </div>
+                    </motion.button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 grid gap-4 border-t border-border pt-6 text-sm text-muted-foreground md:grid-cols-3">
+            <div>
+              <span className="block font-mono text-[9px] uppercase tracking-[.22em] text-brand">Cadence</span>
+              Weekly demos, written updates, and a shared delivery view.
+            </div>
+            <div>
+              <span className="block font-mono text-[9px] uppercase tracking-[.22em] text-brand">Visibility</span>
+              You see the plan, the trade-offs and the actual work in progress.
+            </div>
+            <div>
+              <span className="block font-mono text-[9px] uppercase tracking-[.22em] text-brand">Handover</span>
+              We plan transition from the start so launch does not feel like a handoff cliff.
+            </div>
           </div>
         </Container>
       </div>
     </section>
   );
-}function FAQ() {
+}
+
+function FAQ() {
   return (
     <section className="py-24 md:py-32">
       <Container>

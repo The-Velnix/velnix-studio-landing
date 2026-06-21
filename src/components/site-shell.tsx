@@ -1,6 +1,7 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { type ReactNode } from "react";
 import StaggeredMenu from "@/components/react-bits/StaggeredMenu";
+import BlurText from "@/components/react-bits/BlurText";
 import { SendIcon } from "@/components/animate-ui/icons/send";
 
 export function Container({
@@ -105,7 +106,14 @@ export function SiteFooter() {
               Have something ambitious in mind?
             </p>
             <h2 className="mt-4 max-w-[11ch] font-display text-[clamp(3rem,9vw,7rem)] font-semibold leading-[.88] tracking-[-.065em] text-foreground md:max-w-none">
-              LET'S MAKE IT REAL.
+              <BlurText
+                text="LET'S MAKE IT REAL."
+                animateBy="words"
+                direction="bottom"
+                delay={70}
+                stepDuration={0.34}
+                className="block"
+              />
             </h2>
             <p className="mt-5 max-w-xl text-sm leading-7 text-muted-foreground md:text-[15px] md:leading-8">
               Share the rough shape, the deadline, or the part that feels messy. We'll help you turn it into a plan that is clear, calm, and actually buildable.

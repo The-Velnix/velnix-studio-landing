@@ -1,5 +1,6 @@
 ﻿// @ts-nocheck
 import { useEffect, useMemo, useRef, useState } from 'react';
+import LazyImage from './LazyImage';
 
 const DEFAULT_ITEMS = [
   { image: 'https://picsum.photos/seed/1/800/800', text: 'Bridge' },
@@ -127,11 +128,13 @@ export default function CircularGallery({
               style={{ borderRadius: cornerRadius }}
             >
               <div className="relative flex-1 overflow-hidden">
-                <img
+                <LazyImage
                   src={item.image}
                   alt={item.text}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  draggable={false}
+                  priority={index < 2}
+                  className="h-full w-full"
+                  imgClassName="transition-transform duration-700 group-hover:scale-105"
+                  placeholderClassName="bg-[linear-gradient(135deg,rgba(46,197,182,.18),rgba(245,243,239,.72))]"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(15,17,21,.32),transparent_60%)]" />
               </div>
@@ -151,3 +154,4 @@ export default function CircularGallery({
     </div>
   );
 }
+
