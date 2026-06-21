@@ -1,4 +1,4 @@
-﻿import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
@@ -144,9 +144,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg?v=2" },
-      { rel: "shortcut icon", type: "image/svg+xml", href: "/favicon.ico?v=2" },
-      { rel: "apple-touch-icon", href: "/velnix-mark-dark.png?v=2" },
+      { rel: "icon", type: "image/png", href: "/velnix-mark-dark.png" },
+      { rel: "shortcut icon", type: "image/png", href: "/velnix-mark-dark.png" },
+      { rel: "apple-touch-icon", href: "/velnix-mark-dark.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {

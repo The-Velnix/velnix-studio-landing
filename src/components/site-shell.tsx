@@ -73,7 +73,8 @@ export function SiteHeader() {
       ]}
       socialItems={[
         { label: "Email", link: "mailto:hello@thevelnix.com" },
-        { label: "LinkedIn", link: "https://linkedin.com" },
+        { label: "LinkedIn", link: "https://www.linkedin.com/company/the-velnix" },
+        { label: "Instagram", link: "https://www.instagram.com/the_velnix?igsh=dDhnNjRmcTB5eWdw" },
         { label: "Dribbble", link: "https://dribbble.com" },
       ]}
       displaySocials
@@ -130,27 +131,12 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="grid gap-10 border-t border-border py-10 md:grid-cols-[1.5fr_.9fr_.9fr_1fr]">
+        <div className="grid gap-10 border-t border-border py-10 md:grid-cols-[1.5fr_.9fr_.9fr_.9fr_1fr]">
           <div>
             <Brand light={false} />
             <p className="mt-4 max-w-sm text-sm leading-7 text-muted-foreground">
               Product strategy, design and engineering for teams moving from ambitious idea to dependable production.
             </p>
-            <div className="mt-6 space-y-4">
-              <div>
-                <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">Address</p>
-                <p className="mt-2 text-sm leading-7 text-foreground">
-                  India<br />
-                  Working globally / IST
-                </p>
-              </div>
-              <div>
-                <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">Email</p>
-                <a href="mailto:hello@thevelnix.com" className="mt-2 block text-sm text-foreground transition-colors hover:text-brand">
-                  hello@thevelnix.com
-                </a>
-              </div>
-            </div>
           </div>
           <FooterColumn
             title="Navigate"
@@ -165,12 +151,21 @@ export function SiteFooter() {
           <FooterColumn
             title="Social"
             links={[
-              ["LinkedIn", "https://linkedin.com"],
-              ["Instagram", "https://instagram.com"],
+              ["LinkedIn", "https://www.linkedin.com/company/the-velnix"],
+              ["Instagram", "https://www.instagram.com/the_velnix?igsh=dDhnNjRmcTB5eWdw"],
               ["X / Twitter", "https://x.com"],
               ["Dribbble", "https://dribbble.com"],
             ]}
           />
+          <div>
+            <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">Address</p>
+            <p className="mt-4 text-sm leading-7 text-foreground">
+              FF-09 Saffrin icon<br />
+              OPP seniro citizen garden,
+              Anand, Gujarat, India<br />
+              Working globally / IST
+            </p>
+          </div>
           <div>
             <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">Contact</p>
             <a
@@ -179,11 +174,6 @@ export function SiteFooter() {
             >
               hello@thevelnix.com
             </a>
-            <p className="mt-4 font-mono text-[9px] uppercase leading-5 tracking-widest text-muted-foreground">
-              India
-              <br />
-              Working globally / IST
-            </p>
             <div className="mt-6 rounded-2xl border border-border bg-surface/60 p-4">
               <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">Office hours</p>
               <p className="mt-2 text-sm leading-7 text-foreground">Mon-Fri, 10:00 - 18:00 IST</p>

@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 
 export default function StaggeredMenu(props) {
   const {
@@ -59,16 +60,16 @@ export default function StaggeredMenu(props) {
     next ? onMenuOpen?.() : onMenuClose?.();
   };
 
-    const navItems = items.length
+  const navItems = items.length
     ? items
     : [
-        { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
-        { label: 'Services', ariaLabel: 'View services', link: '/#services' },
-        { label: 'Work', ariaLabel: 'View work', link: '/#work' },
-        { label: 'Process', ariaLabel: 'View process', link: '/#process' },
-        { label: 'Team', ariaLabel: 'View team', link: '/#team' },
-        { label: 'Blog', ariaLabel: 'Read blog', link: '/blog' },
-      ];
+      { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
+      { label: 'Services', ariaLabel: 'View services', link: '/#services' },
+      { label: 'Work', ariaLabel: 'View work', link: '/#work' },
+      { label: 'Process', ariaLabel: 'View process', link: '/#process' },
+      { label: 'Team', ariaLabel: 'View team', link: '/#team' },
+      { label: 'Blog', ariaLabel: 'Read blog', link: '/blog' },
+    ];
 
   const isActive = (link) => {
     if (link === '/') return currentPath === '/' && !currentHash;
@@ -96,9 +97,9 @@ export default function StaggeredMenu(props) {
                     href={item.link}
                     aria-label={item.ariaLabel}
                     aria-current={active ? 'page' : undefined}
-                    className={`group relative rounded-full px-3.5 py-2 pr-4 text-[13px] font-medium transition-all duration-300 ${active ? 'bg-surface text-foreground shadow-[0_6px_18px_rgb(0_0_0_/_0.04)]' : 'text-muted-foreground hover:bg-surface hover:text-foreground'}`}
+                    className={`group relative rounded-full pl-6 pr-4 py-2 text-[13px] font-medium transition-all duration-300 ${active ? 'bg-surface text-foreground shadow-[0_6px_18px_rgb(0_0_0_/_0.04)]' : 'text-muted-foreground hover:bg-surface hover:text-foreground'}`}
                   >
-                    <span className={`absolute left-2 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-brand transition-all duration-300 ${active ? 'scale-100 opacity-100' : 'scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100'}`} />
+                    <span className={`absolute left-2.5 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-brand transition-all duration-300 ${active ? 'scale-100 opacity-100' : 'scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100'}`} />
                     {item.label}
                     <span className="sr-only">, item {index + 1}</span>
                   </a>
@@ -119,11 +120,11 @@ export default function StaggeredMenu(props) {
                 aria-label={open ? 'Close menu' : 'Open menu'}
                 className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background shadow-sm transition-all hover:border-brand"
               >
-                <span className="relative block h-4 w-4" aria-hidden="true">
-                  <span className={`absolute left-0 top-0 h-0.5 w-4 rounded-full bg-current transition-transform duration-300 ${open ? 'translate-y-1.5 rotate-45' : ''}`} />
-                  <span className={`absolute left-0 top-[7px] h-0.5 w-4 rounded-full bg-current transition-all duration-300 ${open ? 'opacity-0' : ''}`} />
-                  <span className={`absolute left-0 top-3.5 h-0.5 w-4 rounded-full bg-current transition-transform duration-300 ${open ? '-translate-y-1.5 -rotate-45' : ''}`} />
-                </span>
+                {open ? (
+                  <X className="h-4 w-4 transition-transform duration-300" />
+                ) : (
+                  <Menu className="h-4 w-4 transition-transform duration-300" />
+                )}
               </button>
             </div>
           </div>
@@ -157,7 +158,7 @@ export default function StaggeredMenu(props) {
               </div>
               <div className="grid gap-2 border-t border-border/70 pt-4">
                 {navItems.map((item, index) => {
-                const active = isActive(item.link);
+                  const active = isActive(item.link);
                   return (
                     <a
                       key={item.label}
