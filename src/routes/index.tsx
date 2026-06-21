@@ -1,383 +1,255 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+} from "framer-motion";
+import { BotIcon } from "@/components/animate-ui/icons/bot";
+import { BlocksIcon } from "@/components/animate-ui/icons/blocks";
+import { ChartLineIcon } from "@/components/animate-ui/icons/chart-line";
+import { CheckIcon } from "@/components/animate-ui/icons/check";
+import { CompassIcon } from "@/components/animate-ui/icons/compass";
+import { LayersIcon } from "@/components/animate-ui/icons/layers";
+import { LockIcon } from "@/components/animate-ui/icons/lock";
+import { SignalIcon } from "@/components/animate-ui/icons/signal";
+import { AnimateIcon } from "@/components/animate-ui/icons/icon";
+import { ButtonColorful } from "@/components/ui/button-colorful";
+import { useRef, useState } from "react";
+import { Container, SiteFooter, SiteHeader } from "../components/site-shell";
+import { Eyebrow, SectionIntro } from "../components/section";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "The Velnix — From Idea to Production" },
-      { name: "description", content: "AI-Native Product & Engineering Studio helping startups design, build, launch and scale software, AI systems and mobile apps." },
-      { property: "og:title", content: "The Velnix — From Idea to Production" },
-      { property: "og:description", content: "AI-Native Product & Engineering Studio." },
+      { title: "The Velnix | Product, AI and Engineering Studio" },
+      {
+        name: "description",
+        content:
+          "A senior product team for startups and growing businesses. We design and build SaaS platforms, AI systems, mobile apps and reliable infrastructure.",
+      },
+      { property: "og:title", content: "The Velnix | From idea to dependable production" },
+      {
+        property: "og:description",
+        content: "Product strategy, design and engineering in one senior, accountable team.",
+      },
     ],
   }),
   component: Landing,
 });
 
-/* ------------------------------ Primitives ------------------------------ */
+const offers = [
+  {
+    icon: BlocksIcon,
+    n: "01",
+    title: "MVP to market",
+    time: "Typical: 8-12 weeks",
+    text: "Turn a validated idea into a launch-ready product with product strategy, UX, engineering and deployment handled by one team.",
+    includes: [
+      "Product scope and roadmap",
+      "UI/UX and design system",
+      "Web or mobile build",
+      "Production launch",
+    ],
+  },
+  {
+    icon: BotIcon,
+    n: "02",
+    title: "AI systems that work",
+    time: "Typical: 4-10 weeks",
+    text: "Move beyond demos with grounded assistants, RAG pipelines, agent workflows and human-in-the-loop automation.",
+    includes: [
+      "Use-case and data audit",
+      "Evaluation framework",
+      "Secure model integration",
+      "Monitoring and handover",
+    ],
+  },
+  {
+    icon: ChartLineIcon,
+    n: "03",
+    title: "Scale an existing product",
+    time: "Monthly partnership",
+    text: "Improve a product already in market through focused engineering, UX, performance and infrastructure work.",
+    includes: [
+      "Architecture review",
+      "Prioritised delivery sprints",
+      "Observability and reliability",
+      "Weekly demos",
+    ],
+  },
+  {
+    icon: CompassIcon,
+    n: "04",
+    title: "Fractional product & CTO",
+    time: "Flexible retainer",
+    text: "Senior technical and product leadership for founders building a team, making platform decisions or preparing to scale.",
+    includes: [
+      "Technical direction",
+      "Hiring and vendor support",
+      "Roadmap and trade-offs",
+      "Direct founder access",
+    ],
+  },
+];
 
-function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`mx-auto w-full max-w-[1200px] px-6 md:px-10 ${className}`}>{children}</div>;
-}
+const cases = [
+  {
+    id: "codedog",
+    category: "AI / Developer tools",
+    name: "CodeDog",
+    description: "AI-assisted codebase security that turns complex scans into actionable findings.",
+    shipped: ["AI workflow", "Product UX"],
+    mark: "CD",
+  },
+  {
+    id: "veddb",
+    category: "Infrastructure",
+    name: "VedDB",
+    description:
+      "A high-performance in-memory database with visibility designed into the experience.",
+    shipped: ["Architecture", "Developer UX"],
+    mark: "VD",
+  },
+  {
+    id: "biznest",
+    category: "Mobile / SMB",
+    name: "BizNest",
+    description: "A mobile-first workspace bringing essential business operations into one place.",
+    shipped: ["Mobile product", "API platform"],
+    mark: "BN",
+  },
+  {
+    id: "inboxfm",
+    category: "AI / Productivity",
+    name: "InboxFM",
+    description:
+      "An AI-native email workspace built to reduce inbox noise and accelerate decisions.",
+    shipped: ["Product strategy", "AI experience"],
+    mark: "IF",
+  },
+  {
+    id: "doxify",
+    category: "AI / Documentation",
+    name: "Doxify",
+    description:
+      "A documentation engine that turns evolving product knowledge into useful answers.",
+    shipped: ["RAG system", "Interface design"],
+    mark: "DX",
+  },
+  {
+    id: "fakepe",
+    category: "Fintech / Developer tools",
+    name: "FakePE",
+    description: "A payment gateway sandbox for teams building and testing transaction workflows.",
+    shipped: ["Developer UX", "Platform design"],
+    mark: "FP",
+  },
+];
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-      <span className="h-px w-6 bg-border-strong" />
-      {children}
-    </div>
-  );
-}
-
-function CTAButton({
-  children,
-  variant = "primary",
-  href = "#contact",
-  size = "md",
-}: {
-  children: React.ReactNode;
-  variant?: "primary" | "ghost";
-  href?: string;
-  size?: "sm" | "md";
-}) {
-  const sizing = size === "sm" ? "h-9 px-4 text-[13px]" : "h-11 px-5 text-sm";
-  const base =
-    "group relative inline-flex items-center gap-2 rounded-full font-medium tracking-tight transition-all duration-300 ease-out";
-  const styles =
-    variant === "primary"
-      ? "bg-foreground text-background hover:bg-brand hover:shadow-[0_10px_30px_-12px_oklch(0.7_0.19_40/0.6)]"
-      : "bg-transparent text-foreground border border-border-strong hover:border-foreground hover:bg-foreground hover:text-background";
-  return (
-    <a href={href} className={`${base} ${sizing} ${styles}`}>
-      <span>{children}</span>
-      <span className="relative flex h-4 w-4 items-center justify-center overflow-hidden">
-        <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="absolute transition-transform duration-300 ease-out group-hover:translate-x-4">
-          <path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-        <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="absolute -translate-x-4 transition-transform duration-300 ease-out group-hover:translate-x-0">
-          <path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </span>
-    </a>
-  );
-}
-
-/* ------------------------------ Nav ------------------------------ */
-
-function Nav() {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-  return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "border-b border-border bg-background/80 backdrop-blur-md" : "border-b border-transparent"
-      }`}
-    >
-      <Container className="flex h-16 items-center justify-between">
-        <a href="#" className="flex items-center gap-2 font-display text-[15px] font-bold tracking-tight">
-          <span className="inline-block h-2 w-2 rounded-sm bg-brand" />
-          THE VELNIX
-        </a>
-        <nav className="hidden items-center gap-8 md:flex">
-          {["Work", "Services", "About", "Contact"].map((l) => (
-            <a
-              key={l}
-              href={`#${l.toLowerCase()}`}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {l}
-            </a>
-          ))}
-        </nav>
-        <CTAButton href="#contact" size="sm">Start a Project</CTAButton>
-      </Container>
-    </header>
-  );
-}
-
-/* ------------------------------ Hero Diagram ------------------------------ */
-
-function ArchitectureDiagram() {
-  // Nodes positioned in a system-architecture grid
-  const nodes = [
-    { id: "ui", x: 40, y: 60, label: "UI", size: 1 },
-    { id: "api", x: 200, y: 40, label: "API", size: 1.1 },
-    { id: "core", x: 200, y: 170, label: "Core", size: 1.3 },
-    { id: "ai", x: 360, y: 90, label: "AI", size: 1.1 },
-    { id: "db", x: 360, y: 230, label: "DB", size: 1 },
-    { id: "edge", x: 60, y: 220, label: "Edge", size: 0.9 },
-  ] as const;
-  const links: Array<[string, string]> = [
-    ["ui", "api"],
-    ["ui", "core"],
-    ["api", "core"],
-    ["core", "ai"],
-    ["core", "db"],
-    ["edge", "core"],
-    ["ai", "db"],
-  ];
-  const nodeMap = Object.fromEntries(nodes.map((n) => [n.id, n]));
-
-  return (
-    <div className="relative aspect-[5/4] w-full">
-      {/* background grid */}
-      <div className="absolute inset-0 grid-bg rounded-xl" />
-      <div className="absolute inset-0 rounded-xl border border-border" />
-      {/* corner marks */}
-      {[
-        "left-2 top-2",
-        "right-2 top-2",
-        "left-2 bottom-2",
-        "right-2 bottom-2",
-      ].map((c) => (
-        <div key={c} className={`absolute ${c} h-2 w-2 border-foreground/40`}>
-          <span className="block h-px w-2 bg-foreground/40" />
-          <span className="block h-2 w-px bg-foreground/40" />
-        </div>
-      ))}
-
-      <svg viewBox="0 0 440 300" className="absolute inset-0 h-full w-full">
-        {/* links */}
-        {links.map(([a, b], i) => {
-          const A = nodeMap[a];
-          const B = nodeMap[b];
-          return (
-            <g key={`${a}-${b}`}>
-              <line
-                x1={A.x}
-                y1={A.y}
-                x2={B.x}
-                y2={B.y}
-                stroke="oklch(0.86 0 0)"
-                strokeWidth="1"
-              />
-              <line
-                x1={A.x}
-                y1={A.y}
-                x2={B.x}
-                y2={B.y}
-                stroke="var(--brand)"
-                strokeWidth="1.2"
-                strokeDasharray="4 16"
-                style={{ animation: `flow-dash ${3 + (i % 3)}s linear infinite` }}
-                opacity="0.85"
-              />
-            </g>
-          );
-        })}
-        {/* nodes */}
-        {nodes.map((n, i) => (
-          <g key={n.id}>
-            <circle
-              cx={n.x}
-              cy={n.y}
-              r={4 * n.size}
-              fill="var(--brand)"
-              style={{ animation: `pulse-node ${2 + (i % 3) * 0.4}s ease-in-out ${i * 0.2}s infinite` }}
-            />
-            <circle cx={n.x} cy={n.y} r={10 * n.size} fill="none" stroke="var(--brand)" strokeOpacity="0.2" />
-            <rect
-              x={n.x + 14}
-              y={n.y - 9}
-              width={n.label.length * 7 + 12}
-              height="18"
-              rx="3"
-              fill="var(--background)"
-              stroke="oklch(0.92 0 0)"
-            />
-            <text
-              x={n.x + 20}
-              y={n.y + 3}
-              fontFamily="JetBrains Mono, monospace"
-              fontSize="10"
-              fill="oklch(0.13 0 0)"
-            >
-              {n.label}
-            </text>
-          </g>
-        ))}
-      </svg>
-
-      {/* status row */}
-      <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-        <span className="flex items-center gap-1.5">
-          <span className="h-1.5 w-1.5 rounded-full bg-brand" style={{ animation: "pulse-node 1.6s ease-in-out infinite" }} />
-          system.online
-        </span>
-        <span>v0.42.1</span>
-      </div>
-    </div>
-  );
-}
-
-/* ------------------------------ Hero ------------------------------ */
+const faqs = [
+  [
+    "What does a project usually cost?",
+    "We scope around outcomes, not a generic hourly bucket. After a short discovery call, you receive a written range, milestones and assumptions before committing. Smaller focused engagements can start with a paid discovery sprint.",
+  ],
+  [
+    "Who owns the code and designs?",
+    "You do. Project IP, source code, design files and deployment access are handed over under the terms agreed for the engagement.",
+  ],
+  [
+    "Can you work with our existing team?",
+    "Yes. We can own a workstream, embed alongside your engineers, or provide senior product and technical direction without replacing the team you already trust.",
+  ],
+  [
+    "How will we know what is happening?",
+    "You get direct access to the people doing the work, a shared delivery board, concise written updates and a working demo every week.",
+  ],
+  [
+    "What happens after launch?",
+    "We plan handover from day one. Choose a defined support window, an ongoing improvement retainer, or a clean transition to your internal team.",
+  ],
+  [
+    "Do you sign NDAs and handle sensitive data?",
+    "Yes. We can sign a mutual NDA before detailed discovery and agree practical access, security and data-handling controls for the project.",
+  ],
+];
 
 function Hero() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 80]);
-
-  return (
-    <section ref={ref} className="relative overflow-hidden pt-32 pb-24 md:pt-40 md:pb-32">
-      <div className="absolute inset-0 grid-bg grid-bg-fade opacity-60" />
-      <Container className="relative">
-        <div className="grid items-center gap-16 lg:grid-cols-[1.05fr_1fr]">
-          <motion.div style={{ y }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-              <span className="font-mono uppercase tracking-wider text-muted-foreground">AI-Native Product Studio</span>
-            </div>
-            <h1 className="font-display text-balance text-[44px] font-semibold leading-[1.02] tracking-[-0.03em] md:text-[64px] lg:text-[76px]">
-              From Idea to <span className="italic text-muted-foreground">Production.</span>
-            </h1>
-            <p className="mt-6 max-w-xl text-balance text-base text-muted-foreground md:text-[17px] md:leading-relaxed">
-              We help startups and businesses design, build, and scale software products, AI systems,
-              mobile applications, and digital experiences.
-            </p>
-            <div className="mt-10 flex flex-wrap items-center gap-3">
-              <CTAButton href="#contact">Start a Project</CTAButton>
-              <CTAButton href="#work" variant="ghost">View Work</CTAButton>
-            </div>
-            <div className="mt-12 grid grid-cols-3 gap-6 border-t border-border pt-6 max-w-md">
-              {[
-                ["7+", "Products shipped"],
-                ["6", "Specialists"],
-                ["24/7", "Direct access"],
-              ].map(([k, v]) => (
-                <div key={k}>
-                  <div className="font-display text-2xl font-semibold tracking-tight">{k}</div>
-                  <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">{v}</div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <ArchitectureDiagram />
-          </motion.div>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-/* ------------------------------ Trust strip ------------------------------ */
-
-function Trust() {
-  const areas = ["SaaS", "AI", "Mobile", "Infrastructure", "Design", "Automation"];
-  const doubled = [...areas, ...areas];
-  return (
-    <section className="border-y border-border bg-surface py-8">
-      <Container>
-        <div className="mb-6 flex items-center justify-between">
-          <SectionLabel>Expertise</SectionLabel>
-          <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-            06 disciplines
-          </span>
-        </div>
-        <div className="relative overflow-hidden">
-          <div
-            className="flex gap-16 whitespace-nowrap"
-            style={{ animation: "marquee 30s linear infinite", width: "max-content" }}
-          >
-            {doubled.map((a, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <span className="h-1 w-1 rounded-full bg-brand" />
-                <span className="font-display text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-                  {a}
-                </span>
-              </div>
-            ))}
-          </div>
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-surface to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-surface to-transparent" />
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-/* ------------------------------ Services ------------------------------ */
-
-type IconName =
-  | "saas" | "ai" | "mobile" | "design" | "brand" | "infra" | "cto" | "strategy" | "auto";
-
-function Icon({ name }: { name: IconName }) {
-  const common = { width: 20, height: 20, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
-  switch (name) {
-    case "saas": return (<svg {...common}><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/><circle cx="6.5" cy="6.5" r=".5" fill="currentColor"/></svg>);
-    case "ai": return (<svg {...common}><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg>);
-    case "mobile": return (<svg {...common}><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg>);
-    case "design": return (<svg {...common}><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18M3 12h18"/></svg>);
-    case "brand": return (<svg {...common}><path d="M4 4l8 16 2-7 7-2z"/></svg>);
-    case "infra": return (<svg {...common}><rect x="3" y="4" width="18" height="5" rx="1"/><rect x="3" y="15" width="18" height="5" rx="1"/><path d="M7 6.5h.01M7 17.5h.01"/></svg>);
-    case "cto": return (<svg {...common}><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg>);
-    case "strategy": return (<svg {...common}><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>);
-    case "auto": return (<svg {...common}><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-12-5l-1-1M5 12a7 7 0 0 0 12 5l1 1"/></svg>);
-  }
-}
-
-function Services() {
-  const items: Array<{ icon: IconName; title: string; desc: string }> = [
-    { icon: "saas", title: "SaaS Development", desc: "End-to-end web platforms engineered for scale, speed, and clarity." },
-    { icon: "ai", title: "AI Agents", desc: "Production-grade agents, RAG pipelines, and AI-native workflows." },
-    { icon: "mobile", title: "Mobile Applications", desc: "Native-feel iOS and Android apps built on Flutter and React Native." },
-    { icon: "design", title: "UI / UX Design", desc: "Interfaces that earn trust through hierarchy, restraint, and motion." },
-    { icon: "brand", title: "Branding", desc: "Identity systems for product companies — not agency moodboards." },
-    { icon: "infra", title: "DevOps & Infrastructure", desc: "CI/CD, observability, and infra that holds up under real load." },
-    { icon: "cto", title: "CTO-as-a-Service", desc: "Senior technical leadership for founders without an engineering co-founder." },
-    { icon: "strategy", title: "Product Strategy", desc: "Roadmaps, scope, and tradeoffs informed by what we ship every week." },
-    { icon: "auto", title: "Automation Systems", desc: "Internal tools and automations that compound team leverage." },
+  const reduce = useReducedMotion();
+  const pillars = [
+    ["Strategy", "Shape the right product before the first line of code."],
+    ["Build", "Design systems and engineering that stay easy to extend."],
+    ["Launch", "Ship with the right feedback loops, metrics and handover."],
   ];
   return (
-    <section id="services" className="py-28 md:py-36">
-      <Container>
-        <div className="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div>
-            <SectionLabel>Services</SectionLabel>
-            <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.025em] md:text-5xl">
-              A full product team,<br/>
-              <span className="text-muted-foreground">on demand.</span>
-            </h2>
-          </div>
-          <p className="max-w-md text-muted-foreground">
-            Every discipline you need to take a product from a Figma file to paying customers — under one roof.
-          </p>
+    <section className="relative overflow-hidden border-b border-border pb-20 pt-24 md:pb-24 md:pt-28">
+      <div className="absolute inset-0 grid-bg opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_92%)]" />
+      <div className="absolute inset-x-0 top-0 h-[55%] bg-[radial-gradient(circle_at_top,rgba(46,197,182,0.16),transparent_58%)]" />
+      <div className="absolute left-1/2 top-[48%] h-[760px] w-[760px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-border/55 opacity-80 sm:h-[900px] sm:w-[900px]" />
+      <div className="absolute left-1/2 top-[48%] h-[440px] w-[440px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-brand/28 [animation:hero-orbit_44s_linear_infinite] sm:h-[620px] sm:w-[620px]" />
+      <div className="absolute left-1/2 top-[48%] h-[260px] w-[260px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand/20 [animation:hero-orbit-reverse_30s_linear_infinite] sm:h-[360px] sm:w-[360px]" />
+      <div className="absolute left-1/2 top-[48%] h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/[.08] blur-[110px] [animation:hero-glow_8s_ease-in-out_infinite] sm:h-[520px] sm:w-[520px]" />
+      <Container className="relative z-10 flex min-h-[calc(100svh-7rem)] flex-col items-center justify-center text-center">
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-3 rounded-full border border-border/80 bg-background/85 px-4 py-2 text-[10px] uppercase tracking-[.26em] text-muted-foreground backdrop-blur"
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+          Product strategy / design / engineering
+        </motion.div>
+        <div className="mt-8 overflow-hidden">
+          <motion.h1
+            initial={reduce ? false : { y: "108%" }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.95, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
+            className="mx-auto max-w-[1020px] text-balance font-display text-[clamp(3.6rem,9vw,7.8rem)] font-semibold leading-[.9] tracking-[-.06em]"
+          >
+            Ideas are easy.
+            <br />
+            <span className="font-accent font-light italic text-brand">Shipping</span> is the art.
+          </motion.h1>
         </div>
-
-        <div className="grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
-          {items.map((s, i) => (
+        <motion.p
+          initial={reduce ? false : { opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.22 }}
+          className="mx-auto mt-7 max-w-2xl text-pretty text-[15px] leading-8 text-muted-foreground md:text-[17px]"
+        >
+          We turn ambitious product ideas into dependable SaaS, AI and mobile experiences, with one
+          senior team from first decision to production.
+        </motion.p>
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.34 }}
+          className="mt-8 flex flex-wrap justify-center gap-3"
+        >
+          <ButtonColorful href="/contact" label="Start a project" />
+          <a
+            href="#work"
+            className="inline-flex h-12 items-center rounded-full border border-border-strong bg-background/85 px-5 text-sm font-semibold backdrop-blur transition-all hover:-translate-y-1 hover:border-foreground sm:px-6"
+          >
+            Explore the work
+          </a>
+        </motion.div>
+        <div className="mt-12 grid w-full max-w-5xl gap-3 md:grid-cols-3">
+          {pillars.map(([title, body], index) => (
             <motion.div
-              key={s.title}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.5, delay: (i % 3) * 0.05 }}
-              className="group relative bg-card p-8 transition-colors duration-300 hover:bg-surface"
+              key={title}
+              initial={reduce ? false : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.18 + index * 0.08 }}
+              className="group rounded-3xl border border-border bg-background/85 p-5 text-left shadow-[0_18px_60px_rgb(0_0_0_/_0.04)] backdrop-blur transition-transform duration-300 hover:-translate-y-1"
             >
-              <div className="flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-md border border-border text-foreground transition-colors group-hover:border-brand group-hover:text-brand">
-                  <Icon name={s.icon} />
-                </div>
-                <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-                  0{i + 1}
-                </span>
-              </div>
-              <h3 className="mt-8 font-display text-xl font-semibold tracking-tight">{s.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
-              <div className="mt-6 inline-flex items-center gap-1 text-xs text-foreground opacity-0 transition-opacity group-hover:opacity-100">
-                Learn more
-                <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              </div>
+              <p className="font-mono text-[9px] uppercase tracking-[.24em] text-brand">0{index + 1}</p>
+              <h2 className="mt-4 font-display text-2xl font-semibold tracking-[-.03em]">
+                {title}
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
             </motion.div>
           ))}
         </div>
@@ -386,406 +258,452 @@ function Services() {
   );
 }
 
-/* ------------------------------ Featured Work ------------------------------ */
-
-function ProductPreview({ kind }: { kind: string }) {
-  // Abstract previews tailored per project — no stock imagery
-  const accent = "var(--brand)";
+function Services() {
   return (
-    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md border border-border bg-surface">
-      <div className="absolute inset-0 grid-bg opacity-50" />
-      <div className="absolute left-3 top-3 flex gap-1.5">
-        <span className="h-2 w-2 rounded-full bg-border-strong" />
-        <span className="h-2 w-2 rounded-full bg-border-strong" />
-        <span className="h-2 w-2 rounded-full bg-border-strong" />
-      </div>
-      <div className="absolute inset-x-0 top-8 px-4">
-        {kind === "InboxFM" && (
-          <div className="space-y-1.5">
-            {[80, 65, 90, 55, 75].map((w, i) => (
-              <div key={i} className="flex items-center gap-2 rounded-sm border border-border bg-card p-1.5">
-                <span className="h-1.5 w-1.5 rounded-full" style={{ background: i === 1 ? accent : "var(--border-strong)" }} />
-                <span className="h-1 rounded-full bg-border-strong" style={{ width: `${w}%` }} />
-              </div>
-            ))}
-          </div>
-        )}
-        {kind === "CodeDog" && (
-          <div className="font-mono text-[9px] leading-relaxed text-muted-foreground">
-            <div><span style={{ color: accent }}>$</span> codedog scan ./src</div>
-            <div className="mt-1">✓ 124 files</div>
-            <div>⚠ 3 vulnerabilities</div>
-            <div className="mt-2 h-1 w-full overflow-hidden rounded bg-border">
-              <div className="h-full w-2/3" style={{ background: accent }} />
-            </div>
-          </div>
-        )}
-        {kind === "VedDB" && (
-          <div className="space-y-1">
-            <div className="flex justify-between font-mono text-[9px] text-muted-foreground"><span>OPS/SEC</span><span>1.42M</span></div>
-            <svg viewBox="0 0 200 60" className="h-16 w-full">
-              <polyline fill="none" stroke={accent} strokeWidth="1.5" points="0,40 20,30 40,35 60,20 80,28 100,12 120,22 140,10 160,18 180,8 200,14" />
-            </svg>
-          </div>
-        )}
-        {kind === "Doxify" && (
-          <div className="space-y-2">
-            <div className="h-2 w-1/2 rounded-sm bg-foreground" />
-            <div className="h-1 w-full rounded-sm bg-border-strong" />
-            <div className="h-1 w-5/6 rounded-sm bg-border-strong" />
-            <div className="h-1 w-2/3 rounded-sm bg-border-strong" />
-            <div className="mt-2 inline-block rounded-sm px-1.5 py-0.5 font-mono text-[8px]" style={{ background: accent, color: "white" }}>AI</div>
-          </div>
-        )}
-        {kind === "FakePE" && (
-          <div className="rounded-md border border-border bg-card p-2">
-            <div className="font-mono text-[9px] text-muted-foreground">amount</div>
-            <div className="font-display text-lg font-semibold">₹ 1,200.00</div>
-            <div className="mt-1.5 h-5 rounded-sm" style={{ background: accent }} />
-          </div>
-        )}
-        {kind === "ScholarFlex" && (
-          <div className="grid grid-cols-3 gap-1.5">
-            {Array.from({ length: 9 }).map((_, i) => (
-              <div key={i} className="aspect-square rounded-sm border border-border" style={{ background: i === 4 ? accent : "var(--card)" }} />
-            ))}
-          </div>
-        )}
-        {kind === "BizNest" && (
-          <div className="mx-auto w-20 rounded-[14px] border border-border-strong bg-card p-1.5">
-            <div className="h-1 w-6 rounded-full bg-border-strong mx-auto mb-1" />
-            <div className="space-y-1">
-              <div className="h-3 rounded-sm" style={{ background: accent }} />
-              <div className="h-3 rounded-sm bg-border" />
-              <div className="h-3 rounded-sm bg-border" />
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
+    <section id="services" className="border-t border-border py-24 md:py-32">
+      <Container>
+        <SectionIntro
+          eyebrow="Ways to work together"
+          title={
+            <>
+              Four focused engagements.
+              <br />
+              <span className="font-accent font-light italic text-muted-foreground">
+                No sprawling menu.
+              </span>
+            </>
+          }
+          body="Choose the outcome closest to your current stage. We shape the exact team and scope after a focused discovery call."
+        />
+        <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2">
+          {offers.map((o, index) => (
+            <AnimateIcon key={o.title} animateOnHover asChild>
+              <motion.article
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, margin: "-80px", amount: 0.18 }}
+                transition={{ duration: 0.55, delay: index * 0.08 }}
+                className="group relative overflow-hidden bg-background p-7 transition-colors hover:bg-surface md:p-9"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-foreground transition-colors duration-300 group-hover:text-brand">
+                    <o.icon size={28} />
+                  </span>
+                  <span className="font-mono text-[10px] tracking-widest text-muted-foreground">
+                    {o.n}
+                  </span>
+                </div>
+                <h3 className="mt-8 font-display text-3xl font-semibold">{o.title}</h3>
+                <p className="mt-3 max-w-lg text-sm leading-7 text-muted-foreground">{o.text}</p>
+                <div className="mt-6 grid gap-2 sm:grid-cols-2">
+                  {o.includes.map((x) => (
+                    <span key={x} className="flex items-center gap-2 text-xs">
+                      <CheckIcon size={13} className="text-brand" animate={false} />
+                      {x}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-7 border-t border-border pt-4 font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
+                  {o.time}
+                </div>
+              </motion.article>
+            </AnimateIcon>
+          ))}
+        </div>
+      </Container>
+    </section>
   );
 }
 
 function Work() {
-  const projects = [
-    { name: "InboxFM", category: "Productivity", desc: "AI-native email workspace." },
-    { name: "CodeDog", category: "Developer Tools", desc: "AI-powered codebase security platform." },
-    { name: "VedDB", category: "Infrastructure", desc: "High-performance in-memory database." },
-    { name: "Doxify", category: "AI / Docs", desc: "AI documentation engine." },
-    { name: "FakePE", category: "Fintech", desc: "Developer payment gateway sandbox." },
-    { name: "ScholarFlex", category: "EdTech", desc: "Student productivity platform." },
-    { name: "BizNest", category: "Mobile / SMB", desc: "Business management mobile platform." },
-  ];
   return (
-    <section id="work" className="border-t border-border bg-surface py-28 md:py-36">
+    <section id="work" className="border-t border-border bg-surface py-24 md:py-32">
       <Container>
-        <div className="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div>
-            <SectionLabel>Selected Work</SectionLabel>
-            <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.025em] md:text-5xl">
-              Products we've shipped.
-            </h2>
-          </div>
-          <p className="max-w-md text-muted-foreground">
-            A selection of products we've built — across AI, infrastructure, fintech and mobile.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((p, i) => (
-            <motion.a
-              key={p.name}
-              href="#"
-              initial={{ opacity: 0, y: 16 }}
+        <SectionIntro
+          eyebrow="Selected product work"
+          title={
+            <>
+              Evidence over
+              <br />
+              <span className="font-accent font-light italic text-muted-foreground">
+                empty claims.
+              </span>
+            </>
+          }
+          body="A look at the product problems we have taken on and the systems designed around them. Detailed walkthroughs are available during a project conversation."
+        />
+        <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:h-[420px] lg:grid-cols-3 lg:grid-rows-2">
+          {cases.map((c, i) => (
+            <motion.article
+              id={c.id}
+              key={c.name}
+              initial={{ opacity: 0, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: (i % 3) * 0.06 }}
-              className={`group relative flex flex-col rounded-xl border border-border bg-card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_20px_60px_-30px_oklch(0_0_0/0.25)] ${
-                i === 0 ? "lg:col-span-2" : ""
-              }`}
+              viewport={{ once: false, margin: "-70px", amount: 0.18 }}
+              transition={{ duration: 0.55, delay: i * 0.08 }}
+              className="group flex min-h-[210px] overflow-hidden bg-background transition-colors hover:bg-surface lg:min-h-0"
             >
-              <ProductPreview kind={p.name} />
-              <div className="mt-5 flex items-start justify-between gap-4">
-                <div>
-                  <div className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-                    {p.category}
-                  </div>
-                  <h3 className="mt-1.5 font-display text-xl font-semibold tracking-tight">{p.name}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{p.desc}</p>
-                </div>
-                <span className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border transition-all duration-300 group-hover:border-brand group-hover:bg-brand group-hover:text-white">
-                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-                    <path d="M4 10l6-6M5 4h5v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+              <div className="relative flex w-20 shrink-0 items-center justify-center overflow-hidden border-r border-border bg-foreground text-background">
+                <div className="absolute inset-0 opacity-10 grid-bg" />
+                <span className="relative -rotate-90 font-accent text-4xl font-light italic text-brand transition-transform duration-700 group-hover:-rotate-90 group-hover:scale-110">
+                  {c.mark}
+                </span>
+                <span className="absolute left-3 top-4 font-mono text-[8px] uppercase tracking-widest text-background/50">
+                  Case / 0{i + 1}
                 </span>
               </div>
-            </motion.a>
-          ))}
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-/* ------------------------------ Why Velnix ------------------------------ */
-
-function Why() {
-  const rows = [
-    ["Long meetings", "Rapid execution"],
-    ["Outsourced communication", "Direct access to the team"],
-    ["Generic solutions", "Product thinking"],
-    ["Slow delivery", "Fast iteration"],
-    ["Feature factories", "Strategic partners"],
-  ];
-  return (
-    <section id="about" className="py-28 md:py-36">
-      <Container>
-        <div className="mb-16">
-          <SectionLabel>Why Velnix</SectionLabel>
-          <h2 className="mt-4 max-w-2xl font-display text-4xl font-semibold tracking-[-0.025em] md:text-5xl">
-            Built like a product team. Not an agency.
-          </h2>
-        </div>
-
-        <div className="overflow-hidden rounded-xl border border-border">
-          <div className="grid grid-cols-2 border-b border-border bg-surface">
-            <div className="p-5 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-              Traditional Agency
-            </div>
-            <div className="border-l border-border p-5 font-mono text-[11px] uppercase tracking-wider text-foreground">
-              <span className="text-brand">●</span> The Velnix
-            </div>
-          </div>
-          {rows.map(([a, b], i) => (
-            <div
-              key={i}
-              className={`grid grid-cols-2 ${i !== rows.length - 1 ? "border-b border-border" : ""}`}
-            >
-              <div className="flex items-center gap-3 p-5 text-muted-foreground line-through decoration-border-strong">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 4l6 6M10 4l-6 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/></svg>
-                <span className="text-sm md:text-base">{a}</span>
-              </div>
-              <div className="flex items-center gap-3 border-l border-border bg-card p-5">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-brand"><path d="M3 7l3 3 5-6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                <span className="text-sm font-medium md:text-base">{b}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-/* ------------------------------ Process ------------------------------ */
-
-function Process() {
-  const steps = [
-    { n: "01", t: "Discover", d: "Define the problem, the user, and the smallest valuable thing to build." },
-    { n: "02", t: "Design", d: "Translate scope into interfaces, flows, and a system that scales." },
-    { n: "03", t: "Build", d: "Engineer in tight loops with weekly demos and continuous deployment." },
-    { n: "04", t: "Launch", d: "Ship to production with monitoring, analytics, and a launch plan." },
-    { n: "05", t: "Scale", d: "Compound the wins — performance, growth, infrastructure, AI." },
-  ];
-  return (
-    <section className="border-t border-border bg-surface py-28 md:py-36">
-      <Container>
-        <div className="mb-16">
-          <SectionLabel>Process</SectionLabel>
-          <h2 className="mt-4 max-w-2xl font-display text-4xl font-semibold tracking-[-0.025em] md:text-5xl">
-            Five steps. Zero theatrics.
-          </h2>
-        </div>
-
-        <div className="relative">
-          <div className="absolute left-0 right-0 top-6 hidden h-px bg-border md:block" />
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-5 md:gap-6">
-            {steps.map((s, i) => (
-              <motion.div
-                key={s.n}
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="relative"
-              >
-                <div className="relative flex h-12 items-center md:h-12">
-                  <span className="z-10 flex h-3 w-3 items-center justify-center rounded-full bg-background ring-1 ring-border-strong">
-                    <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-                  </span>
-                  <span className="ml-3 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                    {s.n}
-                  </span>
+              <div className="flex min-w-0 flex-1 flex-col p-5">
+                <span className="font-mono text-[9px] uppercase tracking-widest text-brand">
+                  {c.category}
+                </span>
+                <h3 className="mt-1.5 font-display text-2xl font-medium">{c.name}</h3>
+                <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
+                  {c.description}
+                </p>
+                <div className="mt-auto flex flex-wrap gap-1.5 pt-4">
+                  {c.shipped.map((x) => (
+                    <span
+                      key={x}
+                      className="rounded-full border border-border px-2.5 py-1 text-[10px] text-muted-foreground"
+                    >
+                      {x}
+                    </span>
+                  ))}
                 </div>
-                <h3 className="mt-3 font-display text-xl font-semibold tracking-tight">{s.t}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{s.d}</p>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+            </motion.article>
+          ))}
         </div>
       </Container>
     </section>
   );
 }
 
-/* ------------------------------ Team ------------------------------ */
+function Standards() {
+  const points = [
+    {
+      icon: LayersIcon,
+      t: "Your IP, your repository",
+      d: "Source code, design files and deployment access are yours under the agreed engagement terms.",
+    },
+    {
+      icon: LockIcon,
+      t: "Security by agreement",
+      d: "NDA support, least-privilege access and project-specific data controls are established before sensitive work.",
+    },
+    {
+      icon: CheckIcon,
+      t: "Built for handover",
+      d: "Documentation, predictable architecture and knowledge transfer keep you independent after launch.",
+    },
+    {
+      icon: SignalIcon,
+      t: "Visible every week",
+      d: "A working demo, shared delivery board and direct access to the people doing the work.",
+    },
+  ];
+  return (
+    <section className="py-24 md:py-32">
+      <Container>
+        <SectionIntro
+          eyebrow="Working standard"
+          title={
+            <>
+              Less risk.
+              <br />
+              <span className="font-accent font-light italic text-muted-foreground">
+                More visibility.
+              </span>
+            </>
+          }
+          body="Good delivery is not mysterious. These are the operating principles we bring to every engagement."
+        />
+        <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
+          {points.map((p, index) => (
+            <motion.div
+              key={p.t}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.25 }}
+              transition={{ duration: 0.55, delay: index * 0.08 }}
+              className="group bg-background p-6 transition-colors hover:bg-surface"
+            >
+              <p.icon size={20} className="text-brand" animateOnHover />
+              <h3 className="mt-8 font-display text-2xl">{p.t}</h3>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">{p.d}</p>
+            </motion.div>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+}
 
 function Team() {
-  const members = [
-    { name: "Mihir Rabari", disciplines: "Engineering • Product • Infrastructure" },
-    { name: "Khushi Trivedi", disciplines: "Operations • Growth • Partnerships" },
-    { name: "Khushi Patel", disciplines: "UI/UX • Branding • Design Systems" },
-    { name: "Aangi Shah", disciplines: "Product Design • Frontend Experience" },
-    { name: "Karan Mistry", disciplines: "AI • Machine Learning • RAG Systems" },
-    { name: "Jignesh Prajapati", disciplines: "Flutter • Mobile Applications" },
+  const people = [
+    {
+      name: "Mihir Rabari",
+      role: "Product engineering",
+      owns: "Architecture, delivery and infrastructure",
+      mark: "MR",
+    },
+    {
+      name: "Khushi Trivedi",
+      role: "Operations & growth",
+      owns: "Client operations, growth and partnerships",
+      mark: "KT",
+    },
+    {
+      name: "Khushi Patel",
+      role: "Product design",
+      owns: "UI/UX, brand systems and design direction",
+      mark: "KP",
+    },
+    {
+      name: "Aangi Shah",
+      role: "Experience design",
+      owns: "Product flows and frontend experience",
+      mark: "AS",
+    },
+    {
+      name: "Karan Mistry",
+      role: "AI engineering",
+      owns: "Machine learning, agents and RAG systems",
+      mark: "KM",
+    },
+    {
+      name: "Jignesh Prajapati",
+      role: "Mobile engineering",
+      owns: "Flutter and cross-platform applications",
+      mark: "JP",
+    },
   ];
   return (
-    <section className="py-28 md:py-36">
+    <section id="team" className="border-t border-border bg-surface py-24 md:py-32">
       <Container>
-        <div className="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div>
-            <SectionLabel>Team</SectionLabel>
-            <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.025em] md:text-5xl">
-              Specialists,<br/>not generalists.
-            </h2>
-          </div>
-          <p className="max-w-md text-muted-foreground">
-            Six people. Six disciplines. Each member ships work that defines our standard.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {members.map((m, i) => {
-            const initials = m.name.split(" ").map((p) => p[0]).slice(0, 2).join("");
-            return (
-              <div key={m.name} className="group relative flex flex-col gap-6 bg-card p-8 transition-colors hover:bg-surface">
-                <div className="relative flex h-32 w-full items-center justify-center overflow-hidden rounded-md border border-border bg-surface">
-                  <div className="absolute inset-0 grid-bg opacity-50" />
-                  <span className="relative font-display text-5xl font-semibold tracking-tight text-foreground/90">
-                    {initials}
-                  </span>
-                  <span className="absolute bottom-2 right-2 font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
-                    0{i + 1}
-                  </span>
-                </div>
-                <div>
-                  <h3 className="font-display text-lg font-semibold tracking-tight">{m.name}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{m.disciplines}</p>
-                </div>
+        <SectionIntro
+          eyebrow="The people doing the work"
+          title={
+            <>
+              Six specialists.
+              <br />
+              <span className="font-accent font-light italic text-muted-foreground">
+                No account-manager maze.
+              </span>
+            </>
+          }
+          body="You work directly with the people making product and technical decisions. The team stays deliberately small so context does not disappear between meetings."
+        />
+        <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+          {people.map((person, index) => (
+            <motion.article
+              key={person.name}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.55, delay: index * 0.08 }}
+              className="group bg-background p-7 transition-colors hover:bg-surface"
+            >
+              <div className="relative flex h-28 items-center justify-center overflow-hidden border border-border bg-surface">
+                <div className="absolute inset-0 grid-bg opacity-60" />
+                <span className="relative font-accent text-5xl font-light italic text-foreground/80">
+                  {person.mark}
+                </span>
+                <span className="absolute right-3 top-3 font-mono text-[9px] tracking-widest text-muted-foreground">
+                  0{index + 1}
+                </span>
               </div>
-            );
-          })}
+              <p className="mt-6 font-mono text-[9px] uppercase tracking-widest text-brand">
+                {person.role}
+              </p>
+              <h3 className="mt-2 font-display text-2xl font-semibold">{person.name}</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">{person.owns}</p>
+            </motion.article>
+          ))}
         </div>
       </Container>
     </section>
   );
 }
 
-/* ------------------------------ Final CTA ------------------------------ */
+function Process() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const reduce = useReducedMotion();
+  const [activeStep, setActiveStep] = useState(0);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+  const progress = useSpring(scrollYProgress, { stiffness: 100, damping: 24, restDelta: 0.001 });
 
-function FinalCTA() {
+  useMotionValueEvent(scrollYProgress, "change", (value) => {
+    if (reduce) return;
+    const next = Math.min(4, Math.floor(value * 5));
+    setActiveStep((current) => (current === next ? current : next));
+  });
+
+  const steps = [
+    ["01", "Align", "Goals, users, constraints and the smallest useful release."],
+    ["02", "Shape", "Flows, architecture, delivery plan and a transparent proposal."],
+    ["03", "Build", "Weekly working software, tight feedback and continuous quality checks."],
+    ["04", "Launch", "Production deployment, analytics, monitoring and team handover."],
+    ["05", "Improve", "Support, learning and focused iterations after real users arrive."],
+  ];
   return (
-    <section id="contact" className="relative overflow-hidden border-t border-border bg-foreground text-background">
-      <div
-        className="absolute inset-0 opacity-[0.08]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
-          backgroundSize: "56px 56px",
-        }}
-      />
-      <Container className="relative py-28 md:py-40">
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-background/60">
-            <span className="h-px w-6 bg-background/40" />
-            Start a Project
-          </div>
-          <h2 className="mt-6 font-display text-balance text-5xl font-semibold leading-[1.02] tracking-[-0.03em] md:text-7xl">
-            Let's build something <span className="italic text-brand">worth shipping.</span>
-          </h2>
-          <p className="mt-6 max-w-xl text-balance text-base text-background/70 md:text-lg">
-            Whether you're starting from an idea, scaling an existing product, or integrating AI into your business — we're ready to help.
-          </p>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <a
-              href="mailto:hello@thevelnix.com"
-              className="group inline-flex h-11 items-center gap-2 rounded-md bg-background px-5 text-sm font-medium text-foreground transition-all hover:bg-brand hover:text-white"
-            >
-              Start a Project
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="transition-transform group-hover:translate-x-0.5"><path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </a>
-            <a
-              href="mailto:hello@thevelnix.com"
-              className="inline-flex h-11 items-center gap-2 rounded-md border border-background/20 px-5 text-sm font-medium text-background transition-colors hover:bg-background/10"
-            >
-              hello@thevelnix.com
-            </a>
-          </div>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-/* ------------------------------ Footer ------------------------------ */
-
-function Footer() {
-  return (
-    <footer className="border-t border-border bg-background">
-      <Container className="py-16">
-        <div className="grid grid-cols-2 gap-12 md:grid-cols-4">
-          <div className="col-span-2">
-            <div className="flex items-center gap-2 font-display text-sm font-bold tracking-tight">
-              <span className="inline-block h-2 w-2 rounded-sm bg-brand" />
-              THE VELNIX
+    <section
+      ref={sectionRef}
+      id="process"
+      className={`relative border-y border-border bg-foreground text-background ${reduce ? "py-24 md:py-32" : "py-24 md:py-32 lg:h-[220svh] lg:py-0"}`}
+    >
+      <div className={reduce ? "" : "lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:items-center"}>
+        <Container>
+          <div className="flex items-end justify-between gap-8">
+            <div>
+              <Eyebrow invert>How delivery works</Eyebrow>
+              <h2 className="mt-4 max-w-3xl font-display text-5xl font-semibold leading-none md:text-7xl">
+                A clear path from uncertainty
+                <br />
+                <span className="font-accent font-light italic text-background/50">
+                  to working software.
+                </span>
+              </h2>
             </div>
-            <p className="mt-4 max-w-xs text-sm text-muted-foreground">From Idea to Production.</p>
+            <div className="hidden text-right lg:block">
+              <span className="font-display text-5xl text-brand">0{activeStep + 1}</span>
+              <span className="ml-2 font-mono text-[9px] uppercase tracking-widest text-background/40">
+                / 05
+              </span>
+            </div>
           </div>
-          <div>
-            <div className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">Studio</div>
-            <ul className="mt-4 space-y-2 text-sm">
-              {["Work", "Services", "About", "Contact"].map((l) => (
-                <li key={l}><a href={`#${l.toLowerCase()}`} className="text-foreground/80 hover:text-foreground">{l}</a></li>
-              ))}
-            </ul>
+
+          <div className="relative mt-14 h-px overflow-hidden bg-background/15">
+            <motion.div
+              className="absolute inset-y-0 left-0 origin-left bg-brand"
+              style={{ scaleX: progress }}
+            />
           </div>
-          <div>
-            <div className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">Contact</div>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li><a href="mailto:hello@thevelnix.com" className="text-foreground/80 hover:text-foreground">hello@thevelnix.com</a></li>
-              <li><a href="#" className="text-foreground/80 hover:text-foreground">Twitter / X</a></li>
-              <li><a href="#" className="text-foreground/80 hover:text-foreground">LinkedIn</a></li>
-            </ul>
+
+          <div className="mt-5 grid gap-px overflow-hidden rounded-2xl border border-background/15 bg-background/15 md:grid-cols-5">
+            {steps.map((s, index) => {
+              const isActive = reduce || activeStep === index;
+              return (
+                <motion.div
+                  key={s[0]}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false, amount: 0.25 }}
+                  transition={{ duration: 0.55, delay: index * 0.06 }}
+                  className={`group relative bg-foreground p-6 transition-all duration-500 hover:bg-background/5 ${isActive ? "lg:bg-background/[.08] lg:opacity-100" : "lg:opacity-35"}`}
+                >
+                  <span
+                    className={`font-mono text-[9px] tracking-widest transition-colors ${isActive ? "text-brand" : "text-background/40"}`}
+                  >
+                    {s[0]}
+                  </span>
+                  <h3 className="mt-10 font-display text-2xl">{s[1]}</h3>
+                  <p className="mt-3 text-xs leading-6 text-background/60">{s[2]}</p>
+                  <span
+                    className={`absolute inset-x-0 bottom-0 h-0.5 origin-left bg-brand transition-transform duration-500 ${isActive ? "scale-x-100" : "scale-x-0"}`}
+                  />
+                </motion.div>
+              );
+            })}
           </div>
-        </div>
-        <div className="mt-16 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 md:flex-row md:items-center">
-          <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-            © {new Date().getFullYear()} The Velnix. All rights reserved.
-          </p>
-          <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-            Crafted in code.
-          </p>
-        </div>
-      </Container>
-    </footer>
+        </Container>
+      </div>
+    </section>
   );
 }
 
-/* ------------------------------ Page ------------------------------ */
+function FAQ() {
+  const [open, setOpen] = useState(0);
+  return (
+    <section className="py-24 md:py-32">
+      <Container>
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="grid gap-14 lg:grid-cols-[.75fr_1.25fr]"
+        >
+          <div>
+            <Eyebrow>Before we start</Eyebrow>
+            <h2 className="mt-4 font-display text-5xl font-semibold">Straight answers.</h2>
+            <p className="mt-5 max-w-sm text-sm leading-7 text-muted-foreground">
+              Still wondering about something? Email us and a team member will reply directly.
+            </p>
+          </div>
+          <div className="border-t border-border">
+            {faqs.map((f, i) => {
+              const isOpen = open === i;
+              const panelId = `faq-panel-${i}`;
+              return (
+              <div key={f[0]} className="group border-b border-border">
+                <button
+                  onClick={() => setOpen(open === i ? -1 : i)}
+                  className="flex w-full items-center justify-between gap-6 py-6 text-left font-medium transition-colors hover:text-brand"
+                  aria-expanded={isOpen}
+                  aria-controls={panelId}
+                >
+                  <span>{f[0]}</span>
+                  <span className="relative h-5 w-5 shrink-0" aria-hidden="true">
+                    <span className="absolute left-1/2 top-1/2 h-px w-4 -translate-x-1/2 -translate-y-1/2 bg-brand" />
+                    <motion.span
+                      animate={{ scaleY: isOpen ? 0 : 1 }}
+                      transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                      className="absolute left-1/2 top-1/2 h-4 w-px -translate-x-1/2 -translate-y-1/2 bg-brand"
+                    />
+                  </span>
+                </button>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      id={panelId}
+                      key="content"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{
+                        height: { duration: 0.42, ease: [0.16, 1, 0.3, 1] },
+                        opacity: { duration: 0.25, ease: "easeOut" },
+                      }}
+                      className="overflow-hidden"
+                    >
+                      <motion.p
+                        initial={{ y: -8 }}
+                        animate={{ y: 0 }}
+                        exit={{ y: -6 }}
+                        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                        className="max-w-2xl pb-6 pr-10 text-sm leading-7 text-muted-foreground"
+                      >
+                        {f[1]}
+                      </motion.p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+              );
+            })}
+          </div>
+        </motion.div>
+      </Container>
+    </section>
+  );
+}
 
 function Landing() {
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <Nav />
+      <SiteHeader />
       <Hero />
-      <Trust />
       <Services />
       <Work />
-      <Why />
+      <Standards />
       <Process />
       <Team />
-      <FinalCTA />
-      <Footer />
+      <FAQ />
+      <SiteFooter />
     </main>
   );
 }
