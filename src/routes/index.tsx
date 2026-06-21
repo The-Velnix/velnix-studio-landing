@@ -94,7 +94,7 @@ function Nav() {
             </a>
           ))}
         </nav>
-        <CTAButton href="#contact">Start a Project</CTAButton>
+        <CTAButton href="#contact" size="sm">Start a Project</CTAButton>
       </Container>
     </header>
   );
