@@ -1,4 +1,4 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import BlurText from "@/components/react-bits/BlurText";
 import ScrollReveal from "@/components/react-bits/ScrollReveal";
@@ -275,20 +275,18 @@ function ContactPage() {
                             setError("");
                             setStep(index);
                           }}
-                          className={`flex w-full items-start gap-4 rounded-2xl border px-4 py-4 text-left transition-all ${
-                            active
-                              ? "border-brand bg-background shadow-[0_12px_30px_rgb(0_0_0_/_0.04)]"
-                              : "border-border bg-transparent hover:border-border-strong hover:bg-background/70"
-                          }`}
+                          className={`flex w-full items-start gap-4 rounded-2xl border px-4 py-4 text-left transition-all ${active
+                            ? "border-brand bg-background shadow-[0_12px_30px_rgb(0_0_0_/_0.04)]"
+                            : "border-border bg-transparent hover:border-border-strong hover:bg-background/70"
+                            }`}
                         >
                           <span
-                            className={`mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors ${
-                              active
-                                ? "bg-brand text-brand-foreground"
-                                : done
-                                  ? "bg-foreground text-background"
-                                  : "bg-muted text-muted-foreground"
-                            }`}
+                            className={`mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors ${active
+                              ? "bg-brand text-brand-foreground"
+                              : done
+                                ? "bg-foreground text-background"
+                                : "bg-muted text-muted-foreground"
+                              }`}
                           >
                             <Icon size={18} animateOnHover={active} />
                           </span>

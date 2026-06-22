@@ -1,4 +1,4 @@
-﻿import FlowingMenu from "@/components/react-bits/FlowingMenu";
+import FlowingMenu from "@/components/react-bits/FlowingMenu";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   AnimatePresence,
@@ -466,13 +466,25 @@ function Team() {
       owns: "Flutter and cross-platform applications",
       mark: "JP",
     },
+    {
+      name: "Tajes Patel",
+      role: "Frontend engineering",
+      owns: "Web development, UI components and performance",
+      mark: "TP",
+    },
+    {
+      name: "Jaivik Prajapati",
+      role: "Backend engineering",
+      owns: "API development, systems integration and cloud services",
+      mark: "JV",
+    },
   ];
   return (
     <section id="team" className="border-t border-border bg-surface py-24 md:py-32">
       <Container>
         <SectionIntro
           eyebrow="The people doing the work"
-          titleText="Six specialists. No account-manager maze."
+          titleText="Eight specialists. No account-manager maze."
           body="You work directly with the people making product and technical decisions. The team stays deliberately small so context does not disappear between meetings."
         />
         <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
