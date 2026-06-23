@@ -28,10 +28,10 @@ export default function FlowingMenu({
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative w-full overflow-hidden border py-4 transition-all duration-500 rounded-full md:py-5 shadow-[0_12px_40px_rgba(0,0,0,.03)] cursor-pointer"
+      className="relative w-full overflow-hidden border-y py-4 transition-colors duration-500 md:py-5 cursor-pointer"
       style={{
         backgroundColor: isHovered ? marqueeBgColor : bgColor,
-        borderColor: isHovered ? "#1f2229" : borderColor,
+        borderColor: isHovered ? "#1f2229" : "var(--border)",
       }}
     >
       <div className="relative flex w-full items-center overflow-hidden">

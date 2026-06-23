@@ -191,12 +191,11 @@ function Hero() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden border-b border-border pb-18 pt-20 md:pb-24 md:pt-28">
+    <section className="relative overflow-hidden pt-20 md:pt-28">
       <div className="absolute inset-0 grid-bg opacity-[0.32] [mask-image:linear-gradient(to_bottom,black,transparent_92%)]" />
       <div className="absolute inset-x-0 top-0 h-[38%] bg-[radial-gradient(circle_at_top,rgba(46,197,182,0.08),transparent_62%)]" />
-      <Container className="relative z-10 flex min-h-[calc(100svh-6rem)] flex-col items-center justify-between text-center pb-4 pt-10 md:pb-6 md:pt-14">
-        <div className="h-4 md:h-8" aria-hidden="true" />
-        <div className="flex flex-col items-center w-full my-auto">
+      <Container className="relative z-10 flex min-h-[calc(100svh-12rem)] flex-col items-center justify-center text-center pb-16 pt-10 md:pb-20 md:pt-14">
+        <div className="flex flex-col items-center w-full">
           <div className="overflow-hidden">
             <motion.h1
               initial={reduce ? false : { y: "108%" }}
@@ -248,28 +247,27 @@ function Hero() {
             </a>
           </motion.div>
         </div>
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.75, delay: 0.44 }}
-          className="mt-12 w-full max-w-[1120px]"
-        >
-          <FlowingMenu
-            items={[
-              { link: "/#services", text: "AI Systems" },
-              { link: "/#work", text: "Mobile" },
-              { link: "/#process", text: "Infrastructure" },
-              { link: "/#team", text: "Strategy" },
-            ]}
-            speed={22}
-            textColor="#0f1115"
-            bgColor="#f5f3ef"
-            marqueeBgColor="#0f1115"
-            marqueeTextColor="#ffffff"
-            borderColor="#d8d4cc"
-          />
-        </motion.div>
       </Container>
+      <motion.div
+        initial={reduce ? false : { opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.75, delay: 0.44 }}
+        className="w-full"
+      >
+        <FlowingMenu
+          items={[
+            { link: "/#services", text: "AI Systems" },
+            { link: "/#work", text: "Mobile" },
+            { link: "/#process", text: "Infrastructure" },
+            { link: "/#team", text: "Strategy" },
+          ]}
+          speed={22}
+          textColor="#0f1115"
+          bgColor="#f5f3ef"
+          marqueeBgColor="#0f1115"
+          marqueeTextColor="#ffffff"
+        />
+      </motion.div>
     </section>
   );
 }
