@@ -194,57 +194,60 @@ function Hero() {
     <section className="relative overflow-hidden border-b border-border pb-18 pt-20 md:pb-24 md:pt-28">
       <div className="absolute inset-0 grid-bg opacity-[0.32] [mask-image:linear-gradient(to_bottom,black,transparent_92%)]" />
       <div className="absolute inset-x-0 top-0 h-[38%] bg-[radial-gradient(circle_at_top,rgba(46,197,182,0.08),transparent_62%)]" />
-      <Container className="relative z-10 flex min-h-[calc(100svh-6rem)] flex-col items-center justify-center text-center">
-        <div className="mt-8 overflow-hidden">
-          <motion.h1
-            initial={reduce ? false : { y: "108%" }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.95, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
-            className="mx-auto max-w-[16ch] text-balance font-display text-[clamp(3.25rem,8.2vw,7rem)] font-semibold leading-[0.88] tracking-[-.055em]"
-          >
-            <BlurText
-              text="Ideas are easy."
-              animateBy="words"
-              direction="bottom"
-              delay={70}
-              stepDuration={0.34}
-              className="block"
-            />
-            <span className="block pt-1 leading-[1.02]">
+      <Container className="relative z-10 flex min-h-[calc(100svh-6rem)] flex-col items-center justify-between text-center pb-4 pt-10 md:pb-6 md:pt-14">
+        <div className="h-4 md:h-8" aria-hidden="true" />
+        <div className="flex flex-col items-center w-full my-auto">
+          <div className="overflow-hidden">
+            <motion.h1
+              initial={reduce ? false : { y: "108%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.95, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
+              className="mx-auto max-w-[16ch] text-balance font-display text-[clamp(3.25rem,8.2vw,7rem)] font-semibold leading-[0.88] tracking-[-.055em]"
+            >
               <BlurText
-                text="Shipping is the art."
+                text="Ideas are easy."
                 animateBy="words"
                 direction="bottom"
-                delay={82}
+                delay={70}
                 stepDuration={0.34}
-                className="font-display text-[clamp(3.15rem,8vw,6.85rem)] font-semibold leading-[1.02] tracking-[-.055em] text-brand"
+                className="block"
               />
-            </span>
-          </motion.h1>
-        </div>
-        <motion.p
-          initial={reduce ? false : { opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.22 }}
-          className="mx-auto mt-7 max-w-xl text-pretty text-[15px] leading-8 text-muted-foreground md:text-[17px]"
-        >
-          We turn ambitious product ideas into dependable SaaS, AI and mobile experiences, with one
-          senior team from first decision to production.
-        </motion.p>
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.34 }}
-          className="mt-8 flex flex-wrap justify-center gap-3"
-        >
-          <ButtonColorful href="/contact" label="Start a project" />
-          <a
-            href="#work"
-            className="inline-flex h-12 items-center rounded-full border border-border-strong bg-background/90 px-5 text-sm font-semibold backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-foreground sm:px-6"
+              <span className="block pt-1 leading-[1.02]">
+                <BlurText
+                  text="Shipping is the art."
+                  animateBy="words"
+                  direction="bottom"
+                  delay={82}
+                  stepDuration={0.34}
+                  className="font-display text-[clamp(3.15rem,8vw,6.85rem)] font-semibold leading-[1.02] tracking-[-.055em] text-brand"
+                />
+              </span>
+            </motion.h1>
+          </div>
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.22 }}
+            className="mx-auto mt-7 max-w-xl text-pretty text-[15px] leading-8 text-muted-foreground md:text-[17px]"
           >
-            Explore the work
-          </a>
-        </motion.div>
+            We turn ambitious product ideas into dependable SaaS, AI and mobile experiences, with
+            one senior team from first decision to production.
+          </motion.p>
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.34 }}
+            className="mt-8 flex flex-wrap justify-center gap-3"
+          >
+            <ButtonColorful href="/contact" label="Start a project" />
+            <a
+              href="#work"
+              className="inline-flex h-12 items-center rounded-full border border-border-strong bg-background/90 px-5 text-sm font-semibold backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-foreground sm:px-6"
+            >
+              Explore the work
+            </a>
+          </motion.div>
+        </div>
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
@@ -253,12 +256,12 @@ function Hero() {
         >
           <FlowingMenu
             items={[
-              { link: "/#services", text: "AI Systems", image: "" },
-              { link: "/#work", text: "Mobile", image: "" },
-              { link: "/#process", text: "Infrastructure", image: "" },
-              { link: "/#team", text: "Strategy", image: "" },
+              { link: "/#services", text: "AI Systems" },
+              { link: "/#work", text: "Mobile" },
+              { link: "/#process", text: "Infrastructure" },
+              { link: "/#team", text: "Strategy" },
             ]}
-            speed={12}
+            speed={22}
             textColor="#0f1115"
             bgColor="#f5f3ef"
             marqueeBgColor="#0f1115"
