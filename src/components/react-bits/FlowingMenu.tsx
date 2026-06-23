@@ -1,4 +1,4 @@
-﻿// @ts-nocheck
+// @ts-nocheck
 import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useState } from "react";
 
@@ -63,7 +63,11 @@ export default function FlowingMenu({
           <motion.a
             key={`${item.text}-${index}`}
             href={item.link}
-            onHoverStart={() => setActiveIndex(index)}
+            onHoverStart={() => {
+              if (window.matchMedia("(hover: hover)").matches) {
+                setActiveIndex(index);
+              }
+            }}
             onHoverEnd={() => setActiveIndex(null)}
             className="group relative flex min-h-[110px] items-center justify-center overflow-hidden border-b px-5 py-6 md:min-h-[130px] md:border-r md:border-b-0 last:border-r-0"
             style={{ borderColor }}
@@ -86,33 +90,46 @@ export default function FlowingMenu({
                   style={{ backgroundColor: marqueeBgColor }}
                 >
                   <div
+                    className="absolute inset-0 opacity-[0.08] bg-cover bg-center mix-blend-luminosity"
+                    style={{
+                      backgroundImage: `url(${item.image})`,
+                    }}
+                  />
+                  <div
                     className="absolute inset-0 opacity-15"
                     style={{
                       backgroundImage: `radial-gradient(circle at top, ${textColor} 0, transparent 55%)`,
                     }}
                   />
-                  <div className="relative flex w-full items-center gap-4 px-5 md:px-6">
-                    <div
-                      className="h-16 w-24 shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-cover bg-center md:h-20 md:w-28"
-                      style={{ backgroundImage: `url(${item.image})` }}
-                    />
+                  <div className="relative flex w-full items-center justify-center overflow-hidden">
                     <div className="min-w-0 overflow-hidden">
                       <motion.div
-                        animate={{ x: [0, -60] }}
+                        animate={{ x: ["0%", "-50%"] }}
                         transition={{
                           duration: Math.max(7, speed),
                           ease: "linear",
                           repeat: Infinity,
                         }}
-                        className="flex w-max items-center gap-4 whitespace-nowrap font-display text-[clamp(1.15rem,2.8vw,2.1rem)] font-semibold uppercase tracking-[.16em]"
+                        className="flex w-max items-center whitespace-nowrap font-display text-[clamp(1.15rem,2vw,1.65rem)] font-semibold uppercase tracking-[.18em]"
                         style={{ color: marqueeTextColor }}
                       >
-                        <span>{item.text}</span>
-                        <span>•</span>
-                        <span>{item.text}</span>
-                        <span>•</span>
-                        <span>{item.text}</span>
-                        <span>•</span>
+                        {/* Two identical halves to loop seamlessly at -50% */}
+                        <span className="flex items-center">
+                          <span className="mx-4">{item.text}</span>
+                          <span className="mx-4 text-brand">•</span>
+                          <span className="mx-4">{item.text}</span>
+                          <span className="mx-4 text-brand">•</span>
+                          <span className="mx-4">{item.text}</span>
+                          <span className="mx-4 text-brand">•</span>
+                        </span>
+                        <span className="flex items-center">
+                          <span className="mx-4">{item.text}</span>
+                          <span className="mx-4 text-brand">•</span>
+                          <span className="mx-4">{item.text}</span>
+                          <span className="mx-4 text-brand">•</span>
+                          <span className="mx-4">{item.text}</span>
+                          <span className="mx-4 text-brand">•</span>
+                        </span>
                       </motion.div>
                     </div>
                   </div>

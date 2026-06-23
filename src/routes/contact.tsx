@@ -239,8 +239,8 @@ function ContactPage() {
                           active
                             ? "bg-brand border-brand text-brand-foreground shadow-[0_0_15px_rgba(46,197,182,0.25)] scale-105"
                             : done
-                            ? "bg-foreground border-foreground text-background"
-                            : "bg-surface border-border text-muted-foreground group-hover:border-border-strong group-hover:bg-background/80"
+                              ? "bg-foreground border-foreground text-background"
+                              : "bg-surface border-border text-muted-foreground group-hover:border-border-strong group-hover:bg-background/80"
                         }`}
                       >
                         {done ? <CheckIcon size={14} animate /> : <Icon size={16} />}
@@ -249,9 +249,13 @@ function ContactPage() {
                         <span className="block font-mono text-[8px] uppercase tracking-[.22em] text-brand">
                           Step {item.step}
                         </span>
-                        <span className={`block font-display text-sm font-semibold transition-colors duration-200 ${
-                          active ? "text-foreground" : "text-muted-foreground group-hover:text-foreground"
-                        }`}>
+                        <span
+                          className={`block font-display text-sm font-semibold transition-colors duration-200 ${
+                            active
+                              ? "text-foreground"
+                              : "text-muted-foreground group-hover:text-foreground"
+                          }`}
+                        >
                           {item.title}
                         </span>
                       </div>
