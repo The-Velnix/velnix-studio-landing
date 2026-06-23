@@ -1,12 +1,12 @@
 ﻿// @ts-nocheck
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { motion } from 'motion/react';
+import { useEffect, useMemo, useRef, useState } from "react";
+import { motion } from "motion/react";
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
 const getVariation = (distance, radius, fromSettings, toSettings, falloff) => {
   const progress = clamp(1 - distance / radius, 0, 1);
-  const eased = falloff === 'linear' ? progress : progress * progress * (3 - 2 * progress);
+  const eased = falloff === "linear" ? progress : progress * progress * (3 - 2 * progress);
   const fromWght = fromSettings.wght ?? 400;
   const fromOpsz = fromSettings.opsz ?? 24;
   const toWght = toSettings.wght ?? fromWght;
@@ -21,10 +21,10 @@ const getVariation = (distance, radius, fromSettings, toSettings, falloff) => {
 const parseSettings = (value) => {
   const map = {};
   if (!value) return map;
-  value.split(',').forEach((part) => {
+  value.split(",").forEach((part) => {
     const [tag, raw] = part.trim().split(/\s+/);
     if (!tag || !raw) return;
-    const cleanTag = tag.replace(/['"]/g, '');
+    const cleanTag = tag.replace(/['"]/g, "");
     const num = Number(raw);
     if (Number.isFinite(num)) map[cleanTag] = num;
   });
@@ -32,15 +32,15 @@ const parseSettings = (value) => {
 };
 
 export default function VariableProximity({
-  label = '',
-  className = '',
+  label = "",
+  className = "",
   containerRef,
   fromFontVariationSettings = "'wght' 350, 'opsz' 24",
   toFontVariationSettings = "'wght' 900, 'opsz' 88",
   radius = 180,
-  falloff = 'gaussian',
-  animateBy = 'letters',
-  direction = 'top',
+  falloff = "gaussian",
+  animateBy = "letters",
+  direction = "top",
   delay = 0,
   stepDuration = 0.35,
 }) {
@@ -50,9 +50,18 @@ export default function VariableProximity({
   const rafRef = useRef(0);
   const cursorRef = useRef({ x: 0, y: 0 });
   const mouseRef = useRef({ x: 0, y: 0 });
-  const chars = useMemo(() => (animateBy === 'letters' ? Array.from(label) : label.split(' ')), [animateBy, label]);
-  const fromSettings = useMemo(() => parseSettings(fromFontVariationSettings), [fromFontVariationSettings]);
-  const toSettings = useMemo(() => parseSettings(toFontVariationSettings), [toFontVariationSettings]);
+  const chars = useMemo(
+    () => (animateBy === "letters" ? Array.from(label) : label.split(" ")),
+    [animateBy, label],
+  );
+  const fromSettings = useMemo(
+    () => parseSettings(fromFontVariationSettings),
+    [fromFontVariationSettings],
+  );
+  const toSettings = useMemo(
+    () => parseSettings(toFontVariationSettings),
+    [toFontVariationSettings],
+  );
 
   useEffect(() => {
     const node = containerRef?.current ?? rootRef.current;
@@ -65,7 +74,7 @@ export default function VariableProximity({
           observer.disconnect();
         }
       },
-      { threshold: 0.1, rootMargin: '0px' }
+      { threshold: 0.1, rootMargin: "0px" },
     );
 
     observer.observe(node);
@@ -88,18 +97,18 @@ export default function VariableProximity({
 
     const onLeave = () => setActive(false);
 
-    node.addEventListener('mousemove', onMove);
-    node.addEventListener('mouseleave', onLeave);
-    window.addEventListener('mousemove', onMove);
+    node.addEventListener("mousemove", onMove);
+    node.addEventListener("mouseleave", onLeave);
+    window.addEventListener("mousemove", onMove);
 
     const rect = node.getBoundingClientRect();
     updateCursor(rect.left + rect.width / 2, rect.top + rect.height / 2);
     mouseRef.current = { x: cursorRef.current.x, y: cursorRef.current.y };
 
     return () => {
-      node.removeEventListener('mousemove', onMove);
-      node.removeEventListener('mouseleave', onLeave);
-      window.removeEventListener('mousemove', onMove);
+      node.removeEventListener("mousemove", onMove);
+      node.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("mousemove", onMove);
     };
   }, [containerRef]);
 
@@ -112,7 +121,7 @@ export default function VariableProximity({
       if (node) {
         const parentRect = node.getBoundingClientRect();
         const maxDistance = Math.max(180, parentRect.width * 0.22);
-        const spans = node.querySelectorAll('[data-variable-proximity-char]');
+        const spans = node.querySelectorAll("[data-variable-proximity-char]");
 
         spans.forEach((span) => {
           const rect = span.getBoundingClientRect();
@@ -123,9 +132,15 @@ export default function VariableProximity({
           const dx = mouseRef.current.x - charCenter.x;
           const dy = mouseRef.current.y - charCenter.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
-          span.style.fontVariationSettings = getVariation(distance, radius ?? maxDistance, fromSettings, toSettings, falloff);
-          span.style.opacity = active || inView ? '1' : '0.98';
-          span.style.transform = distance < 2 ? 'translateY(0)' : 'translateY(0)';
+          span.style.fontVariationSettings = getVariation(
+            distance,
+            radius ?? maxDistance,
+            fromSettings,
+            toSettings,
+            falloff,
+          );
+          span.style.opacity = active || inView ? "1" : "0.98";
+          span.style.transform = distance < 2 ? "translateY(0)" : "translateY(0)";
         });
       }
 
@@ -141,23 +156,25 @@ export default function VariableProximity({
       ref={rootRef}
       className={`inline-flex flex-wrap justify-center leading-[1.05] ${className}`.trim()}
       style={{
-        willChange: 'transform',
+        willChange: "transform",
         fontVariationSettings: fromFontVariationSettings,
-        paddingBottom: '0.08em',
+        paddingBottom: "0.08em",
       }}
     >
       {chars.map((char, index) => {
-        const segment = char === ' ' ? '\u00A0' : char;
+        const segment = char === " " ? "\u00A0" : char;
         return (
           <motion.span
             key={`${char}-${index}`}
             data-variable-proximity-char
             initial={false}
-            animate={inView ? { y: 0, opacity: 1 } : { y: direction === 'top' ? -2 : 2, opacity: 0.96 }}
+            animate={
+              inView ? { y: 0, opacity: 1 } : { y: direction === "top" ? -2 : 2, opacity: 0.96 }
+            }
             transition={{ duration: stepDuration, delay: (index * delay) / 1000 }}
             className="inline-block"
             style={{
-              willChange: 'font-variation-settings, transform, opacity',
+              willChange: "font-variation-settings, transform, opacity",
             }}
           >
             {segment}

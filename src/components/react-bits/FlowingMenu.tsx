@@ -1,15 +1,15 @@
 ﻿// @ts-nocheck
-import { AnimatePresence, motion } from 'framer-motion';
-import { useMemo, useState } from 'react';
+import { AnimatePresence, motion } from "framer-motion";
+import { useMemo, useState } from "react";
 
 const fallbackItems = [
-  { link: '/#services', text: 'Strategy', image: '' },
-  { link: '/#work', text: 'Build', image: '' },
-  { link: '/#process', text: 'Launch', image: '' },
-  { link: '/#team', text: 'Team', image: '' },
+  { link: "/#services", text: "Strategy", image: "" },
+  { link: "/#work", text: "Build", image: "" },
+  { link: "/#process", text: "Launch", image: "" },
+  { link: "/#team", text: "Team", image: "" },
 ];
 
-function defaultImage(label, start = '#2EC5B6', end = '#0f1115') {
+function defaultImage(label, start = "#2EC5B6", end = "#0f1115") {
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
       <defs>
@@ -30,11 +30,11 @@ function defaultImage(label, start = '#2EC5B6', end = '#0f1115') {
 export default function FlowingMenu({
   items = fallbackItems,
   speed = 15,
-  textColor = '#0f1115',
-  bgColor = '#ffffff',
-  marqueeBgColor = '#0f1115',
-  marqueeTextColor = '#ffffff',
-  borderColor = '#e5e7eb',
+  textColor = "#0f1115",
+  bgColor = "#ffffff",
+  marqueeBgColor = "#0f1115",
+  marqueeTextColor = "#ffffff",
+  borderColor = "#e5e7eb",
 }) {
   const [activeIndex, setActiveIndex] = useState(null);
 
@@ -46,11 +46,11 @@ export default function FlowingMenu({
           item.image ||
           defaultImage(
             item.text,
-            ['#d7f5f0', '#2EC5B6', '#f5f3ef', '#c2efe9'][index % 4],
-            ['#0f1115', '#111827', '#243b53', '#334155'][index % 4]
+            ["#d7f5f0", "#2EC5B6", "#f5f3ef", "#c2efe9"][index % 4],
+            ["#0f1115", "#111827", "#243b53", "#334155"][index % 4],
           ),
       })),
-    [items]
+    [items],
   );
 
   return (
@@ -78,16 +78,18 @@ export default function FlowingMenu({
             <AnimatePresence>
               {activeIndex === index && (
                 <motion.div
-                  initial={{ y: '100%' }}
+                  initial={{ y: "100%" }}
                   animate={{ y: 0 }}
-                  exit={{ y: '100%' }}
+                  exit={{ y: "100%" }}
                   transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                   className="absolute inset-0 z-20 flex items-center justify-center overflow-hidden"
                   style={{ backgroundColor: marqueeBgColor }}
                 >
                   <div
                     className="absolute inset-0 opacity-15"
-                    style={{ backgroundImage: `radial-gradient(circle at top, ${textColor} 0, transparent 55%)` }}
+                    style={{
+                      backgroundImage: `radial-gradient(circle at top, ${textColor} 0, transparent 55%)`,
+                    }}
                   />
                   <div className="relative flex w-full items-center gap-4 px-5 md:px-6">
                     <div
@@ -97,7 +99,11 @@ export default function FlowingMenu({
                     <div className="min-w-0 overflow-hidden">
                       <motion.div
                         animate={{ x: [0, -60] }}
-                        transition={{ duration: Math.max(7, speed), ease: 'linear', repeat: Infinity }}
+                        transition={{
+                          duration: Math.max(7, speed),
+                          ease: "linear",
+                          repeat: Infinity,
+                        }}
                         className="flex w-max items-center gap-4 whitespace-nowrap font-display text-[clamp(1.15rem,2.8vw,2.1rem)] font-semibold uppercase tracking-[.16em]"
                         style={{ color: marqueeTextColor }}
                       >

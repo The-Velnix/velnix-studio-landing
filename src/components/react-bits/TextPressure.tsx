@@ -1,5 +1,5 @@
 ﻿// @ts-nocheck
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const dist = (a, b) => {
   const dx = b.x - a.x;
@@ -23,9 +23,9 @@ const debounce = (func, delay) => {
 };
 
 export default function TextPressure({
-  text = 'Compressa',
-  fontFamily = 'Roboto Flex',
-  fontUrl = 'https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&display=swap',
+  text = "Compressa",
+  fontFamily = "Roboto Flex",
+  fontUrl = "https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&display=swap",
   width = true,
   weight = true,
   italic = true,
@@ -33,9 +33,9 @@ export default function TextPressure({
   flex = true,
   stroke = false,
   scale = false,
-  textColor = '#FFFFFF',
-  strokeColor = '#FF0000',
-  className = '',
+  textColor = "#FFFFFF",
+  strokeColor = "#FF0000",
+  className = "",
   minFontSize = 24,
 }) {
   const containerRef = useRef(null);
@@ -49,7 +49,7 @@ export default function TextPressure({
   const [scaleY, setScaleY] = useState(1);
   const [lineHeight, setLineHeight] = useState(1);
 
-  const chars = text.split('');
+  const chars = text.split("");
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -62,8 +62,8 @@ export default function TextPressure({
       cursorRef.current.y = t.clientY;
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
 
     if (containerRef.current) {
       const { left, top, width, height } = containerRef.current.getBoundingClientRect();
@@ -74,8 +74,8 @@ export default function TextPressure({
     }
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchmove", handleTouchMove);
     };
   }, []);
 
@@ -106,8 +106,8 @@ export default function TextPressure({
   useEffect(() => {
     const debouncedSetSize = debounce(setSize, 100);
     debouncedSetSize();
-    window.addEventListener('resize', debouncedSetSize);
-    return () => window.removeEventListener('resize', debouncedSetSize);
+    window.addEventListener("resize", debouncedSetSize);
+    return () => window.removeEventListener("resize", debouncedSetSize);
   }, [setSize]);
 
   useEffect(() => {
@@ -189,20 +189,20 @@ export default function TextPressure({
 
   const dynamicClassName = [
     className,
-    flex ? 'react-bits-text-pressure-flex' : '',
-    stroke ? 'react-bits-text-pressure-stroke' : '',
+    flex ? "react-bits-text-pressure-flex" : "",
+    stroke ? "react-bits-text-pressure-stroke" : "",
   ]
     .filter(Boolean)
-    .join(' ');
+    .join(" ");
 
   return (
     <div
       ref={containerRef}
       style={{
-        position: 'relative',
-        width: '100%',
-        height: '100%',
-        background: 'transparent',
+        position: "relative",
+        width: "100%",
+        height: "100%",
+        background: "transparent",
       }}
     >
       {styleElement}
@@ -211,17 +211,17 @@ export default function TextPressure({
         className={`react-bits-text-pressure-title ${dynamicClassName}`}
         style={{
           fontFamily,
-          textTransform: 'uppercase',
+          textTransform: "uppercase",
           fontSize,
           lineHeight,
           transform: `scale(1, ${scaleY})`,
-          transformOrigin: 'center top',
+          transformOrigin: "center top",
           margin: 0,
-          textAlign: 'center',
-          userSelect: 'none',
-          whiteSpace: 'nowrap',
+          textAlign: "center",
+          userSelect: "none",
+          whiteSpace: "nowrap",
           fontWeight: 100,
-          width: '100%',
+          width: "100%",
         }}
       >
         {chars.map((char, i) => (
@@ -230,7 +230,7 @@ export default function TextPressure({
             ref={(el) => (spansRef.current[i] = el)}
             data-char={char}
             style={{
-              display: 'inline-block',
+              display: "inline-block",
               color: stroke ? undefined : textColor,
             }}
           >
@@ -241,4 +241,3 @@ export default function TextPressure({
     </div>
   );
 }
-

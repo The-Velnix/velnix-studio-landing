@@ -1,14 +1,14 @@
 ﻿// @ts-nocheck
-import { useEffect, useMemo, useRef, useState } from 'react';
-import LazyImage from './LazyImage';
+import { useEffect, useMemo, useRef, useState } from "react";
+import LazyImage from "./LazyImage";
 
 const DEFAULT_ITEMS = [
-  { image: 'https://picsum.photos/seed/1/800/800', text: 'Bridge' },
-  { image: 'https://picsum.photos/seed/2/800/800', text: 'Desk Setup' },
-  { image: 'https://picsum.photos/seed/3/800/800', text: 'Waterfall' },
-  { image: 'https://picsum.photos/seed/4/800/800', text: 'Strawberries' },
-  { image: 'https://picsum.photos/seed/5/800/800', text: 'Deep Diving' },
-  { image: 'https://picsum.photos/seed/6/800/800', text: 'Santorini' },
+  { image: "https://picsum.photos/seed/1/800/800", text: "Bridge" },
+  { image: "https://picsum.photos/seed/2/800/800", text: "Desk Setup" },
+  { image: "https://picsum.photos/seed/3/800/800", text: "Waterfall" },
+  { image: "https://picsum.photos/seed/4/800/800", text: "Strawberries" },
+  { image: "https://picsum.photos/seed/5/800/800", text: "Deep Diving" },
+  { image: "https://picsum.photos/seed/6/800/800", text: "Santorini" },
 ];
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -17,9 +17,9 @@ const lerp = (a, b, t) => a + (b - a) * t;
 export default function CircularGallery({
   items,
   bend = 3,
-  textColor = '#0f1115',
+  textColor = "#0f1115",
   borderRadius = 0.05,
-  font = 'bold 30px Figtree',
+  font = "bold 30px Figtree",
   fontUrl,
   scrollSpeed = 2,
   scrollEase = 0.05,
@@ -33,8 +33,8 @@ export default function CircularGallery({
   const normalizedItems = useMemo(() => (items && items.length ? items : DEFAULT_ITEMS), [items]);
   const count = normalizedItems.length;
   const radius = clamp(180 + bend * 18, 140, 280);
-  const cardWidth = 'clamp(140px, 18vw, 220px)';
-  const cardHeight = 'clamp(190px, 24vw, 280px)';
+  const cardWidth = "clamp(140px, 18vw, 220px)";
+  const cardHeight = "clamp(190px, 24vw, 280px)";
   const cornerRadius = `${clamp(borderRadius * 120, 12, 28)}px`;
 
   useEffect(() => {
@@ -63,18 +63,18 @@ export default function CircularGallery({
       dragRef.current.active = false;
     };
 
-    node.addEventListener('wheel', onWheel, { passive: false });
-    node.addEventListener('pointerdown', onPointerDown);
-    node.addEventListener('pointermove', onPointerMove);
-    window.addEventListener('pointerup', endDrag);
-    window.addEventListener('pointercancel', endDrag);
+    node.addEventListener("wheel", onWheel, { passive: false });
+    node.addEventListener("pointerdown", onPointerDown);
+    node.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("pointerup", endDrag);
+    window.addEventListener("pointercancel", endDrag);
 
     return () => {
-      node.removeEventListener('wheel', onWheel);
-      node.removeEventListener('pointerdown', onPointerDown);
-      node.removeEventListener('pointermove', onPointerMove);
-      window.removeEventListener('pointerup', endDrag);
-      window.removeEventListener('pointercancel', endDrag);
+      node.removeEventListener("wheel", onWheel);
+      node.removeEventListener("pointerdown", onPointerDown);
+      node.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", endDrag);
+      window.removeEventListener("pointercancel", endDrag);
     };
   }, [scrollSpeed]);
 
@@ -97,8 +97,8 @@ export default function CircularGallery({
       aria-label="Circular team gallery"
       className="relative overflow-hidden rounded-[2rem] border border-border bg-background shadow-[0_24px_90px_rgba(0,0,0,.06)] outline-none"
       style={{
-        height: 'min(72vh, 760px)',
-        touchAction: 'pan-y',
+        height: "min(72vh, 760px)",
+        touchAction: "pan-y",
       }}
     >
       <div className="absolute inset-0 grid-bg opacity-[0.18]" />
@@ -120,7 +120,7 @@ export default function CircularGallery({
               transform,
               width: cardWidth,
               height: cardHeight,
-              transition: 'transform 180ms linear',
+              transition: "transform 180ms linear",
             }}
           >
             <div
@@ -154,4 +154,3 @@ export default function CircularGallery({
     </div>
   );
 }
-

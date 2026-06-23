@@ -11,7 +11,9 @@ export function Container({
   children: ReactNode;
   className?: string;
 }) {
-  return <div className={"mx-auto w-full max-w-[1200px] px-6 md:px-10 " + className}>{children}</div>;
+  return (
+    <div className={"mx-auto w-full max-w-[1200px] px-6 md:px-10 " + className}>{children}</div>
+  );
 }
 
 export function Brand({ light = false }: { light?: boolean }) {
@@ -48,10 +50,18 @@ export function ArrowLink({
   return (
     <a
       href={href}
-      className={"group inline-flex h-11 items-center gap-2 rounded-full border px-5 text-sm font-medium transition-all " + classes + " border-transparent"}
+      className={
+        "group inline-flex h-11 items-center gap-2 rounded-full border px-5 text-sm font-medium transition-all " +
+        classes +
+        " border-transparent"
+      }
     >
       {children}
-      <SendIcon size={14} className="transition-transform group-hover:translate-x-0.5" animateOnHover />
+      <SendIcon
+        size={14}
+        className="transition-transform group-hover:translate-x-0.5"
+        animateOnHover
+      />
     </a>
   );
 }
@@ -80,9 +90,9 @@ export function SiteHeader() {
       displaySocials
       displayItemNumbering
       menuButtonColor="#0f1115"
-      openMenuButtonColor="#ffffff"
+      openMenuButtonColor="#0f1115"
       changeMenuColorOnOpen
-      colors={["#f5f3ef", "#d7f5f0", "#c2efe9"]}
+      colors={["#111318", "#2EC5B6", "#F5F3EF"]}
       accentColor="#2EC5B6"
       currentPath={location.pathname}
       currentHash={location.hash}
@@ -117,7 +127,8 @@ export function SiteFooter() {
               />
             </h2>
             <p className="mt-5 max-w-xl text-sm leading-7 text-muted-foreground md:text-[15px] md:leading-8">
-              Share the rough shape, the deadline, or the part that feels messy. We'll help you turn it into a plan that is clear, calm, and actually buildable.
+              Share the rough shape, the deadline, or the part that feels messy. We'll help you turn
+              it into a plan that is clear, calm, and actually buildable.
             </p>
           </div>
           <div className="flex justify-start lg:justify-end">
@@ -135,7 +146,8 @@ export function SiteFooter() {
           <div>
             <Brand light={false} />
             <p className="mt-4 max-w-sm text-sm leading-7 text-muted-foreground">
-              Product strategy, design and engineering for teams moving from ambitious idea to dependable production.
+              Product strategy, design and engineering for teams moving from ambitious idea to
+              dependable production.
             </p>
           </div>
           <FooterColumn
@@ -158,16 +170,21 @@ export function SiteFooter() {
             ]}
           />
           <div>
-            <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">Address</p>
+            <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
+              Address
+            </p>
             <p className="mt-4 text-sm leading-7 text-foreground">
-              FF-09 Saffrin icon<br />
-              OPP seniro citizen garden,
-              Anand, Gujarat, India<br />
+              FF-09 Saffrin icon
+              <br />
+              OPP seniro citizen garden, Anand, Gujarat, India
+              <br />
               Working globally / IST
             </p>
           </div>
           <div>
-            <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">Contact</p>
+            <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
+              Contact
+            </p>
             <a
               href="mailto:hello@thevelnix.com"
               className="mt-4 block text-sm text-foreground transition-colors hover:text-brand"
@@ -175,7 +192,9 @@ export function SiteFooter() {
               hello@thevelnix.com
             </a>
             <div className="mt-6 rounded-2xl border border-border bg-surface/60 p-4">
-              <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">Office hours</p>
+              <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
+                Office hours
+              </p>
               <p className="mt-2 text-sm leading-7 text-foreground">Mon-Fri, 10:00 - 18:00 IST</p>
             </div>
           </div>
@@ -193,7 +212,9 @@ export function SiteFooter() {
 function FooterColumn({ title, links }: { title: string; links: Array<[string, string]> }) {
   return (
     <div>
-      <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">{title}</p>
+      <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
+        {title}
+      </p>
       <div className="mt-4 flex flex-col items-start gap-2.5 text-sm">
         {links.map(([label, href]) => (
           <a

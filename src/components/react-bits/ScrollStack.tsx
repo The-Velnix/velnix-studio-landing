@@ -1,20 +1,20 @@
 ﻿// @ts-nocheck
-import { useCallback, useLayoutEffect, useRef } from 'react';
-import Lenis from 'lenis';
-import './ScrollStack.css';
+import { useCallback, useLayoutEffect, useRef } from "react";
+import Lenis from "lenis";
+import "./ScrollStack.css";
 
-export const ScrollStackItem = ({ children, itemClassName = '' }) => (
+export const ScrollStackItem = ({ children, itemClassName = "" }) => (
   <div className={`scroll-stack-card ${itemClassName}`.trim()}>{children}</div>
 );
 
 const ScrollStack = ({
   children,
-  className = '',
+  className = "",
   itemDistance = 96,
   itemScale = 0.03,
   itemStackDistance = 28,
-  stackPosition = '22%',
-  scaleEndPosition = '10%',
+  stackPosition = "22%",
+  scaleEndPosition = "10%",
   baseScale = 0.86,
   scaleDuration = 0.5,
   rotationAmount = 0,
@@ -37,7 +37,7 @@ const ScrollStack = ({
   }, []);
 
   const parsePercentage = useCallback((value, containerHeight) => {
-    if (typeof value === 'string' && value.includes('%')) {
+    if (typeof value === "string" && value.includes("%")) {
       return (parseFloat(value) / 100) * containerHeight;
     }
     return parseFloat(value) || 0;
@@ -67,7 +67,7 @@ const ScrollStack = ({
       }
       return element.offsetTop;
     },
-    [useWindowScroll]
+    [useWindowScroll],
   );
 
   const updateCardTransforms = useCallback(() => {
@@ -79,8 +79,8 @@ const ScrollStack = ({
     const scaleEndPositionPx = parsePercentage(scaleEndPosition, containerHeight);
 
     const endElement = useWindowScroll
-      ? document.querySelector('.scroll-stack-end')
-      : scrollerRef.current?.querySelector('.scroll-stack-end');
+      ? document.querySelector(".scroll-stack-end")
+      : scrollerRef.current?.querySelector(".scroll-stack-end");
 
     const endElementTop = getElementOffset(endElement);
 
@@ -102,7 +102,8 @@ const ScrollStack = ({
       if (blurAmount) {
         const topCardIndex = cardsRef.current.reduce((acc, currentCard, currentIndex) => {
           const currentCardTop = getElementOffset(currentCard);
-          const currentTriggerStart = currentCardTop - stackPositionPx - itemStackDistance * currentIndex;
+          const currentTriggerStart =
+            currentCardTop - stackPositionPx - itemStackDistance * currentIndex;
           return scrollTop >= currentTriggerStart ? currentIndex : acc;
         }, 0);
 
@@ -137,7 +138,7 @@ const ScrollStack = ({
 
       if (hasChanged) {
         card.style.transform = `translate3d(0, ${newTransform.translateY}px, 0) scale(${newTransform.scale}) rotate(${newTransform.rotation}deg)`;
-        card.style.filter = newTransform.blur > 0 ? `blur(${newTransform.blur}px)` : '';
+        card.style.filter = newTransform.blur > 0 ? `blur(${newTransform.blur}px)` : "";
         lastTransformsRef.current.set(i, newTransform);
       }
 
@@ -180,7 +181,7 @@ const ScrollStack = ({
       syncTouchLerp: 0.075,
     });
 
-    lenis.on('scroll', updateCardTransforms);
+    lenis.on("scroll", updateCardTransforms);
 
     const raf = (time) => {
       lenis.raf(time);
@@ -192,7 +193,7 @@ const ScrollStack = ({
   }, [updateCardTransforms]);
 
   useLayoutEffect(() => {
-    const cards = Array.from(document.querySelectorAll('.scroll-stack-card'));
+    const cards = Array.from(document.querySelectorAll(".scroll-stack-card"));
     cardsRef.current = cards;
     lastTransformsRef.current.clear();
 
@@ -200,13 +201,13 @@ const ScrollStack = ({
       if (i < cards.length - 1) {
         card.style.marginBottom = `${itemDistance}px`;
       }
-      card.style.willChange = 'transform, filter';
-      card.style.transformOrigin = 'top center';
-      card.style.backfaceVisibility = 'hidden';
-      card.style.transform = 'translateZ(0)';
-      card.style.webkitTransform = 'translateZ(0)';
-      card.style.perspective = '1000px';
-      card.style.webkitPerspective = '1000px';
+      card.style.willChange = "transform, filter";
+      card.style.transformOrigin = "top center";
+      card.style.backfaceVisibility = "hidden";
+      card.style.transform = "translateZ(0)";
+      card.style.webkitTransform = "translateZ(0)";
+      card.style.perspective = "1000px";
+      card.style.webkitPerspective = "1000px";
       card.style.transition = `transform ${scaleDuration}s ease, filter ${scaleDuration}s ease`;
     });
 

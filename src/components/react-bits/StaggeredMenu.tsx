@@ -1,34 +1,37 @@
 // @ts-nocheck
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 export default function StaggeredMenu(props) {
   const {
-    position = 'right',
-    colors = ['#B497CF', '#5227FF'],
+    position = "right",
+    colors = ["#B497CF", "#5227FF"],
     items = [],
     socialItems = [],
     displaySocials = true,
     displayItemNumbering = true,
     className,
-    logoUrl = '/velnix-mark-dark.png',
-    menuButtonColor = '#0f1115',
-    openMenuButtonColor = '#ffffff',
-    accentColor = '#2EC5B6',
+    logoUrl = "/velnix-mark-dark.png",
+    menuButtonColor = "#0f1115",
+    openMenuButtonColor = "#ffffff",
+    accentColor = "#2EC5B6",
     changeMenuColorOnOpen = true,
     closeOnClickAway = true,
     onMenuOpen,
     onMenuClose,
-    currentPath = '/',
-    currentHash = '',
+    currentPath = "/",
+    currentHash = "",
   } = props;
   const [open, setOpen] = useState(false);
   const openRef = useRef(false);
   const panelRef = useRef(null);
   const buttonRef = useRef(null);
-  const panelSide = position === 'left' ? 'left-0' : 'right-0';
-  const layeredColors = useMemo(() => (colors && colors.length ? colors.slice(0, 3) : ['#e7e7eb', '#d7f5f0', '#c2efe9']), [colors]);
+  const panelSide = position === "left" ? "left-0" : "right-0";
+  const layeredColors = useMemo(
+    () => (colors && colors.length ? colors.slice(0, 3) : ["#e7e7eb", "#d7f5f0", "#c2efe9"]),
+    [colors],
+  );
 
   useEffect(() => {
     if (!buttonRef.current) return;
@@ -38,13 +41,14 @@ export default function StaggeredMenu(props) {
   useEffect(() => {
     if (!closeOnClickAway || !open) return;
     const onDown = (event) => {
-      if (panelRef.current?.contains(event.target) || buttonRef.current?.contains(event.target)) return;
+      if (panelRef.current?.contains(event.target) || buttonRef.current?.contains(event.target))
+        return;
       openRef.current = false;
       setOpen(false);
       onMenuClose?.();
     };
-    document.addEventListener('mousedown', onDown);
-    return () => document.removeEventListener('mousedown', onDown);
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
   }, [closeOnClickAway, open, onMenuClose]);
 
   useEffect(() => {
@@ -52,6 +56,19 @@ export default function StaggeredMenu(props) {
       buttonRef.current.style.color = open ? openMenuButtonColor : menuButtonColor;
     }
   }, [changeMenuColorOnOpen, open, menuButtonColor, openMenuButtonColor]);
+
+  useEffect(() => {
+    const desktopQuery = window.matchMedia("(min-width: 1024px)");
+    const closeMenuOnDesktop = (event) => {
+      if (!event.matches || !openRef.current) return;
+      openRef.current = false;
+      setOpen(false);
+      onMenuClose?.();
+    };
+
+    desktopQuery.addEventListener("change", closeMenuOnDesktop);
+    return () => desktopQuery.removeEventListener("change", closeMenuOnDesktop);
+  }, [onMenuClose]);
 
   const toggle = () => {
     const next = !openRef.current;
@@ -63,27 +80,31 @@ export default function StaggeredMenu(props) {
   const navItems = items.length
     ? items
     : [
-      { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
-      { label: 'Services', ariaLabel: 'View services', link: '/#services' },
-      { label: 'Work', ariaLabel: 'View work', link: '/#work' },
-      { label: 'Process', ariaLabel: 'View process', link: '/#process' },
-      { label: 'Team', ariaLabel: 'View team', link: '/#team' },
-      { label: 'Blog', ariaLabel: 'Read blog', link: '/blog' },
-    ];
+        { label: "Home", ariaLabel: "Go to home page", link: "/" },
+        { label: "Services", ariaLabel: "View services", link: "/#services" },
+        { label: "Work", ariaLabel: "View work", link: "/#work" },
+        { label: "Process", ariaLabel: "View process", link: "/#process" },
+        { label: "Team", ariaLabel: "View team", link: "/#team" },
+        { label: "Blog", ariaLabel: "Read blog", link: "/blog" },
+      ];
 
   const isActive = (link) => {
-    if (link === '/') return currentPath === '/' && !currentHash;
-    const [pathname, hash = ''] = link.split('#');
+    if (link === "/") return currentPath === "/" && !currentHash;
+    const [pathname, hash = ""] = link.split("#");
     if (hash) return currentPath === pathname && currentHash === `#${hash}`;
     return currentPath === link || currentPath.startsWith(`${link}/`);
   };
 
   return (
-    <div className={`relative z-50 ${className || ''}`}>
+    <div className={`relative z-50 ${className || ""}`}>
       <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
         <div className="pointer-events-auto px-4 pt-4 md:px-6">
           <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between rounded-full border border-border/70 bg-background/88 px-4 shadow-[0_8px_30px_rgb(0_0_0_/_0.05)] backdrop-blur-xl md:px-5">
-            <a href="/" aria-label="The Velnix home" className="flex items-center gap-2.5 font-display text-[15px] font-bold tracking-[-.04em]">
+            <a
+              href="/"
+              aria-label="The Velnix home"
+              className="flex items-center gap-2.5 font-display text-[15px] font-bold tracking-[-.04em]"
+            >
               <img src={logoUrl} alt="" className="h-7 w-auto" />
               <span className="hidden sm:inline">THE VELNIX</span>
             </a>
@@ -96,10 +117,12 @@ export default function StaggeredMenu(props) {
                     key={item.label}
                     href={item.link}
                     aria-label={item.ariaLabel}
-                    aria-current={active ? 'page' : undefined}
-                    className={`group relative rounded-full pl-6 pr-4 py-2 text-[13px] font-medium transition-all duration-300 ${active ? 'bg-surface text-foreground shadow-[0_6px_18px_rgb(0_0_0_/_0.04)]' : 'text-muted-foreground hover:bg-surface hover:text-foreground'}`}
+                    aria-current={active ? "page" : undefined}
+                    className={`group relative rounded-full pl-6 pr-4 py-2 text-[13px] font-medium transition-all duration-300 ${active ? "bg-surface text-foreground shadow-[0_6px_18px_rgb(0_0_0_/_0.04)]" : "text-muted-foreground hover:bg-surface hover:text-foreground"}`}
                   >
-                    <span className={`absolute left-2.5 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-brand transition-all duration-300 ${active ? 'scale-100 opacity-100' : 'scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100'}`} />
+                    <span
+                      className={`absolute left-2.5 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-brand transition-all duration-300 ${active ? "scale-100 opacity-100" : "scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100"}`}
+                    />
                     {item.label}
                     <span className="sr-only">, item {index + 1}</span>
                   </a>
@@ -108,7 +131,10 @@ export default function StaggeredMenu(props) {
             </nav>
 
             <div className="flex items-center gap-3">
-              <a href="/contact" className="hidden h-11 items-center rounded-full bg-foreground px-5 text-[13px] font-semibold text-background transition-transform hover:-translate-y-0.5 lg:inline-flex">
+              <a
+                href="/contact"
+                className="hidden h-11 items-center rounded-full bg-foreground px-5 text-[13px] font-semibold text-background transition-transform hover:-translate-y-0.5 lg:inline-flex"
+              >
                 Start a project
               </a>
               <button
@@ -117,8 +143,8 @@ export default function StaggeredMenu(props) {
                 onClick={toggle}
                 aria-expanded={open}
                 aria-controls="staggered-menu-panel"
-                aria-label={open ? 'Close menu' : 'Open menu'}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background shadow-sm transition-all hover:border-brand"
+                aria-label={open ? "Close menu" : "Open menu"}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background shadow-sm transition-all hover:border-brand lg:hidden"
               >
                 {open ? (
                   <X className="h-4 w-4 transition-transform duration-300" />
@@ -136,25 +162,33 @@ export default function StaggeredMenu(props) {
           <motion.aside
             id="staggered-menu-panel"
             ref={panelRef}
-            initial={{ x: position === 'left' ? -24 : 24, opacity: 0 }}
+            initial={{ x: position === "left" ? -24 : 24, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            exit={{ x: position === 'left' ? -24 : 24, opacity: 0 }}
+            exit={{ x: position === "left" ? -24 : 24, opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className={`fixed top-0 ${panelSide} z-40 h-[100svh] w-full max-w-[420px] border-l border-border/70 bg-background/92 px-5 pb-6 pt-24 shadow-[0_20px_60px_rgba(0,0,0,.08)] backdrop-blur-xl`}
+            className={`fixed top-0 ${panelSide} z-40 h-[100svh] w-full max-w-[420px] border-l border-border/70 bg-background/92 px-5 pb-6 pt-24 shadow-[0_20px_60px_rgba(0,0,0,.08)] backdrop-blur-xl lg:hidden`}
           >
             <div className="absolute inset-0 overflow-hidden">
               {layeredColors.map((color, index) => (
                 <div
                   key={color + index}
-                  className="absolute inset-y-0 left-0 right-0 opacity-70"
-                  style={{ background: color, transform: `translateX(${index * 6}px)`, clipPath: `inset(${index * 2}px 0 ${index * 2}px ${index * 6}px round 0)` }}
+                  className="absolute inset-y-0 left-0 right-0"
+                  style={{
+                    background: color,
+                    transform: `translateX(${index * 6}px)`,
+                    clipPath: `inset(${index * 2}px 0 ${index * 2}px ${index * 6}px round 0)`,
+                  }}
                 />
               ))}
             </div>
             <div className="relative flex h-full flex-col">
               <div className="mb-8 flex items-center justify-between">
-                <span className="font-mono text-[9px] uppercase tracking-[.24em] text-muted-foreground">Navigation</span>
-                <span className="rounded-full bg-brand/10 px-2 py-1 font-mono text-[9px] uppercase tracking-[.24em] text-brand">Open</span>
+                <span className="font-mono text-[9px] uppercase tracking-[.24em] text-muted-foreground">
+                  Navigation
+                </span>
+                <span className="rounded-full bg-brand/10 px-2 py-1 font-mono text-[9px] uppercase tracking-[.24em] text-brand">
+                  Open
+                </span>
               </div>
               <div className="grid gap-2 border-t border-border/70 pt-4">
                 {navItems.map((item, index) => {
@@ -171,22 +205,36 @@ export default function StaggeredMenu(props) {
                       className="group flex items-center justify-between border-b border-border/60 py-4"
                     >
                       <span className="flex items-center gap-3">
-                        <span className={`h-2 w-2 rounded-full bg-brand transition-all duration-300 ${active ? 'scale-100 opacity-100' : 'scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100'}`} />
-                        <span className={`font-display text-[clamp(1.9rem,7vw,3rem)] font-semibold leading-none tracking-[-.04em] ${active ? 'text-brand' : 'text-foreground group-hover:text-brand'}`}>
+                        <span
+                          className={`h-2 w-2 rounded-full bg-brand transition-all duration-300 ${active ? "scale-100 opacity-100" : "scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100"}`}
+                        />
+                        <span
+                          className={`font-display text-[clamp(1.9rem,7vw,3rem)] font-semibold leading-none tracking-[-.04em] ${active ? "text-brand" : "text-foreground group-hover:text-brand"}`}
+                        >
                           {item.label}
                         </span>
                       </span>
-                      {displayItemNumbering ? <span className="font-mono text-[9px] tracking-widest text-muted-foreground">0{index + 1}</span> : null}
+                      {displayItemNumbering ? (
+                        <span className="font-mono text-[9px] tracking-widest text-muted-foreground">
+                          0{index + 1}
+                        </span>
+                      ) : null}
                     </a>
                   );
                 })}
               </div>
               {displaySocials && socialItems?.length ? (
                 <div className="mt-auto pt-8">
-                  <p className="font-mono text-[9px] uppercase tracking-[.24em] text-muted-foreground">Socials</p>
+                  <p className="font-mono text-[9px] uppercase tracking-[.24em] text-muted-foreground">
+                    Socials
+                  </p>
                   <div className="mt-4 flex flex-wrap gap-3">
                     {socialItems.map((item) => (
-                      <a key={item.label} href={item.link} className="rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-brand hover:text-brand">
+                      <a
+                        key={item.label}
+                        href={item.link}
+                        className="rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-brand hover:text-brand"
+                      >
                         {item.label}
                       </a>
                     ))}
@@ -200,6 +248,3 @@ export default function StaggeredMenu(props) {
     </div>
   );
 }
-
-
-
