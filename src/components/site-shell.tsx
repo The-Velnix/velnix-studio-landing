@@ -90,7 +90,7 @@ export function SiteHeader() {
   );
 }
 
-export function SiteFooter() {
+export function SiteFooter({ hideCta = false }: { hideCta?: boolean }) {
   return (
     <footer className="relative overflow-hidden border-t border-border bg-background text-foreground">
       <div className="absolute inset-0 grid-bg opacity-[.05]" />
@@ -101,37 +101,39 @@ export function SiteFooter() {
         className="pointer-events-none absolute -bottom-16 right-[-4rem] h-72 w-auto opacity-[.03] md:h-[26rem]"
       />
       <Container className="relative py-14 md:py-16">
-        <div className="grid gap-10 border-t border-border py-10 lg:grid-cols-[1.35fr_.65fr] lg:items-end">
-          <div className="max-w-4xl">
-            <p className="font-mono text-[9px] uppercase tracking-[.22em] text-brand">
-              Have something ambitious in mind?
-            </p>
-            <h2 className="mt-4 max-w-[11ch] font-display text-[clamp(3rem,9vw,7rem)] font-semibold leading-[.88] tracking-[-.065em] text-foreground md:max-w-none">
-              <BlurText
-                text="LET'S MAKE IT REAL."
-                animateBy="words"
-                direction="bottom"
-                delay={70}
-                stepDuration={0.34}
-                className="block"
-              />
-            </h2>
-            <p className="mt-5 max-w-xl text-sm leading-7 text-muted-foreground md:text-[15px] md:leading-8">
-              Share the rough shape, the deadline, or the part that feels messy. We'll help you turn it into a plan that is clear, calm, and actually buildable.
-            </p>
+        {!hideCta && (
+          <div className="grid gap-10 border-t border-border py-10 lg:grid-cols-[1.35fr_.65fr] lg:items-end">
+            <div className="max-w-4xl">
+              <p className="font-mono text-[9px] uppercase tracking-[.22em] text-brand">
+                Have something ambitious in mind?
+              </p>
+              <h2 className="mt-4 max-w-[11ch] font-display text-[clamp(3rem,9vw,7rem)] font-semibold leading-[.88] tracking-[-.065em] text-foreground md:max-w-none">
+                <BlurText
+                  text="LET'S MAKE IT REAL."
+                  animateBy="words"
+                  direction="bottom"
+                  delay={70}
+                  stepDuration={0.34}
+                  className="block"
+                />
+              </h2>
+              <p className="mt-5 max-w-xl text-sm leading-7 text-muted-foreground md:text-[15px] md:leading-8">
+                Share the rough shape, the deadline, or the part that feels messy. We'll help you turn it into a plan that is clear, calm, and actually buildable.
+              </p>
+            </div>
+            <div className="flex justify-start lg:justify-end">
+              <a
+                href="/contact"
+                className="group inline-flex h-13 items-center gap-3 rounded-full bg-foreground px-6 text-sm font-semibold text-background transition-all hover:-translate-y-1 hover:bg-brand hover:text-brand-foreground"
+              >
+                Start a conversation
+                <SendIcon size={16} animateOnHover />
+              </a>
+            </div>
           </div>
-          <div className="flex justify-start lg:justify-end">
-            <a
-              href="/contact"
-              className="group inline-flex h-13 items-center gap-3 rounded-full bg-foreground px-6 text-sm font-semibold text-background transition-all hover:-translate-y-1 hover:bg-brand hover:text-brand-foreground"
-            >
-              Start a conversation
-              <SendIcon size={16} animateOnHover />
-            </a>
-          </div>
-        </div>
+        )}
 
-        <div className="grid gap-10 border-t border-border py-10 md:grid-cols-[1.5fr_.9fr_.9fr_.9fr_1fr]">
+        <div className="grid gap-10 border-t border-border py-10 md:grid-cols-[1.4fr_0.9fr_0.9fr_0.9fr_1.4fr]">
           <div>
             <Brand light={false} />
             <p className="mt-4 max-w-sm text-sm leading-7 text-muted-foreground">
@@ -176,7 +178,7 @@ export function SiteFooter() {
             </a>
             <div className="mt-6 rounded-2xl border border-border bg-surface/60 p-4">
               <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">Office hours</p>
-              <p className="mt-2 text-sm leading-7 text-foreground">Mon-Fri, 10:00 - 18:00 IST</p>
+              <p className="mt-2 text-sm leading-7 text-foreground whitespace-nowrap">Mon-Fri, 10:00 - 18:00 IST</p>
             </div>
           </div>
         </div>
