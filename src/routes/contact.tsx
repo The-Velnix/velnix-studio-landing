@@ -184,7 +184,7 @@ function ContactPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.12 }}
             transition={{ duration: 0.7, delay: 0.06 }}
-            className="w-full max-w-4xl rounded-[32px] border border-border bg-surface p-4 shadow-[0_28px_90px_rgb(0_0_0_/_0.05)] md:p-8"
+            className="w-full max-w-6xl rounded-[32px] border border-border bg-surface p-4 shadow-[0_28px_90px_rgb(0_0_0_/_0.05)] md:p-8"
           >
             <div className="rounded-[28px] border border-border bg-background p-6 md:p-10">
               <div className="flex flex-col gap-6 border-b border-border pb-8 md:flex-row md:items-end md:justify-between">

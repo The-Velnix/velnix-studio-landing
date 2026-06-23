@@ -133,7 +133,7 @@ export function SiteFooter({ hideCta = false }: { hideCta?: boolean }) {
           </div>
         )}
 
-        <div className="grid gap-10 border-t border-border py-10 md:grid-cols-[1.5fr_.9fr_.9fr_.9fr_1fr]">
+        <div className="grid gap-10 border-t border-border py-10 md:grid-cols-[1.4fr_0.9fr_0.9fr_0.9fr_1.4fr]">
           <div>
             <Brand light={false} />
             <p className="mt-4 max-w-sm text-sm leading-7 text-muted-foreground">
@@ -178,7 +178,7 @@ export function SiteFooter({ hideCta = false }: { hideCta?: boolean }) {
             </a>
             <div className="mt-6 rounded-2xl border border-border bg-surface/60 p-4">
               <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">Office hours</p>
-              <p className="mt-2 text-sm leading-7 text-foreground">Mon-Fri, 10:00 - 18:00 IST</p>
+              <p className="mt-2 text-sm leading-7 text-foreground whitespace-nowrap">Mon-Fri, 10:00 - 18:00 IST</p>
             </div>
           </div>
         </div>
