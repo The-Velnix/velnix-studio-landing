@@ -564,15 +564,27 @@ function Process() {
     },
   ];
 
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start 80%", "end 20%"],
+  });
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 60,
+    damping: 20,
+    restDelta: 0.001,
+  });
+
   return (
     <section
       id="process"
       className="relative overflow-hidden border-y border-foreground/10 bg-foreground py-24 text-background md:py-32"
     >
       <div className="pointer-events-none absolute inset-0 grid-bg opacity-[.035]" />
-      <div className="pointer-events-none absolute -right-24 top-10 h-80 w-80 rounded-full bg-brand/15 blur-3xl" />
+
 
       <Container className="relative">
+        {/* ── Header ── */}
         <div className="grid gap-10 border-b border-background/15 pb-12 lg:grid-cols-[1.15fr_.85fr] lg:items-end lg:pb-16">
           <div>
             <Eyebrow invert>How delivery works</Eyebrow>
@@ -601,46 +613,66 @@ function Process() {
           </div>
         </div>
 
-        <ol className="relative mt-14 grid gap-4 md:grid-cols-2 lg:mt-20 lg:grid-cols-5 lg:gap-3">
-          <div
-            aria-hidden="true"
-            className="absolute left-[5%] right-[5%] top-9 hidden h-px bg-background/15 lg:block"
-          />
-          {steps.map((step, index) => (
-            <motion.li
-              key={step.id}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.55, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative flex min-h-[350px] flex-col overflow-hidden rounded-[1.75rem] border border-background/10 bg-background p-6 text-foreground shadow-[0_24px_70px_rgba(0,0,0,.18)] md:min-h-[380px] lg:min-h-[440px] lg:p-5 xl:p-6"
-            >
-              <div className="flex items-center justify-between gap-4">
-                <span className="relative z-10 flex h-11 w-11 items-center justify-center rounded-full bg-foreground font-mono text-[10px] tracking-widest text-background ring-4 ring-background">
-                  {step.id}
-                </span>
-                <span className="font-mono text-[9px] uppercase tracking-[.2em] text-brand">
-                  {step.phase}
-                </span>
-              </div>
+        {/* ── Timeline ── */}
+        <div ref={timelineRef} className="relative mt-16 lg:mt-24">
+          {/* Vertical progress line – centered on lg, left-aligned on mobile */}
+          <div className="absolute bottom-0 left-5 top-0 w-px bg-background/10 lg:left-1/2 lg:-translate-x-1/2">
+            <motion.div
+              className="h-full w-full origin-top bg-brand"
+              style={{ scaleY: smoothProgress }}
+            />
+          </div>
 
-              <div className="mt-12 lg:mt-14">
-                <h3 className="font-display text-3xl font-semibold tracking-[-.04em] xl:text-4xl">
-                  {step.label}
-                </h3>
-                <p className="mt-4 text-sm font-medium leading-6 text-foreground/85">
-                  {step.title}
-                </p>
-              </div>
+          <ol className="relative space-y-10 lg:space-y-0">
+            {steps.map((step, index) => {
+              const isEven = index % 2 === 0;
+              return (
+                <motion.li
+                  key={step.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{
+                    duration: 0.7,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="relative grid lg:grid-cols-2 lg:gap-16"
+                >
+                  {/* Timeline node */}
+                  <div className="absolute left-5 top-0 z-10 flex -translate-x-1/2 items-center justify-center lg:left-1/2">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-brand bg-foreground font-mono text-[10px] tracking-widest text-background shadow-[0_0_20px_rgba(46,197,182,.25)] transition-shadow duration-500 hover:shadow-[0_0_30px_rgba(46,197,182,.45)]">
+                      {step.id}
+                    </span>
+                  </div>
 
-              <div className="mt-auto border-t border-border pt-5">
-                <p className="text-[13px] leading-6 text-muted-foreground">{step.detail}</p>
-              </div>
+                  {/* Card – alternates sides on desktop */}
+                  <div
+                    className={`pl-14 lg:pl-0 ${isEven ? "lg:col-start-1 lg:pr-20 lg:text-right" : "lg:col-start-2 lg:pl-20"} lg:py-16`}
+                  >
+                    <span className="inline-block font-mono text-[9px] uppercase tracking-[.2em] text-brand">
+                      {step.phase}
+                    </span>
+                    <h3 className="mt-3 font-display text-3xl font-semibold tracking-[-.04em] xl:text-4xl">
+                      {step.label}
+                    </h3>
+                    <p className="mt-4 text-sm font-medium leading-7 text-background/85">
+                      {step.title}
+                    </p>
+                    <p className="mt-3 text-[13px] leading-6 text-background/50">
+                      {step.detail}
+                    </p>
+                  </div>
 
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-brand transition-transform duration-500 group-hover:scale-x-100" />
-            </motion.li>
-          ))}
-        </ol>
+                  {/* Empty column for the other side */}
+                  <div
+                    className={`hidden lg:block ${isEven ? "lg:col-start-2" : "lg:col-start-1 lg:row-start-1"}`}
+                    aria-hidden="true"
+                  />
+                </motion.li>
+              );
+            })}
+          </ol>
+        </div>
       </Container>
     </section>
   );

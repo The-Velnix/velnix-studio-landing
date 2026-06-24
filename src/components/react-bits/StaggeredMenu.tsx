@@ -175,19 +175,7 @@ export default function StaggeredMenu(props) {
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             className={`fixed top-0 ${panelSide} z-40 h-[100svh] w-full max-w-[420px] border-l border-border/70 bg-background/92 px-5 pb-6 pt-24 shadow-[0_20px_60px_rgba(0,0,0,.08)] backdrop-blur-xl lg:hidden overflow-y-auto`}
           >
-            <div className="absolute inset-0 overflow-hidden">
-              {layeredColors.map((color, index) => (
-                <div
-                  key={color + index}
-                  className="absolute inset-y-0 left-0 right-0"
-                  style={{
-                    background: color,
-                    transform: `translateX(${index * 6}px)`,
-                    clipPath: `inset(${index * 2}px 0 ${index * 2}px ${index * 6}px round 0)`,
-                  }}
-                />
-              ))}
-            </div>
+
             <div className="relative flex min-h-full flex-col">
               <div className="mb-8 flex items-center justify-between">
                 <span className="font-mono text-[9px] uppercase tracking-[.24em] text-muted-foreground">
