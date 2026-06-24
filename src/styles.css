@@ -76,6 +76,8 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: geometricPrecision;
     scroll-behavior: smooth;
+    overflow-x: clip;
+    scrollbar-gutter: stable;
   }
   body {
     background-color: var(--color-background);
@@ -231,9 +233,15 @@
 
   ::view-transition-old(root) {
     animation: 0.6s cubic-bezier(0.76, 0, 0.24, 1) both slide-out-left;
+    mix-blend-mode: normal;
   }
 
   ::view-transition-new(root) {
     animation: 0.6s cubic-bezier(0.76, 0, 0.24, 1) both slide-in-right;
+    mix-blend-mode: normal;
+  }
+
+  ::view-transition-image-pair(root) {
+    isolation: isolate;
   }
 }
