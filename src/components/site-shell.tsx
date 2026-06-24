@@ -1,7 +1,6 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { type ReactNode } from "react";
 import StaggeredMenu from "@/components/react-bits/StaggeredMenu";
-import BlurText from "@/components/react-bits/BlurText";
 import { SendIcon } from "@/components/animate-ui/icons/send";
 
 export function Container({
@@ -111,40 +110,7 @@ export function SiteFooter({ hideCta = false }: { hideCta?: boolean }) {
         className="pointer-events-none absolute -bottom-16 right-[-4rem] h-72 w-auto opacity-[.03] md:h-[26rem]"
       />
       <Container className="relative py-14 md:py-16">
-        {!hideCta && (
-          <div className="grid gap-10 border-t border-border py-10 lg:grid-cols-[1.35fr_.65fr] lg:items-end">
-            <div className="max-w-4xl">
-              <p className="font-mono text-[9px] uppercase tracking-[.22em] text-brand">
-                Have something ambitious in mind?
-              </p>
-              <h2 className="mt-4 max-w-[11ch] font-display text-[clamp(3rem,9vw,7rem)] font-semibold leading-[.88] tracking-[-.065em] text-foreground md:max-w-none">
-                <BlurText
-                  text="LET'S MAKE IT REAL."
-                  animateBy="words"
-                  direction="bottom"
-                  delay={70}
-                  stepDuration={0.34}
-                  className="block"
-                />
-              </h2>
-              <p className="mt-5 max-w-xl text-sm leading-7 text-muted-foreground md:text-[15px] md:leading-8">
-                Share the rough shape, the deadline, or the part that feels messy. We'll help you
-                turn it into a plan that is clear, calm, and actually buildable.
-              </p>
-            </div>
-            <div className="flex justify-start lg:justify-end">
-              <a
-                href="/contact"
-                className="group inline-flex h-13 items-center gap-3 rounded-full bg-foreground px-6 text-sm font-semibold text-background transition-all hover:-translate-y-1 hover:bg-brand hover:text-brand-foreground"
-              >
-                Start a conversation
-                <SendIcon size={16} animateOnHover />
-              </a>
-            </div>
-          </div>
-        )}
-
-        <div className="grid gap-10 border-t border-border py-10 md:grid-cols-[1.4fr_0.9fr_0.9fr_0.9fr_1.4fr]">
+        <div className="grid gap-10 py-10 md:grid-cols-[1.4fr_0.9fr_0.9fr_0.9fr_1.4fr]">
           <div>
             <Brand light={false} />
             <p className="mt-4 max-w-sm text-sm leading-7 text-muted-foreground">
