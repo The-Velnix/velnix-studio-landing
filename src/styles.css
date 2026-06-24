@@ -215,3 +215,27 @@
     transform: translateX(-50%);
   }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes fade-out-to-top {
+    to {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+  }
+
+  @keyframes fade-in-from-bottom {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+
+  ::view-transition-old(root) {
+    animation: 0.28s cubic-bezier(0.16, 1, 0.3, 1) both fade-out-to-top;
+  }
+
+  ::view-transition-new(root) {
+    animation: 0.35s cubic-bezier(0.16, 1, 0.3, 1) both fade-in-from-bottom;
+  }
+}
