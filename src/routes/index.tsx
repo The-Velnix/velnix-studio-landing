@@ -194,8 +194,44 @@ function Hero() {
     <section className="relative overflow-hidden pt-20 md:pt-28">
       <div className="absolute inset-0 grid-bg opacity-[0.32] [mask-image:linear-gradient(to_bottom,black,transparent_92%)]" />
       <div className="absolute inset-x-0 top-0 h-[38%] bg-[radial-gradient(circle_at_top,rgba(46,197,182,0.08),transparent_62%)]" />
+
+      {/* Orbit rings — subtle visual depth */}
+      <div className="pointer-events-none absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2">
+        <div
+          className="h-[520px] w-[520px] rounded-full border border-border/40 md:h-[680px] md:w-[680px]"
+          style={{ animation: reduce ? "none" : "hero-orbit 90s linear infinite" }}
+        />
+        <div
+          className="absolute inset-6 rounded-full border border-border/25 md:inset-10"
+          style={{ animation: reduce ? "none" : "hero-orbit-reverse 120s linear infinite" }}
+        />
+        {/* Orbital dot */}
+        <div
+          className="absolute left-0 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand shadow-[0_0_12px_rgba(46,197,182,.5)]"
+          style={{ animation: reduce ? "none" : "hero-orbit 90s linear infinite" }}
+        />
+      </div>
+
       <Container className="relative z-10 flex min-h-[calc(100svh-12rem)] flex-col items-center justify-center text-center pb-16 pt-10 md:pb-20 md:pt-14">
         <div className="flex flex-col items-center w-full">
+          {/* Availability badge */}
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.02 }}
+            className="mb-8"
+          >
+            <span className="inline-flex items-center gap-2.5 rounded-full border border-border bg-surface/80 px-4 py-2 backdrop-blur-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
+              </span>
+              <span className="font-mono text-[10px] uppercase tracking-[.18em] text-muted-foreground">
+                Available for Q3 2026
+              </span>
+            </span>
+          </motion.div>
+
           <div className="overflow-hidden">
             <motion.h1
               initial={reduce ? false : { y: "108%" }}
@@ -241,9 +277,18 @@ function Hero() {
             <ButtonColorful href="/contact" label="Start a project" />
             <Link
               to="/work"
-              className="inline-flex h-12 items-center rounded-full border border-border-strong bg-background/90 px-5 text-sm font-semibold backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-foreground sm:px-6"
+              className="group inline-flex h-12 items-center gap-2 rounded-full border border-border-strong bg-background/90 px-5 text-sm font-semibold backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand hover:text-brand sm:px-6"
             >
               Explore the work
+              <svg
+                className="h-3.5 w-3.5 text-muted-foreground transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-brand"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
             </Link>
           </motion.div>
         </div>
