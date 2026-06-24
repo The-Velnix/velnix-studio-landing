@@ -74,9 +74,7 @@ export function SiteHeader() {
       position="right"
       items={[
         { label: "Home", ariaLabel: "Go to home page", link: "/" },
-        { label: "Services", ariaLabel: "View services", link: "/#services" },
         { label: "Work", ariaLabel: "View work", link: "/work" },
-        { label: "Process", ariaLabel: "View process", link: "/#process" },
         { label: "Team", ariaLabel: "View team", link: "/team" },
         { label: "Blog", ariaLabel: "Read blog", link: "/blog" },
       ]}
