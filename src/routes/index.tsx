@@ -240,7 +240,7 @@ function Hero() {
           >
             <ButtonColorful href="/contact" label="Start a project" />
             <a
-              href="#work"
+              href="/work"
               className="inline-flex h-12 items-center rounded-full border border-border-strong bg-background/90 px-5 text-sm font-semibold backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-foreground sm:px-6"
             >
               Explore the work

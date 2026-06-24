@@ -75,9 +75,9 @@ export function SiteHeader() {
       items={[
         { label: "Home", ariaLabel: "Go to home page", link: "/" },
         { label: "Services", ariaLabel: "View services", link: "/#services" },
-        { label: "Work", ariaLabel: "View work", link: "/#work" },
+        { label: "Work", ariaLabel: "View work", link: "/work" },
         { label: "Process", ariaLabel: "View process", link: "/#process" },
-        { label: "Team", ariaLabel: "View team", link: "/#team" },
+        { label: "Team", ariaLabel: "View team", link: "/team" },
         { label: "Blog", ariaLabel: "Read blog", link: "/blog" },
       ]}
       socialItems={[
@@ -122,9 +122,9 @@ export function SiteFooter({ hideCta = false }: { hideCta?: boolean }) {
             title="Navigate"
             links={[
               ["Services", "/#services"],
-              ["Work", "/#work"],
+              ["Work", "/work"],
               ["Process", "/#process"],
-              ["Team", "/#team"],
+              ["Team", "/team"],
               ["Blog", "/blog"],
             ]}
           />
