@@ -2,6 +2,7 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { SendIcon } from "@/components/animate-ui/icons/send";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Link } from "@tanstack/react-router";
 
 interface ButtonColorfulProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   label?: string;
@@ -25,6 +26,9 @@ export function ButtonColorful({
     </>
   );
 
+  const isLocal =
+    href && href.startsWith("/") && !href.startsWith("/#") && !href.startsWith("http");
+
   return (
     <Button
       asChild={Boolean(href)}
@@ -35,7 +39,7 @@ export function ButtonColorful({
       )}
       {...props}
     >
-      {href ? <a href={href}>{content}</a> : content}
+      {href ? isLocal ? <Link to={href}>{content}</Link> : <a href={href}>{content}</a> : content}
     </Button>
   );
 }

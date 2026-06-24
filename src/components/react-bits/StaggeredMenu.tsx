@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 export default function StaggeredMenu(props) {
   const {
@@ -48,7 +49,11 @@ export default function StaggeredMenu(props) {
       onMenuClose?.();
     };
     document.addEventListener("mousedown", onDown);
-    return () => document.removeEventListener("mousedown", onDown);
+    document.addEventListener("touchstart", onDown);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("touchstart", onDown);
+    };
   }, [closeOnClickAway, open, onMenuClose]);
 
   useEffect(() => {
@@ -74,17 +79,19 @@ export default function StaggeredMenu(props) {
     const next = !openRef.current;
     openRef.current = next;
     setOpen(next);
-    next ? onMenuOpen?.() : onMenuClose?.();
+    if (next) {
+      onMenuOpen?.();
+    } else {
+      onMenuClose?.();
+    }
   };
 
   const navItems = items.length
     ? items
     : [
         { label: "Home", ariaLabel: "Go to home page", link: "/" },
-        { label: "Services", ariaLabel: "View services", link: "/#services" },
-        { label: "Work", ariaLabel: "View work", link: "/#work" },
-        { label: "Process", ariaLabel: "View process", link: "/#process" },
-        { label: "Team", ariaLabel: "View team", link: "/#team" },
+        { label: "Work", ariaLabel: "View work", link: "/work" },
+        { label: "Team", ariaLabel: "View team", link: "/team" },
         { label: "Blog", ariaLabel: "Read blog", link: "/blog" },
       ];
 
@@ -100,22 +107,22 @@ export default function StaggeredMenu(props) {
       <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
         <div className="pointer-events-auto px-4 pt-4 md:px-6">
           <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between rounded-full border border-border/70 bg-background/88 px-4 shadow-[0_8px_30px_rgb(0_0_0_/_0.05)] backdrop-blur-xl md:px-5">
-            <a
-              href="/"
+            <Link
+              to="/"
               aria-label="The Velnix home"
               className="flex items-center gap-2.5 font-display text-[15px] font-bold tracking-[-.04em]"
             >
               <img src={logoUrl} alt="" className="h-7 w-auto" />
               <span>THE VELNIX</span>
-            </a>
+            </Link>
 
             <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary navigation">
               {navItems.map((item, index) => {
                 const active = isActive(item.link);
                 return (
-                  <a
+                  <Link
                     key={item.label}
-                    href={item.link}
+                    to={item.link}
                     aria-label={item.ariaLabel}
                     aria-current={active ? "page" : undefined}
                     className={`group relative rounded-full pl-6 pr-4 py-2 text-[13px] font-medium transition-all duration-300 ${active ? "bg-surface text-foreground shadow-[0_6px_18px_rgb(0_0_0_/_0.04)]" : "text-muted-foreground hover:bg-surface hover:text-foreground"}`}
@@ -125,18 +132,18 @@ export default function StaggeredMenu(props) {
                     />
                     {item.label}
                     <span className="sr-only">, item {index + 1}</span>
-                  </a>
+                  </Link>
                 );
               })}
             </nav>
 
             <div className="flex items-center gap-3">
-              <a
-                href="/contact"
+              <Link
+                to="/contact"
                 className="hidden h-11 items-center rounded-full bg-foreground px-5 text-[13px] font-semibold text-background transition-transform hover:-translate-y-0.5 lg:inline-flex"
               >
                 Start a project
-              </a>
+              </Link>
               <button
                 ref={buttonRef}
                 type="button"
@@ -166,7 +173,7 @@ export default function StaggeredMenu(props) {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: position === "left" ? -24 : 24, opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className={`fixed top-0 ${panelSide} z-40 h-[100svh] w-full max-w-[420px] border-l border-border/70 bg-background/92 px-5 pb-6 pt-24 shadow-[0_20px_60px_rgba(0,0,0,.08)] backdrop-blur-xl lg:hidden`}
+            className={`fixed top-0 ${panelSide} z-40 h-[100svh] w-full max-w-[420px] border-l border-border/70 bg-background/92 px-5 pb-6 pt-24 shadow-[0_20px_60px_rgba(0,0,0,.08)] backdrop-blur-xl lg:hidden overflow-y-auto`}
           >
             <div className="absolute inset-0 overflow-hidden">
               {layeredColors.map((color, index) => (
@@ -181,7 +188,7 @@ export default function StaggeredMenu(props) {
                 />
               ))}
             </div>
-            <div className="relative flex h-full flex-col">
+            <div className="relative flex min-h-full flex-col">
               <div className="mb-8 flex items-center justify-between">
                 <span className="font-mono text-[9px] uppercase tracking-[.24em] text-muted-foreground">
                   Navigation
@@ -194,9 +201,9 @@ export default function StaggeredMenu(props) {
                 {navItems.map((item, index) => {
                   const active = isActive(item.link);
                   return (
-                    <a
+                    <Link
                       key={item.label}
-                      href={item.link}
+                      to={item.link}
                       onClick={() => {
                         openRef.current = false;
                         setOpen(false);
@@ -219,7 +226,7 @@ export default function StaggeredMenu(props) {
                           0{index + 1}
                         </span>
                       ) : null}
-                    </a>
+                    </Link>
                   );
                 })}
               </div>

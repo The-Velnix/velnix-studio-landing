@@ -1,4 +1,4 @@
-﻿import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import BlurText from "@/components/react-bits/BlurText";
 import ScrollReveal from "@/components/react-bits/ScrollReveal";
@@ -221,12 +221,12 @@ function Blog() {
               />
             </h2>
           </div>
-          <a
-            href="/contact"
+          <Link
+            to="/contact"
             className="inline-flex h-11 items-center rounded-full bg-foreground px-5 text-sm text-background hover:bg-brand"
           >
             Discuss a project <SendIcon size={14} className="ml-2" animateOnHover />
-          </a>
+          </Link>
         </Container>
       </section>
       <SiteFooter />

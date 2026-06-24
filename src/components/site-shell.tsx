@@ -184,15 +184,27 @@ function FooterColumn({ title, links }: { title: string; links: Array<[string, s
         {title}
       </p>
       <div className="mt-4 flex flex-col items-start gap-2.5 text-sm">
-        {links.map(([label, href]) => (
-          <a
-            key={label}
-            href={href}
-            className="text-foreground transition-all hover:translate-x-1 hover:text-brand"
-          >
-            {label}
-          </a>
-        ))}
+        {links.map(([label, href]) => {
+          const isLocal =
+            href.startsWith("/") && !href.startsWith("/#") && !href.startsWith("http");
+          return isLocal ? (
+            <Link
+              key={label}
+              to={href}
+              className="text-foreground transition-all hover:translate-x-1 hover:text-brand"
+            >
+              {label}
+            </Link>
+          ) : (
+            <a
+              key={label}
+              href={href}
+              className="text-foreground transition-all hover:translate-x-1 hover:text-brand"
+            >
+              {label}
+            </a>
+          );
+        })}
       </div>
     </div>
   );

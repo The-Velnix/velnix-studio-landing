@@ -1,5 +1,5 @@
 import FlowingMenu from "@/components/react-bits/FlowingMenu";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   AnimatePresence,
   motion,
@@ -239,12 +239,12 @@ function Hero() {
             className="mt-8 flex flex-wrap justify-center gap-3"
           >
             <ButtonColorful href="/contact" label="Start a project" />
-            <a
-              href="/work"
+            <Link
+              to="/work"
               className="inline-flex h-12 items-center rounded-full border border-border-strong bg-background/90 px-5 text-sm font-semibold backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-foreground sm:px-6"
             >
               Explore the work
-            </a>
+            </Link>
           </motion.div>
         </div>
       </Container>

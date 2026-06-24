@@ -1,4 +1,4 @@
-﻿import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeftIcon } from "@/components/animate-ui/icons/arrow-left";
 import BlurText from "@/components/react-bits/BlurText";
 import ScrollReveal from "@/components/react-bits/ScrollReveal";
@@ -283,9 +283,9 @@ function Article() {
             </div>
             <div className="mt-20 rounded-2xl bg-foreground p-8 text-background">
               <p className="font-display text-3xl">Need this thinking applied to your product?</p>
-              <a href="/contact" className="mt-5 inline-flex text-sm text-brand">
+              <Link to="/contact" className="mt-5 inline-flex text-sm text-brand">
                 Discuss the project <SendIcon size={14} className="ml-2" animateOnHover />
-              </a>
+              </Link>
             </div>
           </Container>
         </div>
