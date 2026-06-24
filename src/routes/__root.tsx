@@ -7,8 +7,8 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useState, type ReactNode } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { SendIcon } from "@/components/animate-ui/icons/send";
 
 import appCss from "../styles.css?url";
@@ -175,11 +175,91 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function Preloader({ progress }: { progress: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 1 }}
+      exit={{
+        y: "-100%",
+        transition: { duration: 0.85, ease: [0.76, 0, 0.24, 1] },
+      }}
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#0a0b0d]"
+    >
+      <div className="flex flex-col items-center gap-6">
+        <div className="flex flex-col items-center gap-3">
+          <motion.img
+            src="/velnix-mark-light.png"
+            alt="The Velnix"
+            initial={{ scale: 0.85, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="h-14 w-auto"
+          />
+          <motion.span
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display text-[15px] font-bold tracking-[0.2em] text-white"
+          >
+            THE VELNIX
+          </motion.span>
+        </div>
+        <div className="flex flex-col items-center gap-2">
+          <div className="relative h-[2px] w-40 overflow-hidden rounded-full bg-white/5">
+            <motion.div
+              className="absolute top-0 bottom-0 left-0 bg-brand"
+              initial={{ width: "0%" }}
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.1, ease: "easeOut" }}
+            />
+          </div>
+          <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground/60">
+            {Math.round(progress)}%
+          </span>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const duration = 1200; // 1.2s loading simulation
+    const interval = 20;
+    const step = 100 / (duration / interval);
+
+    const timer = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(timer);
+          setTimeout(() => setLoading(false), 250);
+          return 100;
+        }
+        return prev + step;
+      });
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    if (loading) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [loading]);
 
   return (
     <QueryClientProvider client={queryClient}>
+      <AnimatePresence mode="wait">{loading && <Preloader progress={progress} />}</AnimatePresence>
       <SmoothScroll />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
