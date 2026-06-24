@@ -106,7 +106,7 @@ export default function StaggeredMenu(props) {
               className="flex items-center gap-2.5 font-display text-[15px] font-bold tracking-[-.04em]"
             >
               <img src={logoUrl} alt="" className="h-7 w-auto" />
-              <span className="hidden sm:inline">THE VELNIX</span>
+              <span>THE VELNIX</span>
             </a>
 
             <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary navigation">
