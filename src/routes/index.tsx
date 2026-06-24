@@ -214,30 +214,13 @@ function Hero() {
 
       <Container className="relative z-10 flex min-h-[calc(100svh-12rem)] flex-col items-center justify-center text-center pb-16 pt-10 md:pb-20 md:pt-14">
         <div className="flex flex-col items-center w-full">
-          {/* Availability badge */}
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.02 }}
-            className="mb-8"
-          >
-            <span className="inline-flex items-center gap-2.5 rounded-full border border-border bg-surface/80 px-4 py-2 backdrop-blur-sm">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
-              </span>
-              <span className="font-mono text-[10px] uppercase tracking-[.18em] text-muted-foreground">
-                Available for Q3 2026
-              </span>
-            </span>
-          </motion.div>
 
           <div className="overflow-hidden">
             <motion.h1
               initial={reduce ? false : { y: "108%" }}
               animate={{ y: 0 }}
               transition={{ duration: 0.95, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
-              className="mx-auto max-w-[16ch] text-balance font-display text-[clamp(3.25rem,8.2vw,7rem)] font-semibold leading-[0.88] tracking-[-.055em]"
+              className="mx-auto font-display text-[clamp(3.25rem,8.2vw,7rem)] font-semibold leading-[0.88] tracking-[-.055em]"
             >
               <BlurText
                 text="Ideas are easy."
@@ -254,7 +237,7 @@ function Hero() {
                   direction="bottom"
                   delay={82}
                   stepDuration={0.34}
-                  className="font-display text-[clamp(3.15rem,8vw,6.85rem)] font-semibold leading-[1.02] tracking-[-.055em] text-brand"
+                  className="font-display text-[clamp(2.6rem,8vw,6.85rem)] font-semibold leading-[1.02] tracking-[-.055em] text-brand"
                 />
               </span>
             </motion.h1>
@@ -272,7 +255,7 @@ function Hero() {
             initial={reduce ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.34 }}
-            className="mt-8 flex flex-wrap justify-center gap-3"
+            className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center"
           >
             <ButtonColorful href="/contact" label="Start a project" />
             <Link

@@ -1,13 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import BlurText from "@/components/react-bits/BlurText";
-import ScrollReveal from "@/components/react-bits/ScrollReveal";
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { CheckIcon } from "@/components/animate-ui/icons/check";
-import { ClockIcon } from "@/components/animate-ui/icons/clock";
-import { CompassIcon } from "@/components/animate-ui/icons/compass";
-import { LayersIcon } from "@/components/animate-ui/icons/layers";
-import { SendIcon } from "@/components/animate-ui/icons/send";
+import { useState, type ReactNode } from "react";
 import { Eyebrow } from "@/components/section";
 import { Container, SiteFooter, SiteHeader } from "@/components/site-shell";
 
@@ -52,28 +46,10 @@ const timelineOptions = [
   "Just exploring",
 ];
 
-const steps = [
-  {
-    key: "intro",
-    step: "01",
-    title: "Your details",
-    description: "Tell us who to reply to and which company or product this belongs to.",
-    icon: CompassIcon,
-  },
-  {
-    key: "scope",
-    step: "02",
-    title: "Project shape",
-    description: "Choose the type of engagement, budget range and timing so we can respond well.",
-    icon: LayersIcon,
-  },
-  {
-    key: "brief",
-    step: "03",
-    title: "The brief",
-    description: "Share the context, goal and anything we should know before replying.",
-    icon: ClockIcon,
-  },
+const stepMeta = [
+  { title: "Your details", description: "Who should we reply to?" },
+  { title: "Project shape", description: "What kind of work, budget and timing?" },
+  { title: "The brief", description: "Tell us what you're building." },
 ] as const;
 
 function ContactPage() {
@@ -90,8 +66,6 @@ function ContactPage() {
     brief: "",
   });
 
-  const progress = ((step + 1) / steps.length) * 100;
-
   function update<K extends keyof Draft>(key: K, value: Draft[K]) {
     setDraft((current) => ({ ...current, [key]: value }));
     if (error) setError("");
@@ -106,7 +80,7 @@ function ContactPage() {
       setError("Please choose a service, budget and timeline.");
       return;
     }
-    setStep((current) => Math.min(current + 1, steps.length - 1));
+    setStep((current) => Math.min(current + 1, stepMeta.length - 1));
   }
 
   function back() {
@@ -142,9 +116,10 @@ function ContactPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <SiteHeader />
+
+      {/* ── Hero ── */}
       <section className="relative overflow-hidden border-b border-border pb-16 pt-28 md:pb-24 md:pt-36">
         <div className="absolute inset-0 grid-bg opacity-55 [mask-image:linear-gradient(to_bottom,black,transparent_92%)]" />
-        <div className="absolute left-1/2 top-12 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-brand/[.08] blur-[120px]" />
         <Container className="relative">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
@@ -153,9 +128,9 @@ function ContactPage() {
             className="mx-auto max-w-4xl text-center"
           >
             <Eyebrow>Start a project</Eyebrow>
-            <h1 className="mt-5 font-display text-[clamp(3.5rem,8vw,7rem)] font-semibold leading-[.92] tracking-[-.055em]">
+            <h1 className="mt-5 font-display text-[clamp(2.8rem,8vw,7rem)] font-semibold leading-[.92] tracking-[-.055em]">
               <BlurText
-                text="Tell us what needs to get shipped."
+                text="Tell us what you need."
                 animateBy="words"
                 direction="bottom"
                 delay={65}
@@ -163,316 +138,278 @@ function ContactPage() {
                 className="block"
               />
             </h1>
-            <ScrollReveal
-              containerClassName="mx-auto mt-6 max-w-2xl"
-              textClassName="text-base leading-8 text-muted-foreground md:text-lg"
-              baseOpacity={0.18}
-              baseRotation={2}
-              blurStrength={6}
-            >
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
               Early idea or tangled production system, both are welcome. Share the context you have
-              and we will reply with useful next steps within two business days.
-            </ScrollReveal>
+              and we'll reply with useful next steps within two business days.
+            </p>
           </motion.div>
         </Container>
       </section>
 
+      {/* ── Form ── */}
       <section className="py-16 md:py-24">
-        <Container className="flex justify-center">
-          <motion.section
+        <Container>
+          <motion.div
             initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.12 }}
             transition={{ duration: 0.7, delay: 0.06 }}
-            className="w-full max-w-6xl rounded-[32px] border border-border bg-surface p-4 shadow-[0_28px_90px_rgb(0_0_0_/_0.05)] md:p-8"
+            className="mx-auto max-w-3xl"
           >
-            <div className="rounded-[28px] border border-border bg-background p-6 md:p-10">
-              <div className="flex flex-col gap-6 border-b border-border pb-8 md:flex-row md:items-end md:justify-between">
-                <div>
-                  <p className="font-mono text-[9px] uppercase tracking-[.24em] text-brand">
-                    Project brief
-                  </p>
-                  <h2 className="mt-3 font-display text-3xl font-semibold tracking-[-.03em] md:text-4xl">
-                    <BlurText
-                      text="A clean way to gather the right context."
-                      animateBy="words"
-                      direction="bottom"
-                      delay={60}
-                      stepDuration={0.3}
-                      className="block"
-                    />
-                  </h2>
-                </div>
-                <div className="w-full max-w-xs">
-                  <div className="mb-2 flex items-center justify-between font-mono text-[9px] uppercase tracking-[.22em] text-muted-foreground">
-                    <span>Progress</span>
-                    <span>{Math.round(progress)}%</span>
-                  </div>
-                  <div className="h-1.5 overflow-hidden rounded-full bg-muted">
-                    <motion.div
-                      className="h-full rounded-full bg-brand"
-                      initial={false}
-                      animate={{ width: `${progress}%` }}
-                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center justify-between border-b border-border pb-8">
-                {steps.map((item, index) => {
-                  const active = index === step;
-                  const done = index < step;
-                  const Icon = item.icon;
-                  return (
+            {/* Step indicator */}
+            <div className="mb-12 flex items-start justify-center">
+              {stepMeta.map((s, i) => {
+                const isActive = i === step;
+                const isDone = i < step;
+                return (
+                  <div key={s.title} className="flex flex-1 items-start">
                     <button
-                      key={item.key}
                       type="button"
-                      onClick={() => {
-                        setError("");
-                        setStep(index);
-                      }}
-                      className="flex items-center gap-3 text-left group cursor-pointer transition-all duration-200"
+                      onClick={() => { setError(""); setStep(i); }}
+                      className="group flex flex-col items-center gap-2.5 cursor-pointer"
                     >
-                      <div
-                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
-                          active
-                            ? "bg-brand border-brand text-brand-foreground shadow-[0_0_15px_rgba(46,197,182,0.25)] scale-105"
-                            : done
-                              ? "bg-foreground border-foreground text-background"
-                              : "bg-surface border-border text-muted-foreground group-hover:border-border-strong group-hover:bg-background/80"
+                      <span
+                        className={`relative flex h-9 w-9 items-center justify-center rounded-full border-2 font-mono text-xs font-semibold transition-all duration-300 ${
+                          isActive
+                            ? "border-foreground bg-foreground text-background scale-110"
+                            : isDone
+                              ? "border-brand bg-brand text-brand-foreground"
+                              : "border-border bg-background text-muted-foreground group-hover:border-border-strong"
                         }`}
                       >
-                        {done ? <CheckIcon size={14} animate /> : <Icon size={16} />}
-                      </div>
-                      <div>
-                        <span className="block font-mono text-[8px] uppercase tracking-[.22em] text-brand">
-                          Step {item.step}
-                        </span>
-                        <span
-                          className={`block font-display text-sm font-semibold transition-colors duration-200 ${
-                            active
-                              ? "text-foreground"
-                              : "text-muted-foreground group-hover:text-foreground"
-                          }`}
-                        >
-                          {item.title}
-                        </span>
-                      </div>
+                        {isDone ? (
+                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                        ) : (
+                          <span>{String(i + 1).padStart(2, "0")}</span>
+                        )}
+                      </span>
+                      <span
+                        className={`text-xs font-medium transition-colors duration-200 ${
+                          isActive ? "text-foreground" : "text-muted-foreground"
+                        }`}
+                      >
+                        {s.title}
+                      </span>
                     </button>
-                  );
-                })}
-              </div>
 
-              <div className="mt-8 min-w-0">
-                <AnimatePresence mode="wait">
-                  {step === 0 ? (
-                    <motion.div
-                      key="step-1"
-                      initial={{ opacity: 0, x: 18 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -18 }}
-                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                      className="grid gap-6"
-                    >
-                      <div className="grid gap-6 md:grid-cols-2">
-                        <Field label="Your name *">
-                          <TextInput
-                            value={draft.name}
-                            onChange={(value) => update("name", value)}
-                            placeholder="Mihir Rabari"
-                            autoComplete="name"
-                          />
-                        </Field>
-                        <Field label="Work email *">
-                          <TextInput
-                            value={draft.email}
-                            onChange={(value) => update("email", value)}
-                            placeholder="you@company.com"
-                            autoComplete="email"
-                            type="email"
-                          />
-                        </Field>
-                      </div>
-                      <Field label="Company">
-                        <TextInput
-                          value={draft.company}
-                          onChange={(value) => update("company", value)}
-                          placeholder="Company or product name"
-                          autoComplete="organization"
-                        />
-                      </Field>
-                    </motion.div>
-                  ) : step === 1 ? (
-                    <motion.div
-                      key="step-2"
-                      initial={{ opacity: 0, x: 18 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -18 }}
-                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                      className="grid gap-8"
-                    >
-                      <div>
-                        <span className="block font-mono text-[9px] uppercase tracking-[.22em] text-brand mb-3">
-                          What do you need? *
-                        </span>
-                        <OptionSelector
-                          value={draft.service}
-                          options={serviceOptions}
-                          onChange={(value) => update("service", value)}
-                          columns="grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+                    {/* Connector line */}
+                    {i < stepMeta.length - 1 && (
+                      <div className="relative mt-[18px] mx-2 h-[2px] flex-1 overflow-hidden rounded-full bg-border">
+                        <motion.div
+                          className="absolute inset-y-0 left-0 bg-brand"
+                          initial={false}
+                          animate={{ width: isDone ? "100%" : "0%" }}
+                          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                         />
                       </div>
-
-                      <div>
-                        <span className="block font-mono text-[9px] uppercase tracking-[.22em] text-brand mb-3">
-                          Indicative investment *
-                        </span>
-                        <OptionSelector
-                          value={draft.budget}
-                          options={budgetOptions}
-                          onChange={(value) => update("budget", value)}
-                          columns="grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
-                        />
-                      </div>
-
-                      <div>
-                        <span className="block font-mono text-[9px] uppercase tracking-[.22em] text-brand mb-3">
-                          Ideal start *
-                        </span>
-                        <OptionSelector
-                          value={draft.timeline}
-                          options={timelineOptions}
-                          onChange={(value) => update("timeline", value)}
-                          columns="grid-cols-1 sm:grid-cols-2 md:grid-cols-2"
-                        />
-                      </div>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="step-3"
-                      initial={{ opacity: 0, x: 18 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -18 }}
-                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                      className="grid gap-6"
-                    >
-                      <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-border bg-surface/50 p-4">
-                        <span className="font-mono text-[9px] uppercase tracking-[.22em] text-muted-foreground mr-2">
-                          Selection:
-                        </span>
-                        {draft.service && (
-                          <span className="inline-flex items-center rounded-full bg-brand/10 border border-brand/20 px-3 py-1 text-xs text-brand font-medium">
-                            {draft.service}
-                          </span>
-                        )}
-                        {draft.budget && (
-                          <span className="inline-flex items-center rounded-full bg-brand/10 border border-brand/20 px-3 py-1 text-xs text-brand font-medium">
-                            {draft.budget}
-                          </span>
-                        )}
-                        {draft.timeline && (
-                          <span className="inline-flex items-center rounded-full bg-brand/10 border border-brand/20 px-3 py-1 text-xs text-brand font-medium">
-                            {draft.timeline}
-                          </span>
-                        )}
-                      </div>
-
-                      <Field label="Tell us about the project *">
-                        <TextArea
-                          value={draft.brief}
-                          onChange={(value) => update("brief", value)}
-                          placeholder="What are you building, who is it for, what exists today, and what needs to happen next?"
-                        />
-                      </Field>
-                      <div className="grid gap-4 rounded-3xl border border-border bg-surface p-5 md:grid-cols-3">
-                        <InfoCard
-                          title="Fast response"
-                          copy="We reply with sensible next steps within two business days."
-                        />
-                        <InfoCard
-                          title="No black box"
-                          copy="You work directly with the people doing the work, not a long handoff chain."
-                        />
-                        <InfoCard
-                          title="Prepared handover"
-                          copy="We plan the transition from the start so the work remains useful after launch."
-                        />
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {error ? (
-                  <motion.p
-                    initial={{ opacity: 0, y: -4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mt-4 text-sm text-destructive"
-                  >
-                    {error}
-                  </motion.p>
-                ) : null}
-
-                <div className="mt-8 flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="max-w-md text-[11px] leading-5 text-muted-foreground">
-                    Your details stay in your browser until you submit. Submitting prepares the
-                    brief in your email app so you remain in control of sending it.
-                  </div>
-                  <div className="flex flex-wrap gap-3">
-                    {step > 0 ? (
-                      <button
-                        type="button"
-                        onClick={back}
-                        className="inline-flex h-12 items-center rounded-full border border-border-strong bg-background px-5 text-sm font-semibold transition-all hover:-translate-y-0.5 hover:border-foreground cursor-pointer"
-                      >
-                        Back
-                      </button>
-                    ) : null}
-                    {step < steps.length - 1 ? (
-                      <button
-                        type="button"
-                        onClick={next}
-                        className="inline-flex h-12 items-center rounded-full bg-foreground px-5 text-sm font-semibold text-background transition-all hover:-translate-y-0.5 hover:bg-brand hover:text-brand-foreground cursor-pointer"
-                      >
-                        Continue
-                        <SendIcon size={15} className="ml-2" animateOnHover />
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={submit}
-                        className="inline-flex h-12 items-center rounded-full bg-foreground px-5 text-sm font-semibold text-background transition-all hover:-translate-y-0.5 hover:bg-brand hover:text-brand-foreground cursor-pointer"
-                      >
-                        Prepare project email
-                        <SendIcon size={15} className="ml-2" animateOnHover />
-                      </button>
                     )}
                   </div>
-                </div>
+                );
+              })}
+            </div>
 
-                <AnimatePresence>
-                  {status === "sent" ? (
-                    <motion.div
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      role="status"
-                      className="mt-4 flex items-center gap-2 text-sm text-brand"
-                    >
-                      <CheckIcon size={16} animate />
-                      Your email app should now be open with the full brief ready to send.
-                    </motion.div>
-                  ) : null}
-                </AnimatePresence>
+            {/* Step heading */}
+            <div className="mb-8">
+              <h2 className="font-display text-2xl font-semibold tracking-[-.03em] md:text-3xl">
+                {stepMeta[step].title}
+              </h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                {stepMeta[step].description}
+              </p>
+            </div>
+
+            {/* Step content */}
+            <AnimatePresence mode="wait">
+              {step === 0 ? (
+                <motion.div
+                  key="step-1"
+                  initial={{ opacity: 0, x: 18 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -18 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="grid gap-6"
+                >
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <Field label="Your name *">
+                      <TextInput
+                        value={draft.name}
+                        onChange={(value) => update("name", value)}
+                        placeholder="Mihir Rabari"
+                        autoComplete="name"
+                      />
+                    </Field>
+                    <Field label="Work email *">
+                      <TextInput
+                        value={draft.email}
+                        onChange={(value) => update("email", value)}
+                        placeholder="you@company.com"
+                        autoComplete="email"
+                        type="email"
+                      />
+                    </Field>
+                  </div>
+                  <Field label="Company">
+                    <TextInput
+                      value={draft.company}
+                      onChange={(value) => update("company", value)}
+                      placeholder="Company or product name"
+                      autoComplete="organization"
+                    />
+                  </Field>
+                </motion.div>
+              ) : step === 1 ? (
+                <motion.div
+                  key="step-2"
+                  initial={{ opacity: 0, x: 18 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -18 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="grid gap-8"
+                >
+                  <div>
+                    <span className="mb-3 block text-xs font-medium text-foreground">
+                      What do you need? *
+                    </span>
+                    <OptionSelector
+                      value={draft.service}
+                      options={serviceOptions}
+                      onChange={(value) => update("service", value)}
+                      columns="grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+                    />
+                  </div>
+
+                  <div>
+                    <span className="mb-3 block text-xs font-medium text-foreground">
+                      Indicative investment *
+                    </span>
+                    <OptionSelector
+                      value={draft.budget}
+                      options={budgetOptions}
+                      onChange={(value) => update("budget", value)}
+                      columns="grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+                    />
+                  </div>
+
+                  <div>
+                    <span className="mb-3 block text-xs font-medium text-foreground">
+                      Ideal start *
+                    </span>
+                    <OptionSelector
+                      value={draft.timeline}
+                      options={timelineOptions}
+                      onChange={(value) => update("timeline", value)}
+                      columns="grid-cols-1 sm:grid-cols-2"
+                    />
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="step-3"
+                  initial={{ opacity: 0, x: 18 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -18 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="grid gap-6"
+                >
+                  {/* Summary of previous selections */}
+                  {(draft.service || draft.budget || draft.timeline) && (
+                    <div className="flex flex-wrap items-center gap-2">
+                      {[draft.service, draft.budget, draft.timeline]
+                        .filter(Boolean)
+                        .map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted-foreground"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                    </div>
+                  )}
+
+                  <Field label="Tell us about the project *">
+                    <TextArea
+                      value={draft.brief}
+                      onChange={(value) => update("brief", value)}
+                      placeholder="What are you building, who is it for, what exists today, and what needs to happen next?"
+                    />
+                  </Field>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {error ? (
+              <motion.p
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-4 text-sm text-destructive"
+              >
+                {error}
+              </motion.p>
+            ) : null}
+
+            {/* Footer */}
+            <div className="mt-8 flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
+              <p className="max-w-md text-[11px] leading-5 text-muted-foreground">
+                Your details stay in your browser until you submit. Submitting prepares the
+                brief in your email app so you remain in control of sending it.
+              </p>
+              <div className="flex gap-3">
+                {step > 0 && (
+                  <button
+                    type="button"
+                    onClick={back}
+                    className="inline-flex h-11 items-center rounded-full border border-border-strong bg-background px-5 text-sm font-semibold transition-all hover:-translate-y-0.5 hover:border-foreground cursor-pointer"
+                  >
+                    Back
+                  </button>
+                )}
+                {step < stepMeta.length - 1 ? (
+                  <button
+                    type="button"
+                    onClick={next}
+                    className="group inline-flex h-11 items-center gap-2 rounded-full bg-foreground px-5 text-sm font-semibold text-background transition-all hover:-translate-y-0.5 hover:bg-brand hover:text-brand-foreground cursor-pointer"
+                  >
+                    Continue
+                    <svg className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={submit}
+                    className="group inline-flex h-11 items-center gap-2 rounded-full bg-foreground px-5 text-sm font-semibold text-background transition-all hover:-translate-y-0.5 hover:bg-brand hover:text-brand-foreground cursor-pointer"
+                  >
+                    Send brief
+                    <svg className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
+                  </button>
+                )}
               </div>
             </div>
-          </motion.section>
+
+            <AnimatePresence>
+              {status === "sent" ? (
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  role="status"
+                  className="mt-4 flex items-center gap-2 text-sm text-brand"
+                >
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  Your email app should now be open with the full brief ready to send.
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+          </motion.div>
         </Container>
       </section>
+
       <SiteFooter hideCta />
     </main>
   );
 }
+
+/* ── Helper components ── */
 
 function Field({
   label,
@@ -505,15 +442,13 @@ function TextInput({
   type?: string;
 }) {
   return (
-    <motion.input
-      whileFocus={{ scale: 1.01 }}
-      transition={{ duration: 0.18 }}
+    <input
       type={type}
       value={value}
       onChange={(event) => onChange(event.target.value)}
       placeholder={placeholder}
       autoComplete={autoComplete}
-      className="h-14 w-full rounded-2xl border border-border bg-background/50 px-5 text-base outline-none transition-all duration-300 placeholder:text-muted-foreground/45 hover:border-border-strong/80 hover:bg-background focus:border-brand focus:bg-background focus:shadow-[0_0_20px_rgba(46,197,182,0.15)] focus:scale-[1.01]"
+      className="h-12 w-full rounded-xl border border-border bg-background px-4 text-sm outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 hover:border-border-strong focus:border-brand focus:ring-1 focus:ring-brand/30"
     />
   );
 }
@@ -528,14 +463,12 @@ function TextArea({
   placeholder?: string;
 }) {
   return (
-    <motion.textarea
-      whileFocus={{ scale: 1.005 }}
-      transition={{ duration: 0.18 }}
+    <textarea
       value={value}
       onChange={(event) => onChange(event.target.value)}
-      rows={7}
+      rows={6}
       placeholder={placeholder}
-      className="min-h-[240px] w-full resize-y rounded-2xl border border-border bg-background/50 px-5 py-4 text-base leading-7 outline-none transition-all duration-300 placeholder:text-muted-foreground/45 hover:border-border-strong/80 hover:bg-background focus:border-brand focus:bg-background focus:shadow-[0_0_20px_rgba(46,197,182,0.15)] focus:scale-[1.005]"
+      className="min-h-[200px] w-full resize-y rounded-xl border border-border bg-background px-4 py-3 text-sm leading-7 outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 hover:border-border-strong focus:border-brand focus:ring-1 focus:ring-brand/30"
     />
   );
 }
@@ -552,7 +485,7 @@ function OptionSelector({
   columns?: string;
 }) {
   return (
-    <div className={`grid gap-3.5 ${columns}`}>
+    <div className={`grid gap-3 ${columns}`}>
       {options.map((option) => {
         const isSelected = value === option;
         return (
@@ -560,27 +493,27 @@ function OptionSelector({
             key={option}
             type="button"
             onClick={() => onChange(option)}
-            className={`relative flex items-center justify-between rounded-2xl border p-4.5 text-left transition-all duration-300 cursor-pointer ${
+            className={`relative flex items-center justify-between rounded-xl border px-4 py-3.5 text-left transition-all duration-200 cursor-pointer ${
               isSelected
-                ? "border-brand bg-brand/[0.04] text-foreground shadow-[0_0_20px_rgba(46,197,182,0.12)] scale-[1.02]"
-                : "border-border bg-surface hover:border-border-strong hover:bg-background/80"
+                ? "border-brand bg-brand/[0.04] text-foreground"
+                : "border-border bg-background hover:border-border-strong"
             }`}
           >
-            <span className="font-display font-medium text-sm md:text-[15px] leading-snug">
+            <span className="text-sm font-medium leading-snug">
               {option}
             </span>
             <div
-              className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-all ${
+              className={`flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full border transition-all ${
                 isSelected
-                  ? "border-brand bg-brand text-brand-foreground"
-                  : "border-border bg-background"
+                  ? "border-brand bg-brand"
+                  : "border-border"
               }`}
             >
               {isSelected && (
                 <motion.svg
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  className="h-3 w-3 text-brand-foreground"
+                  className="h-2.5 w-2.5 text-brand-foreground"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -593,15 +526,6 @@ function OptionSelector({
           </button>
         );
       })}
-    </div>
-  );
-}
-
-function InfoCard({ title, copy }: { title: string; copy: string }) {
-  return (
-    <div className="rounded-2xl border border-border bg-background p-4">
-      <p className="font-medium">{title}</p>
-      <p className="mt-1.5 text-sm leading-6 text-muted-foreground">{copy}</p>
     </div>
   );
 }
