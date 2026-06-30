@@ -82,8 +82,7 @@ export function SiteHeader() {
         { label: "Email", link: "mailto:hello@thevelnix.com" },
         { label: "LinkedIn", link: "https://www.linkedin.com/company/the-velnix" },
         { label: "Instagram", link: "https://www.instagram.com/the_velnix?igsh=dDhnNjRmcTB5eWdw" },
-        { label: "X / Twitter", link: "https://x.com/The_Velnix" },
-        { label: "Dribbble", link: "https://dribbble.com/the-velnix" },
+        { label: "Dribbble", link: "https://dribbble.com" },
       ]}
       displaySocials
       displayItemNumbering
@@ -132,8 +131,8 @@ export function SiteFooter({ hideCta = false }: { hideCta?: boolean }) {
             links={[
               ["LinkedIn", "https://www.linkedin.com/company/the-velnix"],
               ["Instagram", "https://www.instagram.com/the_velnix?igsh=dDhnNjRmcTB5eWdw"],
-              ["X / Twitter", "https://x.com/The_Velnix"],
-              ["Dribbble", "https://dribbble.com/the-velnix"],
+              ["X / Twitter", "https://x.com"],
+              ["Dribbble", "https://dribbble.com"],
             ]}
           />
           <div>
@@ -141,11 +140,9 @@ export function SiteFooter({ hideCta = false }: { hideCta?: boolean }) {
               Address
             </p>
             <p className="mt-4 text-sm leading-7 text-foreground">
-              FF-09 Saffron Icon
+              FF-09 Saffrin icon
               <br />
-              Near Senior Citizen Garden,
-              <br />
-              Anand, Gujarat, India
+              OPP seniro citizen garden, Anand, Gujarat, India
               <br />
               Working globally / IST
             </p>

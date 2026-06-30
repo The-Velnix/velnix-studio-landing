@@ -4,30 +4,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.15,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { x: 35, opacity: 0 },
-  show: { 
-    x: 0, 
-    opacity: 1, 
-    transition: { 
-      type: "spring", 
-      stiffness: 280, 
-      damping: 24 
-    } 
-  },
-};
-
 export default function StaggeredMenu(props) {
   const {
     position = "right",
@@ -161,10 +137,10 @@ export default function StaggeredMenu(props) {
               })}
             </nav>
 
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-3">
               <Link
                 to="/contact"
-                className="hidden lg:flex h-11 items-center rounded-full bg-foreground px-5 text-[13px] font-semibold text-background transition-transform hover:-translate-y-0.5"
+                className="hidden h-11 items-center rounded-full bg-foreground px-5 text-[13px] font-semibold text-background transition-transform hover:-translate-y-0.5 lg:inline-flex"
               >
                 Start a project
               </Link>
@@ -190,116 +166,78 @@ export default function StaggeredMenu(props) {
 
       <AnimatePresence>
         {open && (
-          <>
-            {/* Backdrop Blur Overlay */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-40 bg-slate-950/20 backdrop-blur-sm lg:hidden"
-              onClick={toggle}
-            />
+          <motion.aside
+            id="staggered-menu-panel"
+            ref={panelRef}
+            initial={{ x: position === "left" ? -24 : 24, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: position === "left" ? -24 : 24, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className={`fixed top-0 ${panelSide} z-40 h-[100svh] w-full max-w-[420px] border-l border-border/70 bg-background/92 px-5 pb-6 pt-24 shadow-[0_20px_60px_rgba(0,0,0,.08)] backdrop-blur-xl lg:hidden overflow-y-auto`}
+          >
 
-            <motion.aside
-              id="staggered-menu-panel"
-              ref={panelRef}
-              initial={{ x: position === "right" ? "100%" : "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: position === "right" ? "100%" : "-100%" }}
-              transition={{ type: "spring", damping: 28, stiffness: 220 }}
-              className={`fixed top-0 ${panelSide} z-40 h-[100svh] w-full max-w-[380px] border-l border-border/80 bg-background/96 px-6 pb-8 pt-24 shadow-[0_20px_60px_rgba(0,0,0,.12)] backdrop-blur-2xl lg:hidden overflow-y-auto ${position === "right" ? "rounded-l-[2rem]" : "rounded-r-[2rem]"}`}
-            >
-              <div className="relative flex min-h-full flex-col">
-                <div className="mb-8 flex items-center justify-between">
-                  <span className="font-mono text-[9px] uppercase tracking-[.24em] text-muted-foreground">
-                    Navigation
-                  </span>
-                  <span className="rounded-full bg-brand/10 px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[.24em] text-brand">
-                    Active
-                  </span>
-                </div>
-
-                <motion.div 
-                  variants={containerVariants}
-                  initial="hidden"
-                  animate="show"
-                  className="grid gap-2 border-t border-border/70 pt-4"
-                >
-                  {navItems.map((item, index) => {
-                    const active = isActive(item.link);
-                    return (
-                      <motion.div key={item.label} variants={itemVariants} whileHover={{ x: 4 }}>
-                        <Link
-                          to={item.link}
-                          onClick={() => {
-                            openRef.current = false;
-                            setOpen(false);
-                            onMenuClose?.();
-                          }}
-                          className="group flex items-center justify-between border-b border-border/60 py-4"
-                        >
-                          <span className="flex items-center gap-3">
-                            <span
-                              className={`h-2 w-2 rounded-full bg-brand transition-all duration-300 ${active ? "scale-100 opacity-100" : "scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100"}`}
-                            />
-                            <span
-                              className={`font-display text-[clamp(1.9rem,7vw,2.8rem)] font-semibold leading-none tracking-[-.04em] ${active ? "text-brand" : "text-foreground group-hover:text-brand"}`}
-                            >
-                              {item.label}
-                            </span>
-                          </span>
-                          {displayItemNumbering ? (
-                            <span className="font-mono text-[9px] tracking-widest text-muted-foreground">
-                              0{index + 1}
-                            </span>
-                          ) : null}
-                        </Link>
-                      </motion.div>
-                    );
-                  })}
-
-                  <motion.div variants={itemVariants} className="mt-6 border-t border-border/70 pt-6">
+            <div className="relative flex min-h-full flex-col">
+              <div className="mb-8 flex items-center justify-between">
+                <span className="font-mono text-[9px] uppercase tracking-[.24em] text-muted-foreground">
+                  Navigation
+                </span>
+                <span className="rounded-full bg-brand/10 px-2 py-1 font-mono text-[9px] uppercase tracking-[.24em] text-brand">
+                  Open
+                </span>
+              </div>
+              <div className="grid gap-2 border-t border-border/70 pt-4">
+                {navItems.map((item, index) => {
+                  const active = isActive(item.link);
+                  return (
                     <Link
-                      to="/contact"
+                      key={item.label}
+                      to={item.link}
                       onClick={() => {
                         openRef.current = false;
                         setOpen(false);
                         onMenuClose?.();
                       }}
-                      className="flex h-12 w-full items-center justify-center rounded-full bg-foreground text-sm font-semibold text-background transition-all hover:bg-brand hover:text-brand-foreground hover:scale-[1.02] active:scale-[0.98]"
+                      className="group flex items-center justify-between border-b border-border/60 py-4"
                     >
-                      Start a project
-                    </Link>
-                  </motion.div>
-                </motion.div>
-
-                {displaySocials && socialItems?.length ? (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5, duration: 0.4 }}
-                    className="mt-auto pt-8"
-                  >
-                    <p className="font-mono text-[9px] uppercase tracking-[.24em] text-muted-foreground">
-                      Socials
-                    </p>
-                    <div className="mt-4 flex flex-wrap gap-2.5">
-                      {socialItems.map((item) => (
-                        <a
-                          key={item.label}
-                          href={item.link}
-                          className="rounded-full border border-border bg-background px-4 py-2 text-xs font-medium text-foreground transition-all hover:border-brand hover:text-brand hover:-translate-y-0.5"
+                      <span className="flex items-center gap-3">
+                        <span
+                          className={`h-2 w-2 rounded-full bg-brand transition-all duration-300 ${active ? "scale-100 opacity-100" : "scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100"}`}
+                        />
+                        <span
+                          className={`font-display text-[clamp(1.9rem,7vw,3rem)] font-semibold leading-none tracking-[-.04em] ${active ? "text-brand" : "text-foreground group-hover:text-brand"}`}
                         >
                           {item.label}
-                        </a>
-                      ))}
-                    </div>
-                  </motion.div>
-                ) : null}
+                        </span>
+                      </span>
+                      {displayItemNumbering ? (
+                        <span className="font-mono text-[9px] tracking-widest text-muted-foreground">
+                          0{index + 1}
+                        </span>
+                      ) : null}
+                    </Link>
+                  );
+                })}
               </div>
-            </motion.aside>
-          </>
+              {displaySocials && socialItems?.length ? (
+                <div className="mt-auto pt-8">
+                  <p className="font-mono text-[9px] uppercase tracking-[.24em] text-muted-foreground">
+                    Socials
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-3">
+                    {socialItems.map((item) => (
+                      <a
+                        key={item.label}
+                        href={item.link}
+                        className="rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-brand hover:text-brand"
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          </motion.aside>
         )}
       </AnimatePresence>
     </div>
