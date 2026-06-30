@@ -16,6 +16,11 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WorkIndexRouteImport } from './routes/work.index'
+import { Route as TeamIndexRouteImport } from './routes/team.index'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as WorkIdRouteImport } from './routes/work.$id'
+import { Route as TeamIdRouteImport } from './routes/team.$id'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const WorkRoute = WorkRouteImport.update({
@@ -53,6 +58,31 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WorkIndexRoute = WorkIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => WorkRoute,
+} as any)
+const TeamIndexRoute = TeamIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TeamRoute,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BlogRoute,
+} as any)
+const WorkIdRoute = WorkIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => WorkRoute,
+} as any)
+const TeamIdRoute = TeamIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => TeamRoute,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -64,20 +94,27 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
-  '/team': typeof TeamRoute
+  '/team': typeof TeamRouteWithChildren
   '/terms': typeof TermsRoute
-  '/work': typeof WorkRoute
+  '/work': typeof WorkRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/team/$id': typeof TeamIdRoute
+  '/work/$id': typeof WorkIdRoute
+  '/blog/': typeof BlogIndexRoute
+  '/team/': typeof TeamIndexRoute
+  '/work/': typeof WorkIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
-  '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
-  '/work': typeof WorkRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/team/$id': typeof TeamIdRoute
+  '/work/$id': typeof WorkIdRoute
+  '/blog': typeof BlogIndexRoute
+  '/team': typeof TeamIndexRoute
+  '/work': typeof WorkIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -85,10 +122,15 @@ export interface FileRoutesById {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
-  '/team': typeof TeamRoute
+  '/team': typeof TeamRouteWithChildren
   '/terms': typeof TermsRoute
-  '/work': typeof WorkRoute
+  '/work': typeof WorkRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/team/$id': typeof TeamIdRoute
+  '/work/$id': typeof WorkIdRoute
+  '/blog/': typeof BlogIndexRoute
+  '/team/': typeof TeamIndexRoute
+  '/work/': typeof WorkIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,16 +143,23 @@ export interface FileRouteTypes {
     | '/terms'
     | '/work'
     | '/blog/$slug'
+    | '/team/$id'
+    | '/work/$id'
+    | '/blog/'
+    | '/team/'
+    | '/work/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/blog'
     | '/contact'
     | '/privacy'
-    | '/team'
     | '/terms'
-    | '/work'
     | '/blog/$slug'
+    | '/team/$id'
+    | '/work/$id'
+    | '/blog'
+    | '/team'
+    | '/work'
   id:
     | '__root__'
     | '/'
@@ -121,6 +170,11 @@ export interface FileRouteTypes {
     | '/terms'
     | '/work'
     | '/blog/$slug'
+    | '/team/$id'
+    | '/work/$id'
+    | '/blog/'
+    | '/team/'
+    | '/work/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -128,9 +182,9 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
   PrivacyRoute: typeof PrivacyRoute
-  TeamRoute: typeof TeamRoute
+  TeamRoute: typeof TeamRouteWithChildren
   TermsRoute: typeof TermsRoute
-  WorkRoute: typeof WorkRoute
+  WorkRoute: typeof WorkRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -184,6 +238,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/work/': {
+      id: '/work/'
+      path: '/'
+      fullPath: '/work/'
+      preLoaderRoute: typeof WorkIndexRouteImport
+      parentRoute: typeof WorkRoute
+    }
+    '/team/': {
+      id: '/team/'
+      path: '/'
+      fullPath: '/team/'
+      preLoaderRoute: typeof TeamIndexRouteImport
+      parentRoute: typeof TeamRoute
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof BlogRoute
+    }
+    '/work/$id': {
+      id: '/work/$id'
+      path: '/$id'
+      fullPath: '/work/$id'
+      preLoaderRoute: typeof WorkIdRouteImport
+      parentRoute: typeof WorkRoute
+    }
+    '/team/$id': {
+      id: '/team/$id'
+      path: '/$id'
+      fullPath: '/team/$id'
+      preLoaderRoute: typeof TeamIdRouteImport
+      parentRoute: typeof TeamRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -196,22 +285,48 @@ declare module '@tanstack/react-router' {
 
 interface BlogRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
 }
 
 const BlogRouteChildren: BlogRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
 }
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
+
+interface TeamRouteChildren {
+  TeamIdRoute: typeof TeamIdRoute
+  TeamIndexRoute: typeof TeamIndexRoute
+}
+
+const TeamRouteChildren: TeamRouteChildren = {
+  TeamIdRoute: TeamIdRoute,
+  TeamIndexRoute: TeamIndexRoute,
+}
+
+const TeamRouteWithChildren = TeamRoute._addFileChildren(TeamRouteChildren)
+
+interface WorkRouteChildren {
+  WorkIdRoute: typeof WorkIdRoute
+  WorkIndexRoute: typeof WorkIndexRoute
+}
+
+const WorkRouteChildren: WorkRouteChildren = {
+  WorkIdRoute: WorkIdRoute,
+  WorkIndexRoute: WorkIndexRoute,
+}
+
+const WorkRouteWithChildren = WorkRoute._addFileChildren(WorkRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
   PrivacyRoute: PrivacyRoute,
-  TeamRoute: TeamRoute,
+  TeamRoute: TeamRouteWithChildren,
   TermsRoute: TermsRoute,
-  WorkRoute: WorkRoute,
+  WorkRoute: WorkRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

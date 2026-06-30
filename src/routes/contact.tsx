@@ -37,7 +37,7 @@ const serviceOptions = [
   "Not sure yet",
 ];
 
-const budgetOptions = ["Still defining it", "Under $5k", "$5k-$15k", "$15k-$40k", "$40k+"];
+const budgetOptions = ["Still defining it", "Under ₹5 Lakhs", "₹5L - ₹15 Lakhs", "₹15L - ₹40 Lakhs", "₹40 Lakhs+"];
 
 const timelineOptions = [
   "As soon as possible",
@@ -45,7 +45,6 @@ const timelineOptions = [
   "Within 3-6 months",
   "Just exploring",
 ];
-
 const stepMeta = [
   { title: "Your details", description: "Who should we reply to?" },
   { title: "Project shape", description: "What kind of work, budget and timing?" },
@@ -56,6 +55,7 @@ function ContactPage() {
   const [step, setStep] = useState(0);
   const [status, setStatus] = useState<"idle" | "sent">("idle");
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [draft, setDraft] = useState<Draft>({
     name: "",
     email: "",
@@ -69,12 +69,36 @@ function ContactPage() {
   function update<K extends keyof Draft>(key: K, value: Draft[K]) {
     setDraft((current) => ({ ...current, [key]: value }));
     if (error) setError("");
+    if (fieldErrors[key]) {
+      setFieldErrors((prev) => {
+        const next = { ...prev };
+        delete next[key];
+        return next;
+      });
+    }
   }
 
   function next() {
-    if (step === 0 && (!draft.name.trim() || !draft.email.trim())) {
-      setError("Please add your name and work email before continuing.");
-      return;
+    if (step === 0) {
+      const errors: Record<string, string> = {};
+      if (!draft.name.trim()) {
+        errors.name = "Name is required";
+      } else if (draft.name.trim().length < 2) {
+        errors.name = "Name must be at least 2 characters";
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!draft.email.trim()) {
+        errors.email = "Work email is required";
+      } else if (!emailRegex.test(draft.email.trim())) {
+        errors.email = "Please enter a valid email address";
+      }
+
+      if (Object.keys(errors).length > 0) {
+        setFieldErrors(errors);
+        setError("Please correct the errors in the form before continuing.");
+        return;
+      }
     }
     if (step === 1 && (!draft.service || !draft.budget || !draft.timeline)) {
       setError("Please choose a service, budget and timeline.");
@@ -90,7 +114,13 @@ function ContactPage() {
 
   function submit() {
     if (!draft.brief.trim()) {
+      setFieldErrors({ brief: "Project brief is required" });
       setError("Please tell us a little about the project before sending.");
+      return;
+    }
+    if (draft.brief.trim().length < 15) {
+      setFieldErrors({ brief: "Brief is too short (min 15 characters)" });
+      setError("Please provide a slightly more detailed brief (at least 15 characters).");
       return;
     }
 
@@ -169,13 +199,12 @@ function ContactPage() {
                       className="group flex flex-col items-center gap-2.5 cursor-pointer"
                     >
                       <span
-                        className={`relative flex h-9 w-9 items-center justify-center rounded-full border-2 font-mono text-xs font-semibold transition-all duration-300 ${
-                          isActive
+                        className={`relative flex h-9 w-9 items-center justify-center rounded-full border-2 font-mono text-xs font-semibold transition-all duration-300 ${isActive
                             ? "border-foreground bg-foreground text-background scale-110"
                             : isDone
                               ? "border-brand bg-brand text-brand-foreground"
                               : "border-border bg-background text-muted-foreground group-hover:border-border-strong"
-                        }`}
+                          }`}
                       >
                         {isDone ? (
                           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
@@ -184,9 +213,8 @@ function ContactPage() {
                         )}
                       </span>
                       <span
-                        className={`text-xs font-medium transition-colors duration-200 ${
-                          isActive ? "text-foreground" : "text-muted-foreground"
-                        }`}
+                        className={`text-xs font-medium transition-colors duration-200 ${isActive ? "text-foreground" : "text-muted-foreground"
+                          }`}
                       >
                         {s.title}
                       </span>
@@ -236,6 +264,7 @@ function ContactPage() {
                         onChange={(value) => update("name", value)}
                         placeholder="Mihir Rabari"
                         autoComplete="name"
+                        error={fieldErrors.name}
                       />
                     </Field>
                     <Field label="Work email *">
@@ -245,6 +274,7 @@ function ContactPage() {
                         placeholder="you@company.com"
                         autoComplete="email"
                         type="email"
+                        error={fieldErrors.email}
                       />
                     </Field>
                   </div>
@@ -332,6 +362,7 @@ function ContactPage() {
                       value={draft.brief}
                       onChange={(value) => update("brief", value)}
                       placeholder="What are you building, who is it for, what exists today, and what needs to happen next?"
+                      error={fieldErrors.brief}
                     />
                   </Field>
                 </motion.div>
@@ -434,22 +465,30 @@ function TextInput({
   placeholder,
   autoComplete,
   type = "text",
+  error,
 }: {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
   autoComplete?: string;
   type?: string;
+  error?: string;
 }) {
   return (
-    <input
-      type={type}
-      value={value}
-      onChange={(event) => onChange(event.target.value)}
-      placeholder={placeholder}
-      autoComplete={autoComplete}
-      className="h-12 w-full rounded-xl border border-border bg-background px-4 text-sm outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 hover:border-border-strong focus:border-brand focus:ring-1 focus:ring-brand/30"
-    />
+    <div className="w-full">
+      <input
+        type={type}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        placeholder={placeholder}
+        autoComplete={autoComplete}
+        className={`h-12 w-full rounded-xl border bg-background px-4 text-sm outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:ring-1 ${error
+            ? "border-destructive hover:border-destructive focus:border-destructive focus:ring-destructive/30"
+            : "border-border hover:border-border-strong focus:border-brand focus:ring-brand/30"
+          }`}
+      />
+      {error && <span className="mt-1.5 block text-xs text-destructive">{error}</span>}
+    </div>
   );
 }
 
@@ -457,19 +496,27 @@ function TextArea({
   value,
   onChange,
   placeholder,
+  error,
 }: {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  error?: string;
 }) {
   return (
-    <textarea
-      value={value}
-      onChange={(event) => onChange(event.target.value)}
-      rows={6}
-      placeholder={placeholder}
-      className="min-h-[200px] w-full resize-y rounded-xl border border-border bg-background px-4 py-3 text-sm leading-7 outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 hover:border-border-strong focus:border-brand focus:ring-1 focus:ring-brand/30"
-    />
+    <div className="w-full">
+      <textarea
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        rows={6}
+        placeholder={placeholder}
+        className={`min-h-[200px] w-full resize-y rounded-xl border bg-background px-4 py-3 text-sm leading-7 outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:ring-1 ${error
+            ? "border-destructive hover:border-destructive focus:border-destructive focus:ring-destructive/30"
+            : "border-border hover:border-border-strong focus:border-brand focus:ring-brand/30"
+          }`}
+      />
+      {error && <span className="mt-1.5 block text-xs text-destructive">{error}</span>}
+    </div>
   );
 }
 
@@ -493,21 +540,19 @@ function OptionSelector({
             key={option}
             type="button"
             onClick={() => onChange(option)}
-            className={`relative flex items-center justify-between rounded-xl border px-4 py-3.5 text-left transition-all duration-200 cursor-pointer ${
-              isSelected
+            className={`relative flex items-center justify-between rounded-xl border px-4 py-3.5 text-left transition-all duration-200 cursor-pointer ${isSelected
                 ? "border-brand bg-brand/[0.04] text-foreground"
                 : "border-border bg-background hover:border-border-strong"
-            }`}
+              }`}
           >
             <span className="text-sm font-medium leading-snug">
               {option}
             </span>
             <div
-              className={`flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full border transition-all ${
-                isSelected
+              className={`flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full border transition-all ${isSelected
                   ? "border-brand bg-brand"
                   : "border-border"
-              }`}
+                }`}
             >
               {isSelected && (
                 <motion.svg

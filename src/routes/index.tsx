@@ -369,34 +369,40 @@ function Work() {
               transition={{ duration: 0.55, delay: i * 0.08 }}
               className="group flex min-h-[210px] overflow-hidden bg-background transition-colors hover:bg-surface lg:min-h-0"
             >
-              <div className="relative flex w-20 shrink-0 items-center justify-center overflow-hidden border-r border-border bg-foreground text-background">
-                <div className="absolute inset-0 opacity-10 grid-bg" />
-                <span className="relative -rotate-90 font-accent text-4xl font-light italic text-brand transition-transform duration-700 group-hover:-rotate-90 group-hover:scale-110">
-                  {c.mark}
-                </span>
-                <span className="absolute left-3 top-4 font-mono text-[8px] uppercase tracking-widest text-background/50">
-                  Case / 0{i + 1}
-                </span>
-              </div>
-              <div className="flex min-w-0 flex-1 flex-col p-5">
-                <span className="font-mono text-[9px] uppercase tracking-widest text-brand">
-                  {c.category}
-                </span>
-                <h3 className="mt-1.5 font-display text-2xl font-medium">{c.name}</h3>
-                <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
-                  {c.description}
-                </p>
-                <div className="mt-auto flex flex-wrap gap-1.5 pt-4">
-                  {c.shipped.map((x) => (
-                    <span
-                      key={x}
-                      className="rounded-full border border-border px-2.5 py-1 text-[10px] text-muted-foreground"
-                    >
-                      {x}
-                    </span>
-                  ))}
+              <Link
+                to="/work/$id"
+                params={{ id: c.id }}
+                className="flex w-full overflow-hidden cursor-pointer"
+              >
+                <div className="relative flex w-20 shrink-0 items-center justify-center overflow-hidden border-r border-border bg-foreground text-background">
+                  <div className="absolute inset-0 opacity-10 grid-bg" />
+                  <span className="relative -rotate-90 font-accent text-4xl font-light italic text-brand transition-transform duration-700 group-hover:-rotate-90 group-hover:scale-110">
+                    {c.mark}
+                  </span>
+                  <span className="absolute left-3 top-4 font-mono text-[8px] uppercase tracking-widest text-background/50">
+                    Case / 0{i + 1}
+                  </span>
                 </div>
-              </div>
+                <div className="flex min-w-0 flex-1 flex-col p-5">
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-brand">
+                    {c.category}
+                  </span>
+                  <h3 className="mt-1.5 font-display text-2xl font-medium">{c.name}</h3>
+                  <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
+                    {c.description}
+                  </p>
+                  <div className="mt-auto flex flex-wrap gap-1.5 pt-4">
+                    {c.shipped.map((x) => (
+                      <span
+                        key={x}
+                        className="rounded-full border border-border px-2.5 py-1 text-[10px] text-muted-foreground"
+                      >
+                        {x}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Link>
             </motion.article>
           ))}
         </div>

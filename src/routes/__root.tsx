@@ -125,22 +125,31 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "The Velnix â€” From Idea to Production" },
+      { title: "The Velnix — From Idea to Production" },
       {
         name: "description",
         content:
           "AI-Native Product & Engineering Studio. We design, build, and scale software products, AI systems, and mobile applications.",
       },
       { name: "author", content: "The Velnix" },
-      { property: "og:title", content: "The Velnix â€” From Idea to Production" },
+      { property: "og:title", content: "The Velnix — From Idea to Production" },
       {
         property: "og:description",
         content:
           "AI-Native Product & Engineering Studio. We design, build, and scale software products, AI systems, and mobile applications.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://thevelnix.com" },
+      { property: "og:image", content: "https://thevelnix.com/velnix-mark-dark.png" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@TheVelnix" },
+      { name: "twitter:title", content: "The Velnix — From Idea to Production" },
+      {
+        name: "twitter:description",
+        content:
+          "AI-Native Product & Engineering Studio. We design, build, and scale software products, AI systems, and mobile applications.",
+      },
+      { name: "twitter:image", content: "https://thevelnix.com/velnix-mark-dark.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -153,6 +162,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Azeret+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Manrope:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap",
       },
+      { rel: "canonical", href: "https://thevelnix.com" },
     ],
   }),
   shellComponent: RootShell,
@@ -162,10 +172,45 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "The Velnix",
+    "legalName": "Velnix Studio",
+    "url": "https://thevelnix.com",
+    "logo": "https://thevelnix.com/velnix-mark-dark.png",
+    "image": "https://thevelnix.com/velnix-mark-dark.png",
+    "description": "AI-Native Product & Engineering Studio. We design, build, and scale software products, AI systems, and mobile applications.",
+    "sameAs": [
+      "https://x.com/The_Velnix",
+      "https://github.com/Mihir-Rabari",
+      "https://linkedin.com",
+      "https://dribbble.com/the-velnix"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "India"
+    },
+    "founders": [
+      {
+        "@type": "Person",
+        "name": "Mihir Rabari"
+      },
+      {
+        "@type": "Person",
+        "name": "Khushi Trivedi"
+      }
+    ]
+  };
+
   return (
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body>
         {children}
