@@ -141,9 +141,9 @@ export function SiteFooter({ hideCta = false }: { hideCta?: boolean }) {
               Address
             </p>
             <p className="mt-4 text-sm leading-7 text-foreground">
-              FF-09 Saffrin icon
+              FF-09 Saffron icon
               <br />
-              OPP seniro citizen garden, Anand, Gujarat, India
+              OPP senior citizen garden, Anand, Gujarat, India
               <br />
               Working globally / IST
             </p>
