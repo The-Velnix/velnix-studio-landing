@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import BlurText from "@/components/react-bits/BlurText";
@@ -271,7 +271,16 @@ function WorkPage() {
                       </div>
 
                       <h3 className="mt-4 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-                        {c.name}
+                        <Link
+                          to="/work/$id"
+                          params={{ id: c.id }}
+                          className="hover:text-brand transition-colors inline-flex items-center gap-2.5 group/link"
+                        >
+                          <span>{c.name}</span>
+                          <svg className="h-5 w-5 text-muted-foreground group-hover/link:text-brand group-hover/link:translate-x-1 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                          </svg>
+                        </Link>
                       </h3>
 
                       <p className="mt-3 text-base text-muted-foreground font-medium max-w-2xl">

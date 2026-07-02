@@ -37,7 +37,7 @@ const serviceOptions = [
   "Not sure yet",
 ];
 
-const budgetOptions = ["Still defining it", "Under $5k", "$5k-$15k", "$15k-$40k", "$40k+"];
+const budgetOptions = ["Still defining it", "Under ₹1 Lakh", "₹1 Lakh - ₹5 Lakhs", "₹5 Lakhs - ₹15 Lakhs", "₹15 Lakhs+"];
 
 const timelineOptions = [
   "As soon as possible",
@@ -55,7 +55,7 @@ const stepMeta = [
 function ContactPage() {
   const [step, setStep] = useState(0);
   const [status, setStatus] = useState<"idle" | "sent">("idle");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [draft, setDraft] = useState<Draft>({
     name: "",
     email: "",
@@ -68,29 +68,60 @@ function ContactPage() {
 
   function update<K extends keyof Draft>(key: K, value: Draft[K]) {
     setDraft((current) => ({ ...current, [key]: value }));
-    if (error) setError("");
+    if (errors[key]) {
+      setErrors((current) => {
+        const next = { ...current };
+        delete next[key];
+        return next;
+      });
+    }
   }
 
   function next() {
-    if (step === 0 && (!draft.name.trim() || !draft.email.trim())) {
-      setError("Please add your name and work email before continuing.");
-      return;
+    const newErrors: Record<string, string> = {};
+    if (step === 0) {
+      if (!draft.name.trim()) {
+        newErrors.name = "Please add your name.";
+      } else if (draft.name.trim().length < 2) {
+        newErrors.name = "Name must be at least 2 characters.";
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!draft.email.trim()) {
+        newErrors.email = "Please add your work email.";
+      } else if (!emailRegex.test(draft.email.trim())) {
+        newErrors.email = "Please enter a valid email address.";
+      }
+
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        return;
+      }
     }
-    if (step === 1 && (!draft.service || !draft.budget || !draft.timeline)) {
-      setError("Please choose a service, budget and timeline.");
-      return;
+
+    if (step === 1) {
+      if (!draft.service) newErrors.service = "Please choose a service option.";
+      if (!draft.budget) newErrors.budget = "Please choose a budget range.";
+      if (!draft.timeline) newErrors.timeline = "Please choose a timeline.";
+
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        return;
+      }
     }
+
+    setErrors({});
     setStep((current) => Math.min(current + 1, stepMeta.length - 1));
   }
 
   function back() {
-    setError("");
+    setErrors({});
     setStep((current) => Math.max(current - 1, 0));
   }
 
   function submit() {
     if (!draft.brief.trim()) {
-      setError("Please tell us a little about the project before sending.");
+      setErrors({ brief: "Please tell us a little about the project before sending." });
       return;
     }
 
@@ -165,7 +196,7 @@ function ContactPage() {
                   <div key={s.title} className="flex flex-1 items-start">
                     <button
                       type="button"
-                      onClick={() => { setError(""); setStep(i); }}
+                      onClick={() => { setErrors({}); setStep(i); }}
                       className="group flex flex-col items-center gap-2.5 cursor-pointer"
                     >
                       <span
@@ -230,30 +261,33 @@ function ContactPage() {
                   className="grid gap-6"
                 >
                   <div className="grid gap-6 md:grid-cols-2">
-                    <Field label="Your name *">
+                    <Field label="Your name *" error={errors.name}>
                       <TextInput
                         value={draft.name}
                         onChange={(value) => update("name", value)}
                         placeholder="Mihir Rabari"
                         autoComplete="name"
+                        hasError={!!errors.name}
                       />
                     </Field>
-                    <Field label="Work email *">
+                    <Field label="Work email *" error={errors.email}>
                       <TextInput
                         value={draft.email}
                         onChange={(value) => update("email", value)}
                         placeholder="you@company.com"
                         autoComplete="email"
                         type="email"
+                        hasError={!!errors.email}
                       />
                     </Field>
                   </div>
-                  <Field label="Company">
+                  <Field label="Company" error={errors.company}>
                     <TextInput
                       value={draft.company}
                       onChange={(value) => update("company", value)}
                       placeholder="Company or product name"
                       autoComplete="organization"
+                      hasError={!!errors.company}
                     />
                   </Field>
                 </motion.div>
@@ -267,37 +301,49 @@ function ContactPage() {
                   className="grid gap-8"
                 >
                   <div>
-                    <span className="mb-3 block text-xs font-medium text-foreground">
-                      What do you need? *
+                    <span className="mb-3 block text-xs font-medium text-foreground flex items-center justify-between">
+                      <span>What do you need? *</span>
+                      {errors.service && (
+                        <span className="text-xs text-destructive font-medium">{errors.service}</span>
+                      )}
                     </span>
                     <OptionSelector
                       value={draft.service}
                       options={serviceOptions}
                       onChange={(value) => update("service", value)}
+                      hasError={!!errors.service}
                       columns="grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
                     />
                   </div>
 
                   <div>
-                    <span className="mb-3 block text-xs font-medium text-foreground">
-                      Indicative investment *
+                    <span className="mb-3 block text-xs font-medium text-foreground flex items-center justify-between">
+                      <span>Indicative investment *</span>
+                      {errors.budget && (
+                        <span className="text-xs text-destructive font-medium">{errors.budget}</span>
+                      )}
                     </span>
                     <OptionSelector
                       value={draft.budget}
                       options={budgetOptions}
                       onChange={(value) => update("budget", value)}
+                      hasError={!!errors.budget}
                       columns="grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
                     />
                   </div>
 
                   <div>
-                    <span className="mb-3 block text-xs font-medium text-foreground">
-                      Ideal start *
+                    <span className="mb-3 block text-xs font-medium text-foreground flex items-center justify-between">
+                      <span>Ideal start *</span>
+                      {errors.timeline && (
+                        <span className="text-xs text-destructive font-medium">{errors.timeline}</span>
+                      )}
                     </span>
                     <OptionSelector
                       value={draft.timeline}
                       options={timelineOptions}
                       onChange={(value) => update("timeline", value)}
+                      hasError={!!errors.timeline}
                       columns="grid-cols-1 sm:grid-cols-2"
                     />
                   </div>
@@ -327,26 +373,17 @@ function ContactPage() {
                     </div>
                   )}
 
-                  <Field label="Tell us about the project *">
+                  <Field label="Tell us about the project *" error={errors.brief}>
                     <TextArea
                       value={draft.brief}
                       onChange={(value) => update("brief", value)}
                       placeholder="What are you building, who is it for, what exists today, and what needs to happen next?"
+                      hasError={!!errors.brief}
                     />
                   </Field>
                 </motion.div>
               )}
             </AnimatePresence>
-
-            {error ? (
-              <motion.p
-                initial={{ opacity: 0, y: -4 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mt-4 text-sm text-destructive"
-              >
-                {error}
-              </motion.p>
-            ) : null}
 
             {/* Footer */}
             <div className="mt-8 flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
@@ -414,16 +451,27 @@ function ContactPage() {
 function Field({
   label,
   children,
+  error,
   className = "",
 }: {
   label: string;
   children: ReactNode;
+  error?: string;
   className?: string;
 }) {
   return (
     <label className={`block ${className}`}>
       <span className="text-xs font-medium tracking-[.02em] text-foreground">{label}</span>
       <div className="mt-2">{children}</div>
+      {error && (
+        <motion.p
+          initial={{ opacity: 0, y: -4 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-1.5 text-xs text-destructive font-medium"
+        >
+          {error}
+        </motion.p>
+      )}
     </label>
   );
 }
@@ -433,12 +481,14 @@ function TextInput({
   onChange,
   placeholder,
   autoComplete,
+  hasError = false,
   type = "text",
 }: {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
   autoComplete?: string;
+  hasError?: boolean;
   type?: string;
 }) {
   return (
@@ -448,7 +498,11 @@ function TextInput({
       onChange={(event) => onChange(event.target.value)}
       placeholder={placeholder}
       autoComplete={autoComplete}
-      className="h-12 w-full rounded-xl border border-border bg-background px-4 text-sm outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 hover:border-border-strong focus:border-brand focus:ring-1 focus:ring-brand/30"
+      className={`h-12 w-full rounded-xl border bg-background px-4 text-sm outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 ${
+        hasError
+          ? "border-destructive focus:border-destructive focus:ring-1 focus:ring-destructive/30"
+          : "border-border hover:border-border-strong focus:border-brand focus:ring-1 focus:ring-brand/30"
+      }`}
     />
   );
 }
@@ -457,10 +511,12 @@ function TextArea({
   value,
   onChange,
   placeholder,
+  hasError = false,
 }: {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  hasError?: boolean;
 }) {
   return (
     <textarea
@@ -468,7 +524,11 @@ function TextArea({
       onChange={(event) => onChange(event.target.value)}
       rows={6}
       placeholder={placeholder}
-      className="min-h-[200px] w-full resize-y rounded-xl border border-border bg-background px-4 py-3 text-sm leading-7 outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 hover:border-border-strong focus:border-brand focus:ring-1 focus:ring-brand/30"
+      className={`min-h-[200px] w-full resize-y rounded-xl border bg-background px-4 py-3 text-sm leading-7 outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 ${
+        hasError
+          ? "border-destructive focus:border-destructive focus:ring-1 focus:ring-destructive/30"
+          : "border-border hover:border-border-strong focus:border-brand focus:ring-1 focus:ring-brand/30"
+      }`}
     />
   );
 }
@@ -477,11 +537,13 @@ function OptionSelector({
   value,
   options,
   onChange,
+  hasError = false,
   columns = "grid-cols-1 sm:grid-cols-2 md:grid-cols-3",
 }: {
   value: string;
   options: string[];
   onChange: (val: string) => void;
+  hasError?: boolean;
   columns?: string;
 }) {
   return (
@@ -496,7 +558,9 @@ function OptionSelector({
             className={`relative flex items-center justify-between rounded-xl border px-4 py-3.5 text-left transition-all duration-200 cursor-pointer ${
               isSelected
                 ? "border-brand bg-brand/[0.04] text-foreground"
-                : "border-border bg-background hover:border-border-strong"
+                : hasError
+                  ? "border-destructive/60 bg-background hover:border-destructive"
+                  : "border-border bg-background hover:border-border-strong"
             }`}
           >
             <span className="text-sm font-medium leading-snug">
@@ -506,7 +570,9 @@ function OptionSelector({
               className={`flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full border transition-all ${
                 isSelected
                   ? "border-brand bg-brand"
-                  : "border-border"
+                  : hasError
+                    ? "border-destructive"
+                    : "border-border"
               }`}
             >
               {isSelected && (

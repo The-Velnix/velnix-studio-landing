@@ -82,7 +82,8 @@ export function SiteHeader() {
         { label: "Email", link: "mailto:hello@thevelnix.com" },
         { label: "LinkedIn", link: "https://www.linkedin.com/company/the-velnix" },
         { label: "Instagram", link: "https://www.instagram.com/the_velnix?igsh=dDhnNjRmcTB5eWdw" },
-        { label: "Dribbble", link: "https://dribbble.com" },
+        { label: "X / Twitter", link: "https://x.com/The_Velnix" },
+        { label: "Dribbble", link: "https://dribbble.com/the-velnix" },
       ]}
       displaySocials
       displayItemNumbering
@@ -131,8 +132,8 @@ export function SiteFooter({ hideCta = false }: { hideCta?: boolean }) {
             links={[
               ["LinkedIn", "https://www.linkedin.com/company/the-velnix"],
               ["Instagram", "https://www.instagram.com/the_velnix?igsh=dDhnNjRmcTB5eWdw"],
-              ["X / Twitter", "https://x.com"],
-              ["Dribbble", "https://dribbble.com"],
+              ["X / Twitter", "https://x.com/The_Velnix"],
+              ["Dribbble", "https://dribbble.com/the-velnix"],
             ]}
           />
           <div>

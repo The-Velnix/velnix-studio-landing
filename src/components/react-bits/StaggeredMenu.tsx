@@ -169,74 +169,124 @@ export default function StaggeredMenu(props) {
           <motion.aside
             id="staggered-menu-panel"
             ref={panelRef}
-            initial={{ x: position === "left" ? -24 : 24, opacity: 0 }}
+            initial={{ x: position === "left" ? "-100%" : "100%", opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            exit={{ x: position === "left" ? -24 : 24, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className={`fixed top-0 ${panelSide} z-40 h-[100svh] w-full max-w-[420px] border-l border-border/70 bg-background/92 px-5 pb-6 pt-24 shadow-[0_20px_60px_rgba(0,0,0,.08)] backdrop-blur-xl lg:hidden overflow-y-auto`}
+            exit={{ x: position === "left" ? "-100%" : "100%", opacity: 0 }}
+            transition={{ type: "spring", damping: 26, stiffness: 170 }}
+            className={`fixed top-0 ${panelSide} z-40 h-[100svh] w-full max-w-[380px] border-l border-border bg-background/96 px-6 pb-8 pt-24 shadow-[0_20px_60px_rgba(0,0,0,.15)] backdrop-blur-2xl lg:hidden overflow-y-auto`}
           >
-
-            <div className="relative flex min-h-full flex-col">
-              <div className="mb-8 flex items-center justify-between">
+            <motion.div
+              initial="closed"
+              animate="open"
+              exit="closed"
+              variants={{
+                open: { transition: { staggerChildren: 0.05, delayChildren: 0.05 } },
+                closed: { transition: { staggerChildren: 0.03, staggerDirection: -1 } }
+              }}
+              className="relative flex min-h-full flex-col"
+            >
+              <motion.div
+                variants={{
+                  open: { opacity: 1, y: 0 },
+                  closed: { opacity: 0, y: -10 }
+                }}
+                className="mb-8 flex items-center justify-between"
+              >
                 <span className="font-mono text-[9px] uppercase tracking-[.24em] text-muted-foreground">
                   Navigation
                 </span>
                 <span className="rounded-full bg-brand/10 px-2 py-1 font-mono text-[9px] uppercase tracking-[.24em] text-brand">
-                  Open
+                  Menu
                 </span>
-              </div>
-              <div className="grid gap-2 border-t border-border/70 pt-4">
+              </motion.div>
+
+              <div className="grid gap-1 border-t border-border/70 pt-4">
                 {navItems.map((item, index) => {
                   const active = isActive(item.link);
                   return (
-                    <Link
+                    <motion.div
                       key={item.label}
-                      to={item.link}
-                      onClick={() => {
-                        openRef.current = false;
-                        setOpen(false);
-                        onMenuClose?.();
+                      variants={{
+                        open: { opacity: 1, x: 0 },
+                        closed: { opacity: 0, x: 20 }
                       }}
-                      className="group flex items-center justify-between border-b border-border/60 py-4"
                     >
-                      <span className="flex items-center gap-3">
-                        <span
-                          className={`h-2 w-2 rounded-full bg-brand transition-all duration-300 ${active ? "scale-100 opacity-100" : "scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100"}`}
-                        />
-                        <span
-                          className={`font-display text-[clamp(1.9rem,7vw,3rem)] font-semibold leading-none tracking-[-.04em] ${active ? "text-brand" : "text-foreground group-hover:text-brand"}`}
-                        >
-                          {item.label}
+                      <Link
+                        to={item.link}
+                        onClick={() => {
+                          openRef.current = false;
+                          setOpen(false);
+                          onMenuClose?.();
+                        }}
+                        className="group flex items-center justify-between border-b border-border/40 py-3.5"
+                      >
+                        <span className="flex items-center gap-2.5">
+                          <span
+                            className={`h-1.5 w-1.5 rounded-full bg-brand transition-all duration-300 ${active ? "scale-100 opacity-100" : "scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100"}`}
+                          />
+                          <span
+                            className={`font-display text-[clamp(1.7rem,6vw,2.5rem)] font-semibold leading-none tracking-[-.04em] ${active ? "text-brand" : "text-foreground group-hover:text-brand"}`}
+                          >
+                            {item.label}
+                          </span>
                         </span>
-                      </span>
-                      {displayItemNumbering ? (
-                        <span className="font-mono text-[9px] tracking-widest text-muted-foreground">
-                          0{index + 1}
-                        </span>
-                      ) : null}
-                    </Link>
+                        {displayItemNumbering ? (
+                          <span className="font-mono text-[9px] tracking-widest text-muted-foreground">
+                            0{index + 1}
+                          </span>
+                        ) : null}
+                      </Link>
+                    </motion.div>
                   );
                 })}
               </div>
+
+              {/* Start a project primary button in mobile sidebar */}
+              <motion.div
+                variants={{
+                  open: { opacity: 1, y: 0 },
+                  closed: { opacity: 0, y: 15 }
+                }}
+                className="mt-8"
+              >
+                <Link
+                  to="/contact"
+                  onClick={() => {
+                    openRef.current = false;
+                    setOpen(false);
+                    onMenuClose?.();
+                  }}
+                  className="flex h-12 w-full items-center justify-center rounded-full bg-foreground font-semibold text-background transition-colors hover:bg-brand hover:text-white"
+                >
+                  Start a project
+                </Link>
+              </motion.div>
+
               {displaySocials && socialItems?.length ? (
-                <div className="mt-auto pt-8">
+                <motion.div
+                  variants={{
+                    open: { opacity: 1 },
+                    closed: { opacity: 0 }
+                  }}
+                  className="mt-auto pt-10"
+                >
                   <p className="font-mono text-[9px] uppercase tracking-[.24em] text-muted-foreground">
                     Socials
                   </p>
-                  <div className="mt-4 flex flex-wrap gap-3">
+                  <div className="mt-4 flex flex-wrap gap-2.5">
                     {socialItems.map((item) => (
                       <a
                         key={item.label}
                         href={item.link}
-                        className="rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-brand hover:text-brand"
+                        className="rounded-full border border-border bg-background/50 px-4 py-2 text-xs font-medium text-foreground transition-colors hover:border-brand hover:text-brand"
                       >
                         {item.label}
                       </a>
                     ))}
                   </div>
-                </div>
+                </motion.div>
               ) : null}
-            </div>
+            </motion.div>
           </motion.aside>
         )}
       </AnimatePresence>

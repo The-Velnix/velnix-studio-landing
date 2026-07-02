@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "framer-motion";
 import BlurText from "@/components/react-bits/BlurText";
 import ScrollReveal from "@/components/react-bits/ScrollReveal";
@@ -223,7 +223,16 @@ function TeamPage() {
                     {person.role}
                   </span>
                   <h3 className="mt-1 font-display text-2xl font-bold tracking-tight text-foreground">
-                    {person.name}
+                    <Link
+                      to="/team/$id"
+                      params={{ id: person.name.toLowerCase().replace(" ", "-") }}
+                      className="hover:text-brand transition-colors inline-flex items-center gap-2.5 group/link"
+                    >
+                      <span>{person.name}</span>
+                      <svg className="h-4.5 w-4.5 text-muted-foreground group-hover/link:text-brand group-hover/link:translate-x-1 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                      </svg>
+                    </Link>
                   </h3>
                   <p className="mt-4 text-sm leading-6 text-muted-foreground">{person.bio}</p>
                 </div>
