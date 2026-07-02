@@ -1,0 +1,11 @@
+# https://www.robotstxt.org/robotstxt.html
+# Allow all search engine crawlers access to the entire site
+
+User-agent: *
+Allow: /
+
+# Host
+Host: https://thevelnix.com
+
+# Sitemap Link
+Sitemap: https://thevelnix.com/sitemap.xml
