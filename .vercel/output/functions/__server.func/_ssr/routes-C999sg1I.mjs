@@ -61,7 +61,7 @@ function FlowingMenu({ items = defaultItems, speed = 18, textColor = "#0f1115", 
 				className: "flex w-max items-center whitespace-nowrap font-display text-[clamp(0.95rem,1.8vw,1.45rem)] font-semibold uppercase tracking-[.2em]",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 					className: "flex items-center",
-					children: firstHalf.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+					children: firstHalf.map((item, idx) => /* @__PURE__ */(0, import_jsx_runtime.jsxs)("span", {
 						className: "flex items-center",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
 							href: item.link,
@@ -75,7 +75,7 @@ function FlowingMenu({ items = defaultItems, speed = 18, textColor = "#0f1115", 
 					}, `first-${idx}`))
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 					className: "flex items-center",
-					children: secondHalf.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+					children: secondHalf.map((item, idx) => /* @__PURE__ */(0, import_jsx_runtime.jsxs)("span", {
 						className: "flex items-center",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
 							href: item.link,
@@ -219,45 +219,45 @@ function IconComponent$6({ size, ...props }) {
 		...props,
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.path, {
-				d: "M12 8V4H8",
-				variants: variants.path1,
-				initial: "initial",
-				animate: controls
-			}),
+			d: "M12 8V4H8",
+			variants: variants.path1,
+			initial: "initial",
+			animate: controls
+		}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.rect, {
-				width: 16,
-				height: 12,
-				x: 4,
-				y: 8,
-				rx: 2,
-				variants: variants.rect,
-				initial: "initial",
-				animate: controls
-			}),
+			width: 16,
+			height: 12,
+			x: 4,
+			y: 8,
+			rx: 2,
+			variants: variants.rect,
+			initial: "initial",
+			animate: controls
+		}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.path, {
-				d: "M2 14h2",
-				variants: variants.path2,
-				initial: "initial",
-				animate: controls
-			}),
+			d: "M2 14h2",
+			variants: variants.path2,
+			initial: "initial",
+			animate: controls
+		}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.path, {
-				d: "M20 14h2",
-				variants: variants.path3,
-				initial: "initial",
-				animate: controls
-			}),
+			d: "M20 14h2",
+			variants: variants.path3,
+			initial: "initial",
+			animate: controls
+		}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.path, {
-				d: "M15 13v2",
-				variants: variants.path4,
-				initial: "initial",
-				animate: controls
-			}),
+			d: "M15 13v2",
+			variants: variants.path4,
+			initial: "initial",
+			animate: controls
+		}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.path, {
-				d: "M9 13v2",
-				variants: variants.path5,
-				initial: "initial",
-				animate: controls
-			})
+			d: "M9 13v2",
+			variants: variants.path5,
+			initial: "initial",
+			animate: controls
+		})
 		]
 	});
 }
@@ -666,23 +666,23 @@ function IconComponent$2({ size, ...props }) {
 		...props,
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.path, {
-				d: "M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z",
-				variants: variants.path1,
-				initial: "initial",
-				animate: controls
-			}),
+			d: "M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z",
+			variants: variants.path1,
+			initial: "initial",
+			animate: controls
+		}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.path, {
-				d: "M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12",
-				variants: variants.path2,
-				initial: "initial",
-				animate: controls
-			}),
+			d: "M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12",
+			variants: variants.path2,
+			initial: "initial",
+			animate: controls
+		}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.path, {
-				d: "M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17",
-				variants: variants.path3,
-				initial: "initial",
-				animate: controls
-			})
+			d: "M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17",
+			variants: variants.path3,
+			initial: "initial",
+			animate: controls
+		})
 		]
 	});
 }
@@ -865,17 +865,19 @@ var pathAnimation = {
 		}
 	}
 };
-var animations = { default: {
-	group: {
-		initial: {},
-		animate: { transition: { staggerChildren: .2 } }
-	},
-	path1: pathAnimation,
-	path2: pathAnimation,
-	path3: pathAnimation,
-	path4: pathAnimation,
-	path5: pathAnimation
-} };
+var animations = {
+	default: {
+		group: {
+			initial: {},
+			animate: { transition: { staggerChildren: .2 } }
+		},
+		path1: pathAnimation,
+		path2: pathAnimation,
+		path3: pathAnimation,
+		path4: pathAnimation,
+		path5: pathAnimation
+	}
+};
 function IconComponent({ size, ...props }) {
 	const { controls } = useAnimateIconContext();
 	const variants = getVariants(animations);
@@ -895,25 +897,25 @@ function IconComponent({ size, ...props }) {
 		...props,
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.path, {
-				d: "M2 20h.01",
-				variants: variants.path1
-			}),
+			d: "M2 20h.01",
+			variants: variants.path1
+		}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.path, {
-				d: "M7 20v-4",
-				variants: variants.path2
-			}),
+			d: "M7 20v-4",
+			variants: variants.path2
+		}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.path, {
-				d: "M12 20v-8",
-				variants: variants.path3
-			}),
+			d: "M12 20v-8",
+			variants: variants.path3
+		}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.path, {
-				d: "M17 20V8",
-				variants: variants.path4
-			}),
+			d: "M17 20V8",
+			variants: variants.path4
+		}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.path, {
-				d: "M22 20V4",
-				variants: variants.path5
-			})
+			d: "M22 20V4",
+			variants: variants.path5
+		})
 		]
 	});
 }
@@ -924,13 +926,13 @@ function Signal(props) {
 	});
 }
 var Accordion = Root2;
-var AccordionItem = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Item, {
+var AccordionItem = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */(0, import_jsx_runtime.jsx)(Item, {
 	ref,
 	className: cn("border-b", className),
 	...props
 }));
 AccordionItem.displayName = "AccordionItem";
-var AccordionTrigger = import_react.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Header, {
+var AccordionTrigger = import_react.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */(0, import_jsx_runtime.jsx)(Header, {
 	className: "flex",
 	children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Trigger2, {
 		ref,
@@ -940,7 +942,7 @@ var AccordionTrigger = import_react.forwardRef(({ className, children, ...props 
 	})
 }));
 AccordionTrigger.displayName = Trigger2.displayName;
-var AccordionContent = import_react.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Content2, {
+var AccordionContent = import_react.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */(0, import_jsx_runtime.jsx)(Content2, {
 	ref,
 	className: "overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
 	...props,
@@ -1070,156 +1072,156 @@ function Hero() {
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 grid-bg opacity-[0.32] [mask-image:linear-gradient(to_bottom,black,transparent_92%)]" }),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-x-0 top-0 h-[38%] bg-[radial-gradient(circle_at_top,rgba(46,197,182,0.08),transparent_62%)]" }),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "pointer-events-none absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2",
-				children: [
+			className: "pointer-events-none absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2",
+			children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "h-[520px] w-[520px] rounded-full border border-border/40 md:h-[680px] md:w-[680px]",
-						style: { animation: reduce ? "none" : "hero-orbit 90s linear infinite" }
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "absolute inset-6 rounded-full border border-border/25 md:inset-10",
-						style: { animation: reduce ? "none" : "hero-orbit-reverse 120s linear infinite" }
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "absolute left-0 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand shadow-[0_0_12px_rgba(46,197,182,.5)]",
-						style: { animation: reduce ? "none" : "hero-orbit 90s linear infinite" }
-					})
-				]
+				className: "h-[520px] w-[520px] rounded-full border border-border/40 md:h-[680px] md:w-[680px]",
+				style: { animation: reduce ? "none" : "hero-orbit 90s linear infinite" }
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Container, {
-				className: "relative z-10 flex min-h-[calc(100svh-12rem)] flex-col items-center justify-center text-center pb-16 pt-10 md:pb-20 md:pt-14",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "flex flex-col items-center w-full",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "overflow-hidden",
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.h1, {
-								initial: reduce ? false : { y: "108%" },
-								animate: { y: 0 },
-								transition: {
-									duration: .95,
-									delay: .06,
-									ease: [
-										.16,
-										1,
-										.3,
-										1
-									]
-								},
-								className: "mx-auto font-display text-[clamp(3.25rem,8.2vw,7rem)] font-semibold leading-[0.88] tracking-[-.055em]",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(BlurText, {
-									text: "Ideas are easy.",
-									animateBy: "words",
-									direction: "bottom",
-									delay: 70,
-									stepDuration: .34,
-									className: "block"
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "block pt-1 leading-[1.02]",
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BlurText, {
-										text: "Shipping is the art.",
-										animateBy: "words",
-										direction: "bottom",
-										delay: 82,
-										stepDuration: .34,
-										className: "font-display text-[clamp(2.6rem,8vw,6.85rem)] font-semibold leading-[1.02] tracking-[-.055em] text-brand"
-									})
-								})]
-							})
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.p, {
-							initial: reduce ? false : {
-								opacity: 0,
-								y: 18
-							},
-							animate: {
-								opacity: 1,
-								y: 0
-							},
-							transition: {
-								duration: .7,
-								delay: .22
-							},
-							className: "mx-auto mt-7 max-w-xl text-pretty text-[15px] leading-8 text-muted-foreground md:text-[17px]",
-							children: "We turn ambitious product ideas into dependable SaaS, AI and mobile experiences, with one senior team from first decision to production."
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
-							initial: reduce ? false : {
-								opacity: 0,
-								y: 14
-							},
-							animate: {
-								opacity: 1,
-								y: 0
-							},
-							transition: {
-								duration: .7,
-								delay: .34
-							},
-							className: "mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ButtonColorful, {
-								href: "/contact",
-								label: "Start a project"
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-								to: "/work",
-								className: "group inline-flex h-12 items-center gap-2 rounded-full border border-border-strong bg-background/90 px-5 text-sm font-semibold backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand hover:text-brand sm:px-6",
-								children: ["Explore the work", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", {
-									className: "h-3.5 w-3.5 text-muted-foreground transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-brand",
-									fill: "none",
-									viewBox: "0 0 24 24",
-									stroke: "currentColor",
-									strokeWidth: 2,
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
-										strokeLinecap: "round",
-										strokeLinejoin: "round",
-										d: "M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-									})
-								})]
-							})]
-						})
-					]
-				})
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "absolute inset-6 rounded-full border border-border/25 md:inset-10",
+				style: { animation: reduce ? "none" : "hero-orbit-reverse 120s linear infinite" }
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
-				initial: reduce ? false : {
-					opacity: 0,
-					y: 14
-				},
-				animate: {
-					opacity: 1,
-					y: 0
-				},
-				transition: {
-					duration: .75,
-					delay: .44
-				},
-				className: "w-full",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(FlowingMenu, {
-					items: [
-						{
-							link: "/#services",
-							text: "AI Systems"
-						},
-						{
-							link: "/#work",
-							text: "Mobile"
-						},
-						{
-							link: "/#process",
-							text: "Infrastructure"
-						},
-						{
-							link: "/#team",
-							text: "Strategy"
-						}
-					],
-					speed: 22,
-					textColor: "#0f1115",
-					bgColor: "#f5f3ef",
-					marqueeBgColor: "#0f1115",
-					marqueeTextColor: "#ffffff"
-				})
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "absolute left-0 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand shadow-[0_0_12px_rgba(46,197,182,.5)]",
+				style: { animation: reduce ? "none" : "hero-orbit 90s linear infinite" }
 			})
+			]
+		}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Container, {
+			className: "relative z-10 flex min-h-[calc(100svh-12rem)] flex-col items-center justify-center text-center pb-16 pt-10 md:pb-20 md:pt-14",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex flex-col items-center w-full",
+				children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "overflow-hidden",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.h1, {
+						initial: reduce ? false : { y: "108%" },
+						animate: { y: 0 },
+						transition: {
+							duration: .95,
+							delay: .06,
+							ease: [
+								.16,
+								1,
+								.3,
+								1
+							]
+						},
+						className: "mx-auto font-display text-[clamp(3.25rem,8.2vw,7rem)] font-semibold leading-[0.88] tracking-[-.055em]",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(BlurText, {
+							text: "Ideas are easy.",
+							animateBy: "words",
+							direction: "bottom",
+							delay: 70,
+							stepDuration: .34,
+							className: "block"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "block pt-1 leading-[1.02]",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BlurText, {
+								text: "Shipping is the art.",
+								animateBy: "words",
+								direction: "bottom",
+								delay: 82,
+								stepDuration: .34,
+								className: "font-display text-[clamp(2.6rem,8vw,6.85rem)] font-semibold leading-[1.02] tracking-[-.055em] text-brand"
+							})
+						})]
+					})
+				}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.p, {
+					initial: reduce ? false : {
+						opacity: 0,
+						y: 18
+					},
+					animate: {
+						opacity: 1,
+						y: 0
+					},
+					transition: {
+						duration: .7,
+						delay: .22
+					},
+					className: "mx-auto mt-7 max-w-xl text-pretty text-[15px] leading-8 text-muted-foreground md:text-[17px]",
+					children: "We turn ambitious product ideas into dependable SaaS, AI and mobile experiences, with one senior team from first decision to production."
+				}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
+					initial: reduce ? false : {
+						opacity: 0,
+						y: 14
+					},
+					animate: {
+						opacity: 1,
+						y: 0
+					},
+					transition: {
+						duration: .7,
+						delay: .34
+					},
+					className: "mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ButtonColorful, {
+						href: "/contact",
+						label: "Start a project"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+						to: "/work",
+						className: "group inline-flex h-12 items-center gap-2 rounded-full border border-border-strong bg-background/90 px-5 text-sm font-semibold backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand hover:text-brand sm:px-6",
+						children: ["Explore the work", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", {
+							className: "h-3.5 w-3.5 text-muted-foreground transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-brand",
+							fill: "none",
+							viewBox: "0 0 24 24",
+							stroke: "currentColor",
+							strokeWidth: 2,
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
+								strokeLinecap: "round",
+								strokeLinejoin: "round",
+								d: "M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+							})
+						})]
+					})]
+				})
+				]
+			})
+		}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+			initial: reduce ? false : {
+				opacity: 0,
+				y: 14
+			},
+			animate: {
+				opacity: 1,
+				y: 0
+			},
+			transition: {
+				duration: .75,
+				delay: .44
+			},
+			className: "w-full",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(FlowingMenu, {
+				items: [
+					{
+						link: "/#services",
+						text: "AI Systems"
+					},
+					{
+						link: "/#work",
+						text: "Mobile"
+					},
+					{
+						link: "/#process",
+						text: "Infrastructure"
+					},
+					{
+						link: "/#team",
+						text: "Strategy"
+					}
+				],
+				speed: 22,
+				textColor: "#0f1115",
+				bgColor: "#f5f3ef",
+				marqueeBgColor: "#0f1115",
+				marqueeTextColor: "#ffffff"
+			})
+		})
 		]
 	});
 }
@@ -1227,35 +1229,36 @@ function Services() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 		id: "services",
 		className: "border-t border-border py-24 md:py-32",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Container, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionIntro, {
-			eyebrow: "Ways to work together",
-			titleText: "Four focused engagements. No sprawling menu.",
-			body: "Choose the outcome closest to your current stage. We shape the exact team and scope after a focused discovery call."
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2",
-			children: offers.map((o, index) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AnimateIcon, {
-				animateOnHover: true,
-				asChild: true,
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.article, {
-					initial: {
-						opacity: 0,
-						y: 28
-					},
-					whileInView: {
-						opacity: 1,
-						y: 0
-					},
-					viewport: {
-						once: false,
-						margin: "-80px",
-						amount: .18
-					},
-					transition: {
-						duration: .55,
-						delay: index * .08
-					},
-					className: "group relative overflow-hidden bg-background p-7 transition-colors hover:bg-surface md:p-9",
-					children: [
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Container, {
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionIntro, {
+				eyebrow: "Ways to work together",
+				titleText: "Four focused engagements. No sprawling menu.",
+				body: "Choose the outcome closest to your current stage. We shape the exact team and scope after a focused discovery call."
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2",
+				children: offers.map((o, index) => /* @__PURE__ */(0, import_jsx_runtime.jsx)(AnimateIcon, {
+					animateOnHover: true,
+					asChild: true,
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.article, {
+						initial: {
+							opacity: 0,
+							y: 28
+						},
+						whileInView: {
+							opacity: 1,
+							y: 0
+						},
+						viewport: {
+							once: false,
+							margin: "-80px",
+							amount: .18
+						},
+						transition: {
+							duration: .55,
+							delay: index * .08
+						},
+						className: "group relative overflow-hidden bg-background p-7 transition-colors hover:bg-surface md:p-9",
+						children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "flex items-center justify-between",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
@@ -1276,7 +1279,7 @@ function Services() {
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 							className: "mt-6 grid gap-2 sm:grid-cols-2",
-							children: o.includes.map((x) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							children: o.includes.map((x) => /* @__PURE__ */(0, import_jsx_runtime.jsxs)("span", {
 								className: "flex items-center gap-2 text-xs",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, {
 									size: 13,
@@ -1289,49 +1292,51 @@ function Services() {
 							className: "mt-7 border-t border-border pt-4 font-mono text-[9px] uppercase tracking-widest text-muted-foreground",
 							children: o.time
 						})
-					]
-				})
-			}, o.title))
-		})] })
+						]
+					})
+				}, o.title))
+			})]
+		})
 	});
 }
 function Work() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 		id: "work",
 		className: "border-t border-border bg-surface py-24 md:py-32",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Container, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionIntro, {
-			eyebrow: "Selected product work",
-			titleText: "Evidence over empty claims.",
-			body: "A look at the product problems we have taken on and the systems designed around them. Detailed walkthroughs are available during a project conversation."
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:h-[420px] lg:grid-cols-3 lg:grid-rows-2",
-			children: cases.map((c, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.article, {
-				id: c.id,
-				initial: {
-					opacity: 0,
-					y: 32
-				},
-				whileInView: {
-					opacity: 1,
-					y: 0
-				},
-				viewport: {
-					once: false,
-					margin: "-70px",
-					amount: .18
-				},
-				transition: {
-					duration: .55,
-					delay: i * .08
-				},
-				className: "group flex min-h-[210px] overflow-hidden bg-background transition-colors hover:bg-surface lg:min-h-0",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-					to: "/work/$id",
-					params: { id: c.id },
-					className: "flex w-full overflow-hidden cursor-pointer",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "relative flex w-20 shrink-0 items-center justify-center overflow-hidden border-r border-border bg-foreground text-background",
-						children: [
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Container, {
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionIntro, {
+				eyebrow: "Selected product work",
+				titleText: "Evidence over empty claims.",
+				body: "A look at the product problems we have taken on and the systems designed around them. Detailed walkthroughs are available during a project conversation."
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:h-[420px] lg:grid-cols-3 lg:grid-rows-2",
+				children: cases.map((c, i) => /* @__PURE__ */(0, import_jsx_runtime.jsx)(motion.article, {
+					id: c.id,
+					initial: {
+						opacity: 0,
+						y: 32
+					},
+					whileInView: {
+						opacity: 1,
+						y: 0
+					},
+					viewport: {
+						once: false,
+						margin: "-70px",
+						amount: .18
+					},
+					transition: {
+						duration: .55,
+						delay: i * .08
+					},
+					className: "group flex min-h-[210px] overflow-hidden bg-background transition-colors hover:bg-surface lg:min-h-0",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+						to: "/work/$id",
+						params: { id: c.id },
+						className: "flex w-full overflow-hidden cursor-pointer",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "relative flex w-20 shrink-0 items-center justify-center overflow-hidden border-r border-border bg-foreground text-background",
+							children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 opacity-10 grid-bg" }),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 								className: "relative -rotate-90 font-accent text-4xl font-light italic text-brand transition-transform duration-700 group-hover:-rotate-90 group-hover:scale-110",
@@ -1341,10 +1346,10 @@ function Work() {
 								className: "absolute left-3 top-4 font-mono text-[8px] uppercase tracking-widest text-background/50",
 								children: ["Case / 0", i + 1]
 							})
-						]
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "flex min-w-0 flex-1 flex-col p-5",
-						children: [
+							]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex min-w-0 flex-1 flex-col p-5",
+							children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 								className: "font-mono text-[9px] uppercase tracking-widest text-brand",
 								children: c.category
@@ -1359,67 +1364,69 @@ function Work() {
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 								className: "mt-auto flex flex-wrap gap-1.5 pt-4",
-								children: c.shipped.map((x) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								children: c.shipped.map((x) => /* @__PURE__ */(0, import_jsx_runtime.jsx)("span", {
 									className: "rounded-full border border-border px-2.5 py-1 text-[10px] text-muted-foreground",
 									children: x
 								}, x))
 							})
-						]
-					})]
-				})
-			}, c.name))
-		})] })
+							]
+						})]
+					})
+				}, c.name))
+			})]
+		})
 	});
 }
 function Standards() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 		className: "py-24 md:py-32",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Container, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionIntro, {
-			eyebrow: "Working standard",
-			titleText: "Less risk. More visibility.",
-			body: "Good delivery is not mysterious. These are the operating principles we bring to every engagement."
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2 lg:grid-cols-4",
-			children: [
-				{
-					icon: Layers,
-					t: "Your IP, your repository",
-					d: "Source code, design files and deployment access are yours under the agreed engagement terms."
-				},
-				{
-					icon: Lock,
-					t: "Security by agreement",
-					d: "NDA support, least-privilege access and project-specific data controls are established before sensitive work."
-				},
-				{
-					icon: Check,
-					t: "Built for handover",
-					d: "Documentation, predictable architecture and knowledge transfer keep you independent after launch."
-				},
-				{
-					icon: Signal,
-					t: "Visible every week",
-					d: "A working demo, shared delivery board and direct access to the people doing the work."
-				}
-			].map((p, index) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
-				initial: {
-					opacity: 0,
-					y: 24
-				},
-				whileInView: {
-					opacity: 1,
-					y: 0
-				},
-				viewport: {
-					once: false,
-					amount: .25
-				},
-				transition: {
-					duration: .55,
-					delay: index * .08
-				},
-				className: "group bg-background p-6 transition-colors hover:bg-surface",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Container, {
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionIntro, {
+				eyebrow: "Working standard",
+				titleText: "Less risk. More visibility.",
+				body: "Good delivery is not mysterious. These are the operating principles we bring to every engagement."
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2 lg:grid-cols-4",
 				children: [
+					{
+						icon: Layers,
+						t: "Your IP, your repository",
+						d: "Source code, design files and deployment access are yours under the agreed engagement terms."
+					},
+					{
+						icon: Lock,
+						t: "Security by agreement",
+						d: "NDA support, least-privilege access and project-specific data controls are established before sensitive work."
+					},
+					{
+						icon: Check,
+						t: "Built for handover",
+						d: "Documentation, predictable architecture and knowledge transfer keep you independent after launch."
+					},
+					{
+						icon: Signal,
+						t: "Visible every week",
+						d: "A working demo, shared delivery board and direct access to the people doing the work."
+					}
+				].map((p, index) => /* @__PURE__ */(0, import_jsx_runtime.jsxs)(motion.div, {
+					initial: {
+						opacity: 0,
+						y: 24
+					},
+					whileInView: {
+						opacity: 1,
+						y: 0
+					},
+					viewport: {
+						once: false,
+						amount: .25
+					},
+					transition: {
+						duration: .55,
+						delay: index * .08
+					},
+					className: "group bg-background p-6 transition-colors hover:bg-surface",
+					children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(p.icon, {
 						size: 20,
 						className: "text-brand",
@@ -1433,101 +1440,103 @@ function Standards() {
 						className: "mt-3 text-sm leading-6 text-muted-foreground",
 						children: p.d
 					})
-				]
-			}, p.t))
-		})] })
+					]
+				}, p.t))
+			})]
+		})
 	});
 }
 function Team() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 		id: "team",
 		className: "border-t border-border bg-surface py-24 md:py-32",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Container, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionIntro, {
-			eyebrow: "The people doing the work",
-			titleText: "Eight specialists. No account-manager maze.",
-			body: "You work directly with the people making product and technical decisions. The team stays deliberately small so context does not disappear between meetings."
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3",
-			children: [
-				{
-					name: "Mihir Rabari",
-					role: "Product engineering",
-					owns: "Architecture, delivery and infrastructure",
-					mark: "MR"
-				},
-				{
-					name: "Khushi Trivedi",
-					role: "Operations & growth",
-					owns: "Client operations, growth and partnerships",
-					mark: "KT"
-				},
-				{
-					name: "Khushi Patel",
-					role: "Product design",
-					owns: "UI/UX, brand systems and design direction",
-					mark: "KP"
-				},
-				{
-					name: "Aangi Shah",
-					role: "Experience design",
-					owns: "Product flows and frontend experience",
-					mark: "AS"
-				},
-				{
-					name: "Karan Mistry",
-					role: "AI engineering",
-					owns: "Machine learning, agents and RAG systems",
-					mark: "KM"
-				},
-				{
-					name: "Jignesh Prajapati",
-					role: "Mobile engineering",
-					owns: "Flutter and cross-platform applications",
-					mark: "JP"
-				},
-				{
-					name: "Tajes Patel",
-					role: "Frontend engineering",
-					owns: "Web development, UI components and performance",
-					mark: "TP"
-				},
-				{
-					name: "Jaivik Prajapati",
-					role: "Backend engineering",
-					owns: "API development, systems integration and cloud services",
-					mark: "JV"
-				}
-			].map((person, index) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.article, {
-				initial: {
-					opacity: 0,
-					y: 24
-				},
-				whileInView: {
-					opacity: 1,
-					y: 0
-				},
-				viewport: {
-					once: false,
-					amount: .2
-				},
-				transition: {
-					duration: .55,
-					delay: index * .08
-				},
-				className: "group bg-background p-7 transition-colors hover:bg-surface",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Container, {
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionIntro, {
+				eyebrow: "The people doing the work",
+				titleText: "Eight specialists. No account-manager maze.",
+				body: "You work directly with the people making product and technical decisions. The team stays deliberately small so context does not disappear between meetings."
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3",
 				children: [
+					{
+						name: "Mihir Rabari",
+						role: "Product engineering",
+						owns: "Architecture, delivery and infrastructure",
+						mark: "MR"
+					},
+					{
+						name: "Khushi Trivedi",
+						role: "Operations & growth",
+						owns: "Client operations, growth and partnerships",
+						mark: "KT"
+					},
+					{
+						name: "Khushi Patel",
+						role: "Product design",
+						owns: "UI/UX, brand systems and design direction",
+						mark: "KP"
+					},
+					{
+						name: "Aangi Shah",
+						role: "Experience design",
+						owns: "Product flows and frontend experience",
+						mark: "AS"
+					},
+					{
+						name: "Karan Mistry",
+						role: "AI engineering",
+						owns: "Machine learning, agents and RAG systems",
+						mark: "KM"
+					},
+					{
+						name: "Jignesh Prajapati",
+						role: "Mobile engineering",
+						owns: "Flutter and cross-platform applications",
+						mark: "JP"
+					},
+					{
+						name: "Tejas Patel",
+						role: "Frontend engineering",
+						owns: "Web development, UI components and performance",
+						mark: "TP"
+					},
+					{
+						name: "Jaivik Prajapati",
+						role: "Backend engineering",
+						owns: "API development, systems integration and cloud services",
+						mark: "JV"
+					}
+				].map((person, index) => /* @__PURE__ */(0, import_jsx_runtime.jsxs)(motion.article, {
+					initial: {
+						opacity: 0,
+						y: 24
+					},
+					whileInView: {
+						opacity: 1,
+						y: 0
+					},
+					viewport: {
+						once: false,
+						amount: .2
+					},
+					transition: {
+						duration: .55,
+						delay: index * .08
+					},
+					className: "group bg-background p-7 transition-colors hover:bg-surface",
+					children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "relative flex h-28 items-center justify-center overflow-hidden border border-border bg-surface",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 grid-bg opacity-60" }),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "relative font-accent text-5xl font-light italic text-foreground/80",
-								children: person.mark
-							}),
+							className: "relative font-accent text-5xl font-light italic text-foreground/80",
+							children: person.mark
+						}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-								className: "absolute right-3 top-3 font-mono text-[9px] tracking-widest text-muted-foreground",
-								children: ["0", index + 1]
-							})
+							className: "absolute right-3 top-3 font-mono text-[9px] tracking-widest text-muted-foreground",
+							children: ["0", index + 1]
+						})
 						]
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
@@ -1542,9 +1551,10 @@ function Team() {
 						className: "mt-2 text-sm leading-6 text-muted-foreground",
 						children: person.owns
 					})
-				]
-			}, person.name))
-		})] })
+					]
+				}, person.name))
+			})]
+		})
 	});
 }
 function Process() {
@@ -1602,17 +1612,19 @@ function Process() {
 			className: "relative",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "grid gap-10 border-b border-background/15 pb-12 lg:grid-cols-[1.15fr_.85fr] lg:items-end lg:pb-16",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Eyebrow, {
-					invert: true,
-					children: "How delivery works"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
-					className: "mt-5 max-w-[11ch] font-display text-[clamp(3.25rem,7vw,6.75rem)] font-semibold leading-[.88] tracking-[-.065em]",
-					children: [
-						"Clear steps.",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Eyebrow, {
+						invert: true,
+						children: "How delivery works"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
+						className: "mt-5 max-w-[11ch] font-display text-[clamp(3.25rem,7vw,6.75rem)] font-semibold leading-[.88] tracking-[-.065em]",
+						children: [
+							"Clear steps.",
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
-						"No black box."
-					]
-				})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							"No black box."
+						]
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "lg:justify-self-end",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 						className: "max-w-xl text-sm leading-7 text-background/65 md:text-base md:leading-8",
@@ -1623,7 +1635,7 @@ function Process() {
 							"5 focused phases",
 							"Weekly working demos",
 							"One accountable team"
-						].map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						].map((item) => /* @__PURE__ */(0, import_jsx_runtime.jsx)("span", {
 							className: "rounded-full border border-background/20 px-4 py-2 font-mono text-[9px] uppercase tracking-[.18em] text-background/75",
 							children: item
 						}, item))
@@ -1667,37 +1679,37 @@ function Process() {
 							className: "relative grid lg:grid-cols-2 lg:gap-16",
 							children: [
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "absolute left-5 top-0 z-10 flex -translate-x-1/2 items-center justify-center lg:left-1/2",
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "flex h-11 w-11 items-center justify-center rounded-full border-2 border-brand bg-foreground font-mono text-[10px] tracking-widest text-background shadow-[0_0_20px_rgba(46,197,182,.25)] transition-shadow duration-500 hover:shadow-[0_0_30px_rgba(46,197,182,.45)]",
-										children: step.id
-									})
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: `pl-14 lg:pl-0 ${isEven ? "lg:col-start-1 lg:pr-20 lg:text-right" : "lg:col-start-2 lg:pl-20"} lg:py-16`,
-									children: [
-										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											className: "inline-block font-mono text-[9px] uppercase tracking-[.2em] text-brand",
-											children: step.phase
-										}),
-										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-											className: "mt-3 font-display text-3xl font-semibold tracking-[-.04em] xl:text-4xl",
-											children: step.label
-										}),
-										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-											className: "mt-4 text-sm font-medium leading-7 text-background/85",
-											children: step.title
-										}),
-										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-											className: "mt-3 text-[13px] leading-6 text-background/50",
-											children: step.detail
-										})
-									]
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: `hidden lg:block ${isEven ? "lg:col-start-2" : "lg:col-start-1 lg:row-start-1"}`,
-									"aria-hidden": "true"
+								className: "absolute left-5 top-0 z-10 flex -translate-x-1/2 items-center justify-center lg:left-1/2",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "flex h-11 w-11 items-center justify-center rounded-full border-2 border-brand bg-foreground font-mono text-[10px] tracking-widest text-background shadow-[0_0_20px_rgba(46,197,182,.25)] transition-shadow duration-500 hover:shadow-[0_0_30px_rgba(46,197,182,.45)]",
+									children: step.id
 								})
+							}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: `pl-14 lg:pl-0 ${isEven ? "lg:col-start-1 lg:pr-20 lg:text-right" : "lg:col-start-2 lg:pl-20"} lg:py-16`,
+								children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "inline-block font-mono text-[9px] uppercase tracking-[.2em] text-brand",
+									children: step.phase
+								}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+									className: "mt-3 font-display text-3xl font-semibold tracking-[-.04em] xl:text-4xl",
+									children: step.label
+								}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "mt-4 text-sm font-medium leading-7 text-background/85",
+									children: step.title
+								}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "mt-3 text-[13px] leading-6 text-background/50",
+									children: step.detail
+								})
+								]
+							}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: `hidden lg:block ${isEven ? "lg:col-start-2" : "lg:col-start-1 lg:row-start-1"}`,
+								"aria-hidden": "true"
+							})
 							]
 						}, step.id);
 					})
@@ -1709,83 +1721,87 @@ function Process() {
 function FAQ() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 		className: "py-24 md:py-32",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Container, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
-			initial: {
-				opacity: 0,
-				y: 28
-			},
-			whileInView: {
-				opacity: 1,
-				y: 0
-			},
-			viewport: {
-				once: false,
-				amount: .15
-			},
-			transition: {
-				duration: .7,
-				ease: [
-					.16,
-					1,
-					.3,
-					1
-				]
-			},
-			className: "grid gap-14 lg:grid-cols-[.75fr_1.25fr]",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Container, {
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
+				initial: {
+					opacity: 0,
+					y: 28
+				},
+				whileInView: {
+					opacity: 1,
+					y: 0
+				},
+				viewport: {
+					once: false,
+					amount: .15
+				},
+				transition: {
+					duration: .7,
+					ease: [
+						.16,
+						1,
+						.3,
+						1
+					]
+				},
+				className: "grid gap-14 lg:grid-cols-[.75fr_1.25fr]",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Eyebrow, { children: "Before we start" }),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-					className: "mt-4 font-display text-5xl font-semibold",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BlurText, {
-						text: "Straight answers.",
-						animateBy: "words",
-						direction: "bottom",
-						delay: 65,
-						stepDuration: .32,
-						className: "block"
-					})
-				}),
+						className: "mt-4 font-display text-5xl font-semibold",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BlurText, {
+							text: "Straight answers.",
+							animateBy: "words",
+							direction: "bottom",
+							delay: 65,
+							stepDuration: .32,
+							className: "block"
+						})
+					}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "mt-5 max-w-sm text-sm leading-7 text-muted-foreground",
-					children: "Still wondering about something? Email us and a team member will reply directly."
-				})
-			] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Accordion, {
-				type: "single",
-				collapsible: true,
-				defaultValue: "faq-0",
-				className: "border-t border-border",
-				children: faqs.map((f, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(AccordionItem, {
-					value: `faq-${i}`,
-					className: "border-b border-border",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(AccordionTrigger, {
-						className: "group flex w-full items-center justify-between gap-6 py-6 text-left font-display text-[1.15rem] font-semibold tracking-[-.025em] transition-colors hover:text-brand md:text-[1.35rem] [&[data-state=open]]:text-brand [&>svg]:hidden",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "max-w-[28ch]",
-							children: f[0]
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-							className: "relative flex h-5 w-5 shrink-0 items-center justify-center",
-							"aria-hidden": "true",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "absolute left-1/2 top-1/2 h-px w-4 -translate-x-1/2 -translate-y-1/2 bg-brand" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.span, {
-								animate: { scaleY: 1 },
-								transition: {
-									duration: .25,
-									ease: [
-										.16,
-										1,
-										.3,
-										1
-									]
-								},
-								className: "absolute left-1/2 top-1/2 h-4 w-px -translate-x-1/2 -translate-y-1/2 bg-brand transition-transform duration-300 group-data-[state=open]:scale-y-0"
+						className: "mt-5 max-w-sm text-sm leading-7 text-muted-foreground",
+						children: "Still wondering about something? Email us and a team member will reply directly."
+					})
+					]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Accordion, {
+					type: "single",
+					collapsible: true,
+					defaultValue: "faq-0",
+					className: "border-t border-border",
+					children: faqs.map((f, i) => /* @__PURE__ */(0, import_jsx_runtime.jsxs)(AccordionItem, {
+						value: `faq-${i}`,
+						className: "border-b border-border",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(AccordionTrigger, {
+							className: "group flex w-full items-center justify-between gap-6 py-6 text-left font-display text-[1.15rem] font-semibold tracking-[-.025em] transition-colors hover:text-brand md:text-[1.35rem] [&[data-state=open]]:text-brand [&>svg]:hidden",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "max-w-[28ch]",
+								children: f[0]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "relative flex h-5 w-5 shrink-0 items-center justify-center",
+								"aria-hidden": "true",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "absolute left-1/2 top-1/2 h-px w-4 -translate-x-1/2 -translate-y-1/2 bg-brand" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.span, {
+									animate: { scaleY: 1 },
+									transition: {
+										duration: .25,
+										ease: [
+											.16,
+											1,
+											.3,
+											1
+										]
+									},
+									className: "absolute left-1/2 top-1/2 h-4 w-px -translate-x-1/2 -translate-y-1/2 bg-brand transition-transform duration-300 group-data-[state=open]:scale-y-0"
+								})]
 							})]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AccordionContent, {
+							className: "pb-6 pr-10 text-sm leading-7 text-muted-foreground md:text-base md:leading-8",
+							children: f[1]
 						})]
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AccordionContent, {
-						className: "pb-6 pr-10 text-sm leading-7 text-muted-foreground md:text-base md:leading-8",
-						children: f[1]
-					})]
-				}, f[0]))
-			})]
-		}) })
+					}, f[0]))
+				})]
+			})
+		})
 	});
 }
 function Landing() {

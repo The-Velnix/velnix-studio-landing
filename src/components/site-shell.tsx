@@ -141,9 +141,11 @@ export function SiteFooter({ hideCta = false }: { hideCta?: boolean }) {
               Address
             </p>
             <p className="mt-4 text-sm leading-7 text-foreground">
-              FF-09 Saffron icon
+              FF-09 Saffron Icon,
               <br />
-              OPP senior citizen garden, Anand, Gujarat, India
+              Near Senior Citizen Garden,
+              <br />
+              Anand, Gujarat, India
               <br />
               Working globally / IST
             </p>
@@ -163,7 +165,7 @@ export function SiteFooter({ hideCta = false }: { hideCta?: boolean }) {
                 Office hours
               </p>
               <p className="mt-2 text-sm leading-7 text-foreground whitespace-nowrap">
-                Mon-Fri, 10:00 - 18:00 IST
+                Mon-Fri, 10:00 - 19:00 IST
               </p>
             </div>
           </div>

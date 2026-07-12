@@ -153,11 +153,11 @@ var people = [
 		}]
 	},
 	{
-		id: "tajes-patel",
-		name: "Tajes Patel",
+		id: "Tejas-patel",
+		name: "Tejas Patel",
 		role: "Frontend Engineering",
 		owns: "Web development, UI components and performance",
-		bio: "Tajes bridges the gap between high-end design systems and production code. He builds performant, modular web components, optimizes loading speeds, and implements fluid responsive layouts.",
+		bio: "Tejas bridges the gap between high-end design systems and production code. He builds performant, modular web components, optimizes loading speeds, and implements fluid responsive layouts.",
 		skills: [
 			"React / Next.js",
 			"TypeScript",

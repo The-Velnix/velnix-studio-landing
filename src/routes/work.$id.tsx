@@ -190,12 +190,15 @@ function ProjectDetailPage() {
   const { project, id } = Route.useLoaderData();
   const reduce = useReducedMotion();
 
-  // Find two next projects (excluding the current one)
+  // Find previous and next projects relative to the current one
   const allProjectIds = Object.keys(projectsData);
-  const nextProjects = allProjectIds
-    .filter((pid) => pid !== id)
-    .slice(0, 2)
-    .map((pid) => projectsData[pid]);
+  const currentIndex = allProjectIds.indexOf(id);
+  const prevIndex = (currentIndex - 1 + allProjectIds.length) % allProjectIds.length;
+  const nextIndex = (currentIndex + 1) % allProjectIds.length;
+  const nextProjects = [
+    projectsData[allProjectIds[prevIndex]],
+    projectsData[allProjectIds[nextIndex]],
+  ];
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -386,7 +389,7 @@ function ProjectDetailPage() {
                 <div className="flex flex-col justify-between h-full min-h-[220px]">
                   <div>
                     <span className="font-mono text-[8px] uppercase tracking-wider text-brand font-medium">
-                      {nextProj.category}
+                      {idx === 0 ? "Previous Case Study" : "Next Case Study"} • {nextProj.category}
                     </span>
                     <h3 className="mt-3 font-display text-2xl font-bold tracking-tight text-foreground flex items-center justify-between">
                       <span>{nextProj.name}</span>

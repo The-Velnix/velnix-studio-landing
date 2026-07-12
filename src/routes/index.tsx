@@ -360,44 +360,49 @@ function Work() {
         />
         <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:h-[420px] lg:grid-cols-3 lg:grid-rows-2">
           {cases.map((c, i) => (
-            <motion.article
-              id={c.id}
+            <Link
               key={c.name}
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-70px", amount: 0.18 }}
-              transition={{ duration: 0.55, delay: i * 0.08 }}
+              to="/work/$id"
+              params={{ id: c.id }}
               className="group flex min-h-[210px] overflow-hidden bg-background transition-colors hover:bg-surface lg:min-h-0"
             >
-              <div className="relative flex w-20 shrink-0 items-center justify-center overflow-hidden border-r border-border bg-foreground text-background">
-                <div className="absolute inset-0 opacity-10 grid-bg" />
-                <span className="relative -rotate-90 font-accent text-4xl font-light italic text-brand transition-transform duration-700 group-hover:-rotate-90 group-hover:scale-110">
-                  {c.mark}
-                </span>
-                <span className="absolute left-3 top-4 font-mono text-[8px] uppercase tracking-widest text-background/50">
-                  Case / 0{i + 1}
-                </span>
-              </div>
-              <div className="flex min-w-0 flex-1 flex-col p-5">
-                <span className="font-mono text-[9px] uppercase tracking-widest text-brand">
-                  {c.category}
-                </span>
-                <h3 className="mt-1.5 font-display text-2xl font-medium">{c.name}</h3>
-                <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
-                  {c.description}
-                </p>
-                <div className="mt-auto flex flex-wrap gap-1.5 pt-4">
-                  {c.shipped.map((x) => (
-                    <span
-                      key={x}
-                      className="rounded-full border border-border px-2.5 py-1 text-[10px] text-muted-foreground"
-                    >
-                      {x}
-                    </span>
-                  ))}
+              <motion.div
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, margin: "-70px", amount: 0.18 }}
+                transition={{ duration: 0.55, delay: i * 0.08 }}
+                className="flex w-full"
+              >
+                <div className="relative flex w-20 shrink-0 items-center justify-center overflow-hidden border-r border-border bg-foreground text-background">
+                  <div className="absolute inset-0 opacity-10 grid-bg" />
+                  <span className="relative -rotate-90 font-accent text-4xl font-light italic text-brand transition-transform duration-700 group-hover:-rotate-90 group-hover:scale-110">
+                    {c.mark}
+                  </span>
+                  <span className="absolute left-3 top-4 font-mono text-[8px] uppercase tracking-widest text-background/50">
+                    Case / 0{i + 1}
+                  </span>
                 </div>
-              </div>
-            </motion.article>
+                <div className="flex min-w-0 flex-1 flex-col p-5">
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-brand">
+                    {c.category}
+                  </span>
+                  <h3 className="mt-1.5 font-display text-2xl font-medium">{c.name}</h3>
+                  <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
+                    {c.description}
+                  </p>
+                  <div className="mt-auto flex flex-wrap gap-1.5 pt-4">
+                    {c.shipped.map((x) => (
+                      <span
+                        key={x}
+                        className="rounded-full border border-border px-2.5 py-1 text-[10px] text-muted-foreground"
+                      >
+                        {x}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </Link>
           ))}
         </div>
       </Container>
@@ -496,7 +501,7 @@ function Team() {
       mark: "JP",
     },
     {
-      name: "Tajes Patel",
+      name: "Tejas Patel",
       role: "Frontend engineering",
       owns: "Web development, UI components and performance",
       mark: "TP",
@@ -518,29 +523,34 @@ function Team() {
         />
         <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {people.map((person, index) => (
-            <motion.article
+            <Link
               key={person.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
-              transition={{ duration: 0.55, delay: index * 0.08 }}
+              to="/team/$id"
+              params={{ id: person.name.toLowerCase().replace(" ", "-") }}
               className="group bg-background p-7 transition-colors hover:bg-surface"
             >
-              <div className="relative flex h-28 items-center justify-center overflow-hidden border border-border bg-surface">
-                <div className="absolute inset-0 grid-bg opacity-60" />
-                <span className="relative font-accent text-5xl font-light italic text-foreground/80">
-                  {person.mark}
-                </span>
-                <span className="absolute right-3 top-3 font-mono text-[9px] tracking-widest text-muted-foreground">
-                  0{index + 1}
-                </span>
-              </div>
-              <p className="mt-6 font-mono text-[9px] uppercase tracking-widest text-brand">
-                {person.role}
-              </p>
-              <h3 className="mt-2 font-display text-2xl font-semibold">{person.name}</h3>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">{person.owns}</p>
-            </motion.article>
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ duration: 0.55, delay: index * 0.08 }}
+              >
+                <div className="relative flex h-28 items-center justify-center overflow-hidden border border-border bg-surface">
+                  <div className="absolute inset-0 grid-bg opacity-60" />
+                  <span className="relative font-accent text-5xl font-light italic text-foreground/80">
+                    {person.mark}
+                  </span>
+                  <span className="absolute right-3 top-3 font-mono text-[9px] tracking-widest text-muted-foreground">
+                    0{index + 1}
+                  </span>
+                </div>
+                <p className="mt-6 font-mono text-[9px] uppercase tracking-widest text-brand">
+                  {person.role}
+                </p>
+                <h3 className="mt-2 font-display text-2xl font-semibold">{person.name}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{person.owns}</p>
+              </motion.div>
+            </Link>
           ))}
         </div>
       </Container>

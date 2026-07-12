@@ -203,7 +203,7 @@ function AnimateIcon({ asChild = false, animate = false, animateOnHover = false,
 			if (!localAnimate) {
 				if (completeOnStop && isAnimateInProgressRef.current && animateEndPromiseRef.current) try {
 					await animateEndPromiseRef.current;
-				} catch {}
+				} catch { }
 				if (!persistOnAnimateEnd) {
 					if (cancelledRef.current || gen !== runGenRef.current) {
 						await startAnim("initial");
@@ -422,68 +422,70 @@ function getVariants(animations) {
 	} else result = animations[animationType] ?? animations.default;
 	return result;
 }
-var animations = { default: {
-	group: {
-		initial: {
-			scale: 1,
-			x: 0,
-			y: 0
-		},
-		animate: {
-			scale: [
-				1,
-				.8,
-				1,
-				1,
-				1
-			],
-			x: [
-				0,
-				"-10%",
-				"100%",
-				"-125%",
-				0
-			],
-			y: [
-				0,
-				"10%",
-				"-100%",
-				"125%",
-				0
-			],
-			transition: {
-				default: {
-					ease: "easeInOut",
-					duration: 1.2
-				},
-				x: {
-					ease: "easeInOut",
-					duration: 1.2,
-					times: [
-						0,
-						.25,
-						.5,
-						.5,
-						1
-					]
-				},
-				y: {
-					ease: "easeInOut",
-					duration: 1.2,
-					times: [
-						0,
-						.25,
-						.5,
-						.5,
-						1
-					]
+var animations = {
+	default: {
+		group: {
+			initial: {
+				scale: 1,
+				x: 0,
+				y: 0
+			},
+			animate: {
+				scale: [
+					1,
+					.8,
+					1,
+					1,
+					1
+				],
+				x: [
+					0,
+					"-10%",
+					"100%",
+					"-125%",
+					0
+				],
+				y: [
+					0,
+					"10%",
+					"-100%",
+					"125%",
+					0
+				],
+				transition: {
+					default: {
+						ease: "easeInOut",
+						duration: 1.2
+					},
+					x: {
+						ease: "easeInOut",
+						duration: 1.2,
+						times: [
+							0,
+							.25,
+							.5,
+							.5,
+							1
+						]
+					},
+					y: {
+						ease: "easeInOut",
+						duration: 1.2,
+						times: [
+							0,
+							.25,
+							.5,
+							.5,
+							1
+						]
+					}
 				}
 			}
-		}
-	},
-	path1: {},
-	path2: {}
-} };
+		},
+		path1: {},
+		path2: {}
+	}
+};
 function IconComponent({ size, ...props }) {
 	const { controls } = useAnimateIconContext();
 	const variants = getVariants(animations);
@@ -650,162 +652,166 @@ function StaggeredMenu(props) {
 					className: "mx-auto flex h-16 max-w-[1200px] items-center justify-between rounded-full border border-border/70 bg-background/88 px-4 shadow-[0_8px_30px_rgb(0_0_0_/_0.05)] backdrop-blur-xl md:px-5",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-							to: "/",
-							"aria-label": "The Velnix home",
-							className: "flex items-center gap-2.5 font-display text-[15px] font-bold tracking-[-.04em]",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-								src: logoUrl,
-								alt: "",
-								className: "h-7 w-auto"
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "THE VELNIX" })]
-						}),
+						to: "/",
+						"aria-label": "The Velnix home",
+						className: "flex items-center gap-2.5 font-display text-[15px] font-bold tracking-[-.04em]",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+							src: logoUrl,
+							alt: "",
+							className: "h-7 w-auto"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "THE VELNIX" })]
+					}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("nav", {
-							className: "hidden items-center gap-1 lg:flex",
-							"aria-label": "Primary navigation",
-							children: navItems.map((item, index) => {
-								const active = isActive(item.link);
-								return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-									to: item.link,
-									"aria-label": item.ariaLabel,
-									"aria-current": active ? "page" : void 0,
-									className: `group relative rounded-full pl-6 pr-4 py-2 text-[13px] font-medium transition-all duration-300 ${active ? "bg-surface text-foreground shadow-[0_6px_18px_rgb(0_0_0_/_0.04)]" : "text-muted-foreground hover:bg-surface hover:text-foreground"}`,
-									children: [
+						className: "hidden items-center gap-1 lg:flex",
+						"aria-label": "Primary navigation",
+						children: navItems.map((item, index) => {
+							const active = isActive(item.link);
+							return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+								to: item.link,
+								"aria-label": item.ariaLabel,
+								"aria-current": active ? "page" : void 0,
+								className: `group relative rounded-full pl-6 pr-4 py-2 text-[13px] font-medium transition-all duration-300 ${active ? "bg-surface text-foreground shadow-[0_6px_18px_rgb(0_0_0_/_0.04)]" : "text-muted-foreground hover:bg-surface hover:text-foreground"}`,
+								children: [
 										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `absolute left-2.5 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-brand transition-all duration-300 ${active ? "scale-100 opacity-100" : "scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100"}` }),
-										item.label,
+									item.label,
 										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-											className: "sr-only",
-											children: [", item ", index + 1]
-										})
-									]
-								}, item.label);
-							})
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex items-center gap-2 sm:gap-3",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-								to: "/contact",
-								className: "hidden lg:flex h-11 items-center rounded-full bg-foreground px-5 text-[13px] font-semibold text-background transition-transform hover:-translate-y-0.5",
-								children: "Start a project"
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-								ref: buttonRef,
-								type: "button",
-								onClick: toggle,
-								"aria-expanded": open,
-								"aria-controls": "staggered-menu-panel",
-								"aria-label": open ? "Close menu" : "Open menu",
-								className: "flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background shadow-sm transition-all hover:border-brand lg:hidden",
-								children: open ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "h-4 w-4 transition-transform duration-300" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Menu, { className: "h-4 w-4 transition-transform duration-300" })
-							})]
+										className: "sr-only",
+										children: [", item ", index + 1]
+									})
+								]
+							}, item.label);
 						})
+					}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex items-center gap-2 sm:gap-3",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+							to: "/contact",
+							className: "hidden lg:flex h-11 items-center rounded-full bg-foreground px-5 text-[13px] font-semibold text-background transition-transform hover:-translate-y-0.5",
+							children: "Start a project"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							ref: buttonRef,
+							type: "button",
+							onClick: toggle,
+							"aria-expanded": open,
+							"aria-controls": "staggered-menu-panel",
+							"aria-label": open ? "Close menu" : "Open menu",
+							className: "flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background shadow-sm transition-all hover:border-brand lg:hidden",
+							children: open ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "h-4 w-4 transition-transform duration-300" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Menu, { className: "h-4 w-4 transition-transform duration-300" })
+						})]
+					})
 					]
 				})
 			})
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AnimatePresence, { children: open && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
-			initial: { opacity: 0 },
-			animate: { opacity: 1 },
-			exit: { opacity: 0 },
-			transition: { duration: .3 },
-			className: "fixed inset-0 z-40 bg-slate-950/20 backdrop-blur-sm lg:hidden",
-			onClick: toggle
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.aside, {
-			id: "staggered-menu-panel",
-			ref: panelRef,
-			initial: { x: position === "right" ? "100%" : "-100%" },
-			animate: { x: 0 },
-			exit: { x: position === "right" ? "100%" : "-100%" },
-			transition: {
-				type: "spring",
-				damping: 28,
-				stiffness: 220
-			},
-			className: `fixed top-0 ${panelSide} z-40 h-[100svh] w-full max-w-[380px] border-l border-border/80 bg-background/96 px-6 pb-8 pt-24 shadow-[0_20px_60px_rgba(0,0,0,.12)] backdrop-blur-2xl lg:hidden overflow-y-auto ${position === "right" ? "rounded-l-[2rem]" : "rounded-r-[2rem]"}`,
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "relative flex min-h-full flex-col",
-				children: [
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AnimatePresence, {
+			children: open && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, {
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+					initial: { opacity: 0 },
+					animate: { opacity: 1 },
+					exit: { opacity: 0 },
+					transition: { duration: .3 },
+					className: "fixed inset-0 z-40 bg-slate-950/20 backdrop-blur-sm lg:hidden",
+					onClick: toggle
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.aside, {
+					id: "staggered-menu-panel",
+					ref: panelRef,
+					initial: { x: position === "right" ? "100%" : "-100%" },
+					animate: { x: 0 },
+					exit: { x: position === "right" ? "100%" : "-100%" },
+					transition: {
+						type: "spring",
+						damping: 28,
+						stiffness: 220
+					},
+					className: `fixed top-0 ${panelSide} z-40 h-[100svh] w-full max-w-[380px] border-l border-border/80 bg-background/96 px-6 pb-8 pt-24 shadow-[0_20px_60px_rgba(0,0,0,.12)] backdrop-blur-2xl lg:hidden overflow-y-auto ${position === "right" ? "rounded-l-[2rem]" : "rounded-r-[2rem]"}`,
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "relative flex min-h-full flex-col",
+						children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "mb-8 flex items-center justify-between",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "font-mono text-[9px] uppercase tracking-[.24em] text-muted-foreground",
-							children: "Navigation"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "rounded-full bg-brand/10 px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[.24em] text-brand",
-							children: "Active"
-						})]
-					}),
+							className: "mb-8 flex items-center justify-between",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "font-mono text-[9px] uppercase tracking-[.24em] text-muted-foreground",
+								children: "Navigation"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "rounded-full bg-brand/10 px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[.24em] text-brand",
+								children: "Active"
+							})]
+						}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
-						variants: containerVariants,
-						initial: "hidden",
-						animate: "show",
-						className: "grid gap-2 border-t border-border/70 pt-4",
-						children: [navItems.map((item, index) => {
-							const active = isActive(item.link);
-							return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+							variants: containerVariants,
+							initial: "hidden",
+							animate: "show",
+							className: "grid gap-2 border-t border-border/70 pt-4",
+							children: [navItems.map((item, index) => {
+								const active = isActive(item.link);
+								return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
+									variants: itemVariants,
+									whileHover: { x: 4 },
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+										to: item.link,
+										onClick: () => {
+											openRef.current = false;
+											setOpen(false);
+											onMenuClose?.();
+										},
+										className: "group flex items-center justify-between border-b border-border/60 py-4",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+											className: "flex items-center gap-3",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `h-2 w-2 rounded-full bg-brand transition-all duration-300 ${active ? "scale-100 opacity-100" : "scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100"}` }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												className: `font-display text-[clamp(1.9rem,7vw,2.8rem)] font-semibold leading-none tracking-[-.04em] ${active ? "text-brand" : "text-foreground group-hover:text-brand"}`,
+												children: item.label
+											})]
+										}), displayItemNumbering ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+											className: "font-mono text-[9px] tracking-widest text-muted-foreground",
+											children: ["0", index + 1]
+										}) : null]
+									})
+								}, item.label);
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
 								variants: itemVariants,
-								whileHover: { x: 4 },
-								children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-									to: item.link,
+								className: "mt-6 border-t border-border/70 pt-6",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+									to: "/contact",
 									onClick: () => {
 										openRef.current = false;
 										setOpen(false);
 										onMenuClose?.();
 									},
-									className: "group flex items-center justify-between border-b border-border/60 py-4",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-										className: "flex items-center gap-3",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `h-2 w-2 rounded-full bg-brand transition-all duration-300 ${active ? "scale-100 opacity-100" : "scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100"}` }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											className: `font-display text-[clamp(1.9rem,7vw,2.8rem)] font-semibold leading-none tracking-[-.04em] ${active ? "text-brand" : "text-foreground group-hover:text-brand"}`,
-											children: item.label
-										})]
-									}), displayItemNumbering ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-										className: "font-mono text-[9px] tracking-widest text-muted-foreground",
-										children: ["0", index + 1]
-									}) : null]
+									className: "flex h-12 w-full items-center justify-center rounded-full bg-foreground text-sm font-semibold text-background transition-all hover:bg-brand hover:text-brand-foreground hover:scale-[1.02] active:scale-[0.98]",
+									children: "Start a project"
 								})
-							}, item.label);
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
-							variants: itemVariants,
-							className: "mt-6 border-t border-border/70 pt-6",
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-								to: "/contact",
-								onClick: () => {
-									openRef.current = false;
-									setOpen(false);
-									onMenuClose?.();
+							})]
+						}),
+							displaySocials && socialItems?.length ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
+								initial: {
+									opacity: 0,
+									y: 15
 								},
-								className: "flex h-12 w-full items-center justify-center rounded-full bg-foreground text-sm font-semibold text-background transition-all hover:bg-brand hover:text-brand-foreground hover:scale-[1.02] active:scale-[0.98]",
-								children: "Start a project"
-							})
-						})]
-					}),
-					displaySocials && socialItems?.length ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(motion.div, {
-						initial: {
-							opacity: 0,
-							y: 15
-						},
-						animate: {
-							opacity: 1,
-							y: 0
-						},
-						transition: {
-							delay: .5,
-							duration: .4
-						},
-						className: "mt-auto pt-8",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "font-mono text-[9px] uppercase tracking-[.24em] text-muted-foreground",
-							children: "Socials"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "mt-4 flex flex-wrap gap-2.5",
-							children: socialItems.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-								href: item.link,
-								className: "rounded-full border border-border bg-background px-4 py-2 text-xs font-medium text-foreground transition-all hover:border-brand hover:text-brand hover:-translate-y-0.5",
-								children: item.label
-							}, item.label))
-						})]
-					}) : null
-				]
+								animate: {
+									opacity: 1,
+									y: 0
+								},
+								transition: {
+									delay: .5,
+									duration: .4
+								},
+								className: "mt-auto pt-8",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "font-mono text-[9px] uppercase tracking-[.24em] text-muted-foreground",
+									children: "Socials"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "mt-4 flex flex-wrap gap-2.5",
+									children: socialItems.map((item) => /* @__PURE__ */(0, import_jsx_runtime.jsx)("a", {
+										href: item.link,
+										className: "rounded-full border border-border bg-background px-4 py-2 text-xs font-medium text-foreground transition-all hover:border-brand hover:text-brand hover:-translate-y-0.5",
+										children: item.label
+									}, item.label))
+								})]
+							}) : null
+						]
+					})
+				})]
 			})
-		})] }) })]
+		})]
 	});
 }
 function Container({ children, className = "" }) {
@@ -898,106 +904,116 @@ function SiteFooter({ hideCta = false }) {
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 grid-bg opacity-[.05]" }),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-				src: "/velnix-mark-dark.png",
-				alt: "",
-				"aria-hidden": "true",
-				className: "pointer-events-none absolute -bottom-16 right-[-4rem] h-72 w-auto opacity-[.03] md:h-[26rem]"
-			}),
+			src: "/velnix-mark-dark.png",
+			alt: "",
+			"aria-hidden": "true",
+			className: "pointer-events-none absolute -bottom-16 right-[-4rem] h-72 w-auto opacity-[.03] md:h-[26rem]"
+		}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Container, {
-				className: "relative py-14 md:py-16",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "grid gap-10 py-10 md:grid-cols-[1.4fr_0.9fr_0.9fr_0.9fr_1.4fr]",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Brand, { light: false }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "mt-4 max-w-sm text-sm leading-7 text-muted-foreground",
-							children: "Product strategy, design and engineering for teams moving from ambitious idea to dependable production."
-						})] }),
+			className: "relative py-14 md:py-16",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-10 py-10 md:grid-cols-[1.4fr_0.9fr_0.9fr_0.9fr_1.4fr]",
+				children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Brand, { light: false }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "mt-4 max-w-sm text-sm leading-7 text-muted-foreground",
+						children: "Product strategy, design and engineering for teams moving from ambitious idea to dependable production."
+					})]
+				}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FooterColumn, {
-							title: "Navigate",
-							links: [
-								["Services", "/#services"],
-								["Work", "/work"],
-								["Process", "/#process"],
-								["Team", "/team"],
-								["Blog", "/blog"]
-							]
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FooterColumn, {
-							title: "Social",
-							links: [
-								["LinkedIn", "https://www.linkedin.com/company/the-velnix"],
-								["Instagram", "https://www.instagram.com/the_velnix?igsh=dDhnNjRmcTB5eWdw"],
-								["X / Twitter", "https://x.com/The_Velnix"],
-								["Dribbble", "https://dribbble.com/the-velnix"]
-							]
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "font-mono text-[9px] uppercase tracking-widest text-muted-foreground",
-							children: "Address"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-							className: "mt-4 text-sm leading-7 text-foreground",
-							children: [
-								"FF-09 Saffron Icon",
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
-								"Near Senior Citizen Garden,",
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
-								"Anand, Gujarat, India",
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
-								"Working globally / IST"
-							]
-						})] }),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "font-mono text-[9px] uppercase tracking-widest text-muted-foreground",
-								children: "Contact"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-								href: "mailto:hello@thevelnix.com",
-								className: "mt-4 block text-sm text-foreground transition-colors hover:text-brand",
-								children: "hello@thevelnix.com"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "mt-6 rounded-2xl border border-border bg-surface/60 p-4",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "font-mono text-[9px] uppercase tracking-widest text-muted-foreground",
-									children: "Office hours"
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "mt-2 text-sm leading-7 text-foreground whitespace-nowrap",
-									children: "Mon-Fri, 10:00 - 18:00 IST"
-								})]
-							})
-						] })
+					title: "Navigate",
+					links: [
+						["Services", "/#services"],
+						["Work", "/work"],
+						["Process", "/#process"],
+						["Team", "/team"],
+						["Blog", "/blog"]
 					]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "flex flex-col gap-2 border-t border-border pt-6 font-mono text-[9px] uppercase tracking-widest text-muted-foreground sm:flex-row sm:items-center sm:justify-between",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+				}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FooterColumn, {
+					title: "Social",
+					links: [
+						["LinkedIn", "https://www.linkedin.com/company/the-velnix"],
+						["Instagram", "https://www.instagram.com/the_velnix?igsh=dDhnNjRmcTB5eWdw"],
+						["X / Twitter", "https://x.com/The_Velnix"],
+						["Dribbble", "https://dribbble.com/the-velnix"]
+					]
+				}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "font-mono text-[9px] uppercase tracking-widest text-muted-foreground",
+						children: "Address"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "mt-4 text-sm leading-7 text-foreground",
+						children: [
+							"FF-09 Saffron Icon",
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
+							"Near Senior Citizen Garden,",
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
+							"Anand, Gujarat, India",
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
+							"Working globally / IST"
+						]
+					})]
+				}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "font-mono text-[9px] uppercase tracking-widest text-muted-foreground",
+						children: "Contact"
+					}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+						href: "mailto:hello@thevelnix.com",
+						className: "mt-4 block text-sm text-foreground transition-colors hover:text-brand",
+						children: "hello@thevelnix.com"
+					}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "mt-6 rounded-2xl border border-border bg-surface/60 p-4",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "font-mono text-[9px] uppercase tracking-widest text-muted-foreground",
+							children: "Office hours"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "mt-2 text-sm leading-7 text-foreground whitespace-nowrap",
+							children: "Mon-Fri, 10:00 - 19:00 IST"
+						})]
+					})
+					]
+				})
+				]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex flex-col gap-2 border-t border-border pt-6 font-mono text-[9px] uppercase tracking-widest text-muted-foreground sm:flex-row sm:items-center sm:justify-between",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+					children: [
 						"Copyright ",
 						(/* @__PURE__ */ new Date()).getFullYear(),
 						" The Velnix"
-					] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Built with care. Shipped with discipline." })]
-				})]
-			})
+					]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Built with care. Shipped with discipline." })]
+			})]
+		})
 		]
 	});
 }
 function FooterColumn({ title, links }) {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-		className: "font-mono text-[9px] uppercase tracking-widest text-muted-foreground",
-		children: title
-	}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		className: "mt-4 flex flex-col items-start gap-2.5 text-sm",
-		children: links.map(([label, href]) => {
-			return href.startsWith("/") && !href.startsWith("/#") && !href.startsWith("http") ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-				to: href,
-				className: "text-foreground transition-all hover:translate-x-1 hover:text-brand",
-				children: label
-			}, label) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-				href,
-				className: "text-foreground transition-all hover:translate-x-1 hover:text-brand",
-				children: label
-			}, label);
-		})
-	})] });
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			className: "font-mono text-[9px] uppercase tracking-widest text-muted-foreground",
+			children: title
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "mt-4 flex flex-col items-start gap-2.5 text-sm",
+			children: links.map(([label, href]) => {
+				return href.startsWith("/") && !href.startsWith("/#") && !href.startsWith("http") ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+					to: href,
+					className: "text-foreground transition-all hover:translate-x-1 hover:text-brand",
+					children: label
+				}, label) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+					href,
+					className: "text-foreground transition-all hover:translate-x-1 hover:text-brand",
+					children: label
+				}, label);
+			})
+		})]
+	});
 }
 //#endregion
 export { SiteFooter as a, getVariants as c, Send as i, useAnimateIconContext as l, Container as n, SiteHeader as o, IconWrapper as r, cn as s, AnimateIcon as t };

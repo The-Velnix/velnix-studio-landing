@@ -29,7 +29,7 @@ type TeamMember = {
   bio: string;
   skills: string[];
   mark: string;
-  socials: Array<{ platform: "github" | "linkedin" | "twitter" | "dribbble" | "email"; url: string }>;
+  socials: Array<{ platform: "github" | "linkedin" | "twitter" | "dribbble" | "email" | "portfolio"; url: string }>;
 };
 
 const teamData: Record<string, TeamMember> = {
@@ -42,8 +42,8 @@ const teamData: Record<string, TeamMember> = {
     skills: ["System Architecture", "Cloud Infrastructure", "Kubernetes", "DevOps", "Database Design", "Node.js & Go"],
     mark: "MR",
     socials: [
-      { platform: "github", url: "https://github.com" },
-      { platform: "linkedin", url: "https://linkedin.com" },
+      { platform: "github", url: "https://github.com/Mihir-Rabari" },
+      { platform: "linkedin", url: "https://www.linkedin.com/in/mihir-rabari/" },
       { platform: "twitter", url: "https://x.com" },
       { platform: "email", url: "mailto:mihir@thevelnix.com" },
     ],
@@ -57,9 +57,10 @@ const teamData: Record<string, TeamMember> = {
     skills: ["Client Operations", "Growth Strategy", "Product Marketing", "Partnership Development", "Risk Management", "Product Roadmapping"],
     mark: "KT",
     socials: [
-      { platform: "linkedin", url: "https://linkedin.com" },
+      { platform: "linkedin", url: "https://www.linkedin.com/in/khushi-trivedi-03a98333b/" },
+      { platform: "github", url: "https://github.com/KhushiTrivediii" },
       { platform: "twitter", url: "https://x.com" },
-      { platform: "email", url: "mailto:khushi.t@thevelnix.com" },
+      { platform: "email", url: "mailto:khushitrivedi@thevelnix.com" },
     ],
   },
   "khushi-patel": {
@@ -71,10 +72,10 @@ const teamData: Record<string, TeamMember> = {
     skills: ["UI/UX Design", "Brand Systems", "Design Systems", "Product Strategy", "Figma Direction", "Typography"],
     mark: "KP",
     socials: [
-      { platform: "dribbble", url: "https://dribbble.com/the-velnix" },
-      { platform: "linkedin", url: "https://linkedin.com" },
-      { platform: "twitter", url: "https://x.com" },
-      { platform: "email", url: "mailto:khushi.p@thevelnix.com" },
+      { platform: "github", url: "https://github.com/Khushipatel3" },
+      { platform: "linkedin", url: "https://www.linkedin.com/in/khushi-patel-279567338" },
+      { platform: "portfolio", url: "https://khushipatel11.netlify.app/" },
+      { platform: "email", url: "mailto:khushipatel@thevelnix.com" },
     ],
   },
   "aangi-shah": {
@@ -86,9 +87,9 @@ const teamData: Record<string, TeamMember> = {
     skills: ["Interaction Design", "User Flow Mapping", "Framer Motion", "CSS Systems", "Prototyping", "Design System Audits"],
     mark: "AS",
     socials: [
-      { platform: "dribbble", url: "https://dribbble.com" },
-      { platform: "linkedin", url: "https://linkedin.com" },
-      { platform: "github", url: "https://github.com" },
+      { platform: "github", url: "https://github.com/aangi969" },
+      { platform: "linkedin", url: "https://www.linkedin.com/in/aangishah969/" },
+      { platform: "portfolio", url: "https://shahaangi.netlify.app/" },
       { platform: "email", url: "mailto:aangi@thevelnix.com" },
     ],
   },
@@ -101,10 +102,10 @@ const teamData: Record<string, TeamMember> = {
     skills: ["LLM Integration", "RAG Systems", "Vector Databases", "Agent Workflows", "Python / PyTorch", "LangChain & LlamaIndex"],
     mark: "KM",
     socials: [
-      { platform: "github", url: "https://github.com" },
-      { platform: "linkedin", url: "https://linkedin.com" },
-      { platform: "twitter", url: "https://x.com" },
-      { platform: "email", url: "mailto:karan@thevelnix.com" },
+      { platform: "github", url: "https://github.com/karn0501" },
+      { platform: "linkedin", url: "https://www.linkedin.com/in/karan-mistry-03084236a/" },
+      { platform: "portfolio", url: "https://karanmistryportfolio.vercel.app/" },
+      { platform: "email", url: "mailto:karnn@thevelnix.com" },
     ],
   },
   "jignesh-prajapati": {
@@ -116,24 +117,25 @@ const teamData: Record<string, TeamMember> = {
     skills: ["Flutter", "Dart", "iOS / Android Native", "Mobile Architecture", "State Management", "App Store Operations"],
     mark: "JP",
     socials: [
-      { platform: "github", url: "https://github.com" },
-      { platform: "linkedin", url: "https://linkedin.com" },
-      { platform: "email", url: "mailto:jignesh@thevelnix.com" },
+      { platform: "github", url: "https://github.com/Jignesh5049" },
+      { platform: "linkedin", url: "https://www.linkedin.com/in/jignesh5049/" },
+      { platform: "portfolio", url: "https://jigneshprotfolio.vercel.app/" },
+      { platform: "email", url: "mailto:jigneshp@thevelnix.com" },
     ],
   },
-  "tajes-patel": {
-    id: "tajes-patel",
-    name: "Tajes Patel",
+  "Tejas-patel": {
+    id: "Tejas-patel",
+    name: "Tejas Patel",
     role: "Frontend Engineering",
     owns: "Web development, UI components and performance",
-    bio: "Tajes bridges the gap between high-end design systems and production code. He builds performant, modular web components, optimizes loading speeds, and implements fluid responsive layouts.",
+    bio: "Tejas bridges the gap between high-end design systems and production code. He builds performant, modular web components, optimizes loading speeds, and implements fluid responsive layouts.",
     skills: ["React / Next.js", "TypeScript", "TailwindCSS", "Web Performance", "Component Architecture", "State Management"],
     mark: "TP",
     socials: [
-      { platform: "github", url: "https://github.com" },
-      { platform: "linkedin", url: "https://linkedin.com" },
-      { platform: "twitter", url: "https://x.com" },
-      { platform: "email", url: "mailto:tajes@thevelnix.com" },
+      { platform: "github", url: "https://github.com/Tejaspatel1524" },
+      { platform: "linkedin", url: "https://www.linkedin.com/in/Tejas-patel-16b9a0379/" },
+      { platform: "portfolio", url: "https://Tejas24portfolio.netlify.app/" },
+      { platform: "email", url: "mailto:Tejaspatel@thevelnix.com" },
     ],
   },
   "jaivik-prajapati": {
@@ -145,9 +147,10 @@ const teamData: Record<string, TeamMember> = {
     skills: ["Node.js / Go", "REST & GraphQL APIs", "PostgreSQL / Redis", "Microservices", "API Security", "AWS / Docker"],
     mark: "JV",
     socials: [
-      { platform: "github", url: "https://github.com" },
-      { platform: "linkedin", url: "https://linkedin.com" },
-      { platform: "email", url: "mailto:jaivik@thevelnix.com" },
+      { platform: "github", url: "https://github.com/jaivik2005" },
+      { platform: "linkedin", url: "https://www.linkedin.com/in/jaivik2005/" },
+      { platform: "portfolio", url: "https://jaivik.xyz/" },
+      { platform: "email", url: "mailto:jaivikprajapati@thevelnix.com" },
     ],
   },
 };
@@ -156,12 +159,15 @@ function TeamMemberDetailPage() {
   const { member, id } = Route.useLoaderData();
   const reduce = useReducedMotion();
 
-  // Find two next colleagues (excluding the current one)
+  // Find previous and next colleagues relative to the current one
   const allMemberIds = Object.keys(teamData);
-  const otherMembers = allMemberIds
-    .filter((mid) => mid !== id)
-    .slice(0, 2)
-    .map((mid) => teamData[mid]);
+  const currentIndex = allMemberIds.indexOf(id);
+  const prevIndex = (currentIndex - 1 + allMemberIds.length) % allMemberIds.length;
+  const nextIndex = (currentIndex + 1) % allMemberIds.length;
+  const otherMembers = [
+    teamData[allMemberIds[prevIndex]],
+    teamData[allMemberIds[nextIndex]],
+  ];
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -200,8 +206,8 @@ function TeamMemberDetailPage() {
                   <a
                     key={soc.platform}
                     href={soc.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    target={soc.platform === "email" ? undefined : "_blank"}
+                    rel={soc.platform === "email" ? undefined : "noopener noreferrer"}
                     className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface/50 text-foreground transition-all hover:-translate-y-0.5 hover:border-brand hover:text-brand shadow-sm hover:shadow-[0_4px_12px_rgba(46,197,182,0.15)]"
                     aria-label={`Visit ${member.name}'s ${soc.platform}`}
                   >
@@ -298,7 +304,7 @@ function TeamMemberDetailPage() {
                 <div className="flex flex-col justify-between h-full min-h-[220px]">
                   <div>
                     <span className="font-mono text-[8px] uppercase tracking-wider text-brand font-medium">
-                      {otherMem.role}
+                      {idx === 0 ? "Previous Specialist" : "Next Specialist"} • {otherMem.role}
                     </span>
                     <h3 className="mt-3 font-display text-2xl font-bold tracking-tight text-foreground flex items-center justify-between">
                       <span>{otherMem.name}</span>
@@ -336,7 +342,14 @@ function TeamMemberDetailPage() {
 
 /* ── Inline SVG Social Icons ── */
 
-function SocialIcon({ platform }: { platform: "github" | "linkedin" | "twitter" | "dribbble" | "email" }) {
+function SocialIcon({ platform }: { platform: "github" | "linkedin" | "twitter" | "dribbble" | "email" | "portfolio" }) {
+  if (platform === "portfolio") {
+    return (
+      <svg className="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.905 0-5.625-.795-7.943-2.182m15.886 0a9.06 9.06 0 0 1 .157 1.932m-16.043-1.93a9.06 9.06 0 0 0-.157 1.932" />
+      </svg>
+    );
+  }
   if (platform === "github") {
     return (
       <svg className="h-4.5 w-4.5" fill="currentColor" viewBox="0 0 24 24">
