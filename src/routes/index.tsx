@@ -287,7 +287,7 @@ function Hero() {
             { link: "/#services", text: "AI Systems" },
             { link: "/#work", text: "Mobile" },
             { link: "/#process", text: "Infrastructure" },
-            { link: "/#team", text: "Strategy" },
+            { link: "/about", text: "About Us" },
           ]}
           speed={22}
           textColor="#0f1115"
@@ -462,101 +462,6 @@ function Standards() {
   );
 }
 
-function Team() {
-  const people = [
-    {
-      name: "Mihir Rabari",
-      role: "Product engineering",
-      owns: "Architecture, delivery and infrastructure",
-      mark: "MR",
-    },
-    {
-      name: "Khushi Trivedi",
-      role: "Operations & growth",
-      owns: "Client operations, growth and partnerships",
-      mark: "KT",
-    },
-    {
-      name: "Khushi Patel",
-      role: "Product design",
-      owns: "UI/UX, brand systems and design direction",
-      mark: "KP",
-    },
-    {
-      name: "Aangi Shah",
-      role: "Experience design",
-      owns: "Product flows and frontend experience",
-      mark: "AS",
-    },
-    {
-      name: "Karan Mistry",
-      role: "AI engineering",
-      owns: "Machine learning, agents and RAG systems",
-      mark: "KM",
-    },
-    {
-      name: "Jignesh Prajapati",
-      role: "Mobile engineering",
-      owns: "Flutter and cross-platform applications",
-      mark: "JP",
-    },
-    {
-      name: "Tejas Patel",
-      role: "Frontend engineering",
-      owns: "Web development, UI components and performance",
-      mark: "TP",
-    },
-    {
-      name: "Jaivik Prajapati",
-      role: "Backend engineering",
-      owns: "API development, systems integration and cloud services",
-      mark: "JV",
-    },
-  ];
-  return (
-    <section id="team" className="border-t border-border bg-surface py-24 md:py-32">
-      <Container>
-        <SectionIntro
-          eyebrow="The people doing the work"
-          titleText="Eight specialists. No account-manager maze."
-          body="You work directly with the people making product and technical decisions. The team stays deliberately small so context does not disappear between meetings."
-        />
-        <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {people.map((person, index) => (
-            <Link
-              key={person.name}
-              to="/team/$id"
-              params={{ id: person.name.toLowerCase().replace(" ", "-") }}
-              className="group bg-background p-7 transition-colors hover:bg-surface"
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.2 }}
-                transition={{ duration: 0.55, delay: index * 0.08 }}
-              >
-                <div className="relative flex h-28 items-center justify-center overflow-hidden border border-border bg-surface">
-                  <div className="absolute inset-0 grid-bg opacity-60" />
-                  <span className="relative font-accent text-5xl font-light italic text-foreground/80">
-                    {person.mark}
-                  </span>
-                  <span className="absolute right-3 top-3 font-mono text-[9px] tracking-widest text-muted-foreground">
-                    0{index + 1}
-                  </span>
-                </div>
-                <p className="mt-6 font-mono text-[9px] uppercase tracking-widest text-brand">
-                  {person.role}
-                </p>
-                <h3 className="mt-2 font-display text-2xl font-semibold">{person.name}</h3>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">{person.owns}</p>
-              </motion.div>
-            </Link>
-          ))}
-        </div>
-      </Container>
-    </section>
-  );
-}
 
 function Process() {
   const steps = [
@@ -785,7 +690,6 @@ function Landing() {
       <Work />
       <Standards />
       <Process />
-      <Team />
       <FAQ />
       <SiteFooter />
     </main>

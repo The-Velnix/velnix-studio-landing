@@ -75,7 +75,7 @@ export function SiteHeader() {
       items={[
         { label: "Home", ariaLabel: "Go to home page", link: "/" },
         { label: "Work", ariaLabel: "View work", link: "/work" },
-        { label: "Team", ariaLabel: "View team", link: "/team" },
+        { label: "About Us", ariaLabel: "View about us", link: "/about" },
         { label: "Blog", ariaLabel: "Read blog", link: "/blog" },
       ]}
       socialItems={[
@@ -123,7 +123,7 @@ export function SiteFooter({ hideCta = false }: { hideCta?: boolean }) {
               ["Services", "/#services"],
               ["Work", "/work"],
               ["Process", "/#process"],
-              ["Team", "/team"],
+              ["About Us", "/about"],
               ["Blog", "/blog"],
             ]}
           />
