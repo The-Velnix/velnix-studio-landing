@@ -178,7 +178,7 @@ function AboutPage() {
               initial={reduce ? false : { y: "108%" }}
               animate={{ y: 0 }}
               transition={{ duration: 0.9, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="mx-auto max-w-[16ch] text-balance font-display text-[clamp(2.5rem,7vw,5.5rem)] font-semibold leading-[0.92] tracking-[-.055em]"
+              className="mx-auto max-w-4xl font-display text-[clamp(1.75rem,4.4vw,3.6rem)] font-semibold leading-[1.08] tracking-[-.045em]"
             >
               <BlurText
                 text="Building Scalable IT Solutions"
@@ -186,7 +186,7 @@ function AboutPage() {
                 direction="bottom"
                 delay={60}
                 stepDuration={0.34}
-                className="block"
+                className="justify-center sm:!flex-nowrap"
               />
               <span className="block pt-1 leading-[1.02]">
                 <BlurText
@@ -195,7 +195,7 @@ function AboutPage() {
                   direction="bottom"
                   delay={80}
                   stepDuration={0.34}
-                  className="font-display text-[clamp(2.4rem,6.8vw,5.3rem)] font-semibold leading-[1.02] tracking-[-.055em] text-brand"
+                  className="font-display text-[clamp(1.65rem,4.2vw,3.4rem)] font-semibold leading-[1.02] tracking-[-.045em] text-brand justify-center"
                 />
               </span>
             </motion.h1>
@@ -205,7 +205,7 @@ function AboutPage() {
             initial={reduce ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.22 }}
-            className="mx-auto mt-7 max-w-2xl text-pretty text-[15px] leading-8 text-muted-foreground md:text-[17px]"
+            className="mx-auto mt-7 max-w-2xl text-justify text-[15px] leading-8 text-muted-foreground md:text-[17px]"
           >
             The Velnix is a technology company focused on creating modern, scalable, and meaningful
             digital solutions that help businesses turn ideas into practical products and experiences.
